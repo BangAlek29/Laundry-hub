@@ -5,23 +5,26 @@
  */
 package koneksiDatabase;
 
-import com.mysql.jdbc.Driver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 /**
  *
  * @author MY PC
  */
 public class Connect {
     private static Connection MyConnection;
-    
-    public static Connection configDB() throws SQLException{
-        
-        if(MyConnection == null){
-            new Driver();
+
+    public static Connection configDB() throws SQLException {
+        if (MyConnection == null) {
+            // URL untuk koneksi ke database
+            String url = "jdbc:mysql://localhost:3306/db_laundry?useSSL=false&serverTimezone=UTC";
+            String user = "root"; // Username database
+            String password = ""; // Password database
             
-            MyConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_laundry","root","");
+            // Membuat koneksi ke database
+            MyConnection = DriverManager.getConnection(url, user, password);
         }
         return MyConnection;
     }
