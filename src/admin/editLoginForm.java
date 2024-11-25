@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package adminDashboard;
+package admin;
 
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -52,11 +52,9 @@ public class editLoginForm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(187, 187, 187));
         jLabel16.setText("Username");
 
         jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(187, 187, 187));
         jLabel17.setText("Password");
 
         txtUsername.setBackground(new java.awt.Color(60, 60, 60));
@@ -102,12 +100,10 @@ public class editLoginForm extends javax.swing.JFrame {
         });
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(187, 187, 187));
         jLabel18.setText("role");
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(187, 187, 187));
         jLabel1.setText("EDIT FORM");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

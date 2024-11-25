@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package access;
+package Auth;
 
 import Main.loginPage;
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -58,7 +58,6 @@ public class resetPassword extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(187, 187, 187));
         jLabel2.setText("Please enter your new password");
 
         loginPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -76,22 +75,18 @@ public class resetPassword extends javax.swing.JFrame {
         labelnama.setForeground(new java.awt.Color(255, 51, 51));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(187, 187, 187));
         jLabel6.setText("Password");
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(187, 187, 187));
         jLabel5.setText("Confirm Password");
 
         txtPassword.setBackground(new java.awt.Color(60, 60, 60));
-        txtPassword.setForeground(new java.awt.Color(187, 187, 187));
         txtPassword.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(80, 80, 80)),
             BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
 
         txtConfirmPassword.setBackground(new java.awt.Color(60, 60, 60));
-        txtConfirmPassword.setForeground(new java.awt.Color(187, 187, 187));
         txtConfirmPassword.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(80, 80, 80)),
             BorderFactory.createEmptyBorder(5, 10, 5, 10)
@@ -109,7 +104,6 @@ public class resetPassword extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(187, 187, 187));
         jLabel1.setText("RESET PASSWORD");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -128,11 +122,10 @@ public class resetPassword extends javax.swing.JFrame {
                                 .addComponent(loginPage)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel6)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                                .addComponent(jLabel5)
-                                .addComponent(txtConfirmPassword)))))
+                            .addComponent(jLabel6)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtConfirmPassword))))
                 .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 88, Short.MAX_VALUE)

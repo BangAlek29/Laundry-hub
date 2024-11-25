@@ -5,9 +5,9 @@
  */
 package Main;
 
-import adminDashboard.adminDashboard;
-import access.forgotPassword;
-import access.signupPage;
+import admin.adminDashboard;
+import Auth.forgotPassword;
+import Auth.signupPage;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import kasirDashboard.kasirDashboard;
+import kasir.kasirDashboard;
 import koneksiDatabase.Connect;
 
 
@@ -88,7 +88,6 @@ public class loginPage extends javax.swing.JFrame {
         });
 
         txtPassword.setBackground(new java.awt.Color(60, 60, 60));
-        txtPassword.setBorder(txtUsername.getBorder());
         txtPassword.setMinimumSize(new java.awt.Dimension(80, 30));
         txtPassword.setName(""); // NOI18N
         txtPassword.setPreferredSize(new java.awt.Dimension(80, 30));

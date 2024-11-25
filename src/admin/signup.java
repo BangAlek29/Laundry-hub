@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package adminDashboard;
+package admin;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import java.awt.Color;
@@ -64,31 +64,24 @@ public class signup extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(187, 187, 187));
         jLabel1.setText("Add User");
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(187, 187, 187));
         jLabel2.setText("Username");
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(187, 187, 187));
         jLabel3.setText("Full Name");
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(187, 187, 187));
         jLabel4.setText("Phone Number");
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(187, 187, 187));
         jLabel5.setText("Confirm Password");
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(187, 187, 187));
         jLabel6.setText("Password");
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(187, 187, 187));
         jLabel7.setText("Address");
 
         txtName.setBackground(new java.awt.Color(60, 60, 60));

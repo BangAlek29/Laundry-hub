@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package adminDashboard;
+package admin;
 
 import Main.loginPage;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import java.awt.Color;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -87,7 +85,6 @@ public class adminDashboard extends javax.swing.JFrame {
         btnUserManagement.setForeground(java.awt.Color.white);
         btnUserManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/icons8-management-24.png"))); // NOI18N
         btnUserManagement.setText("Manajemen User");
-        btnUserManagement.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnUserManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUserManagement.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUserManagement.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -103,7 +100,6 @@ public class adminDashboard extends javax.swing.JFrame {
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/icons8-logout-30.png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setAlignmentY(0.0F);
-        btnLogout.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLogout.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -118,7 +114,6 @@ public class adminDashboard extends javax.swing.JFrame {
         btnUserInformation.setForeground(java.awt.Color.white);
         btnUserInformation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/profile_1.png"))); // NOI18N
         btnUserInformation.setText("User Information");
-        btnUserInformation.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnUserInformation.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUserInformation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUserInformation.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -148,7 +143,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUserInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -159,18 +154,27 @@ public class adminDashboard extends javax.swing.JFrame {
         userManagementPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         tableLogin.setAutoCreateRowSorter(true);
-        tableLogin.setBackground(new java.awt.Color(45, 45, 45));
         tableLogin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "NO", "Username", "Password", "Role"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tableLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableLoginMouseClicked(evt);
@@ -180,7 +184,6 @@ public class adminDashboard extends javax.swing.JFrame {
 
         btnSearch.setBackground(new java.awt.Color(60, 60, 60));
         btnSearch.setText("Search");
-        btnSearch.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,10 +192,8 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         btnEdit.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
-        btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEdit.setForeground(java.awt.Color.white);
         btnEdit.setText("Edit User");
-        btnEdit.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -206,10 +207,8 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         btnDelete.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDelete.setForeground(java.awt.Color.white);
         btnDelete.setText("Delete User");
-        btnDelete.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -217,16 +216,10 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         txtUsername.setBackground(new java.awt.Color(60, 60, 60));
-        txtUsername.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
         btnRefresh.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRefresh.setForeground(java.awt.Color.white);
         btnRefresh.setText("Refresh");
-        btnRefresh.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,13 +228,16 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         btnAddUser.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
-        btnAddUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAddUser.setForeground(java.awt.Color.white);
         btnAddUser.setText("Add User");
-        btnAddUser.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnAddUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddUserMouseClicked(evt);
+            }
+        });
+        btnAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddUserActionPerformed(evt);
             }
         });
 
@@ -258,9 +254,9 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(255, 255, 255)
+                .addGap(297, 297, 297)
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(301, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,9 +275,8 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(userManagementPanelLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -305,11 +300,14 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(userManagementPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(btnSearch))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -317,7 +315,7 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addComponent(btnEdit)
                     .addComponent(btnDelete)
                     .addComponent(btnRefresh))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         mainPanel.add(userManagementPanel, "card2");
@@ -344,10 +342,8 @@ public class adminDashboard extends javax.swing.JFrame {
         jScrollPane2.setViewportView(infoUserTable);
 
         btnEdit2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
-        btnEdit2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEdit2.setForeground(java.awt.Color.white);
         btnEdit2.setText("Edit Info User");
-        btnEdit2.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnEdit2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,10 +352,8 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         btnRefresh2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        btnRefresh2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRefresh2.setForeground(java.awt.Color.white);
         btnRefresh2.setText("Refresh");
-        btnRefresh2.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnRefresh2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRefresh2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,10 +362,6 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         txtIDUser.setBackground(new java.awt.Color(60, 60, 60));
-        txtIDUser.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
         txtIDUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDUserActionPerformed(evt);
@@ -379,10 +369,8 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         btnSearch2.setBackground(new java.awt.Color(60, 60, 60));
-        btnSearch2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSearch2.setForeground(java.awt.Color.white);
         btnSearch2.setText("Search");
-        btnSearch2.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnSearch2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,9 +390,9 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(248, 248, 248)
+                .addGap(297, 297, 297)
                 .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(297, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,19 +407,18 @@ public class adminDashboard extends javax.swing.JFrame {
         UserInformationLayout.setHorizontalGroup(
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInformationLayout.createSequentialGroup()
-                .addContainerGap(182, Short.MAX_VALUE)
+                .addContainerGap(111, Short.MAX_VALUE)
                 .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(UserInformationLayout.createSequentialGroup()
                         .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(UserInformationLayout.createSequentialGroup()
                         .addComponent(btnEdit2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRefresh2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(110, 110, 110))
             .addGroup(UserInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
@@ -444,7 +431,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch2)
+                    .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,7 +489,7 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -829,6 +816,10 @@ public class adminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddUserMouseClicked
 
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddUserActionPerformed
+
     private void insertIntoEditForm (String username, String password) {
         editLoginForm edit = new editLoginForm();
         edit.tempUsername = username;
@@ -841,13 +832,9 @@ public class adminDashboard extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
             UIManager.put( "TextComponent.arc", 10 );
             UIManager.put( "Button.arc", 10 );
         } catch (Exception e) {
