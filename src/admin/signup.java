@@ -6,6 +6,7 @@
 package admin;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -361,13 +362,10 @@ public class signup extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
-            UIManager.put( "TextComponent.arc", 10 );
-            UIManager.put( "Button.arc", 10 );
+            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

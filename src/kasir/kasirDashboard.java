@@ -16,6 +16,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import koneksiDatabase.Connect;
 import java.text.SimpleDateFormat;
+import javax.swing.*;
+import java.util.*;
+import java.text.ParseException;
 
 /**
  *
@@ -26,12 +29,15 @@ public class kasirDashboard extends javax.swing.JFrame {
     /**
      * Creates new form kasirDashboard
      */
-    String id_layanan,nama,harga;
+    String id_layanan,nama,harga,berat,hargaTotal,id_pesanan;
     public kasirDashboard() {
         initComponents();
         renderCbLayanan();
+        renderCbCustomer();
+        renderSpinerJam();
         showTabelLayanan();
         showTabelPesanan();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,8 +49,10 @@ public class kasirDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rbCustomer = new javax.swing.ButtonGroup();
         tittlePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
         bntRequestOrder = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -54,50 +62,65 @@ public class kasirDashboard extends javax.swing.JFrame {
         orderPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtNama = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtTelepon = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        cbLayanan = new javax.swing.JComboBox<>();
+        cmbLayanan = new javax.swing.JComboBox<>();
         jamLabel = new javax.swing.JLabel();
         orderButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAlamat = new javax.swing.JTextArea();
-        tanggalDate = new com.toedter.calendar.JDateChooser();
-        JamField = new com.toedter.components.JSpinField();
+        calTanggal = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        countBerat = new com.toedter.components.JSpinField();
         jLabel12 = new javax.swing.JLabel();
         labelHarga = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        rbCustomerBaru = new javax.swing.JRadioButton();
+        rbCustomerLama = new javax.swing.JRadioButton();
+        spnBerat = new javax.swing.JSpinner();
+        spnJam = new javax.swing.JSpinner();
+        pnlCustomer = new javax.swing.JPanel();
+        customerBaruPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtTelepon = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAlamat = new javax.swing.JTextArea();
+        customerLamaPanel = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtTelepon2 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAlamat2 = new javax.swing.JTextArea();
+        cmbCustomer = new javax.swing.JComboBox<>();
         orderList = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelPesanan = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnUpdateLayanan = new javax.swing.JButton();
+        txtSearchPesanan = new javax.swing.JTextField();
+        btnSearchPesanan = new javax.swing.JButton();
+        btnRefreshPesanan = new javax.swing.JButton();
+        btnDeletePesanan = new javax.swing.JButton();
         layananPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabelLayanan = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        btneditLayanan = new javax.swing.JButton();
-        searchLayananButton = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        refreshButton = new javax.swing.JButton();
-        deleteLayananButton = new javax.swing.JButton();
+        tbLayanan = new javax.swing.JTable();
+        btnAddLayanan = new javax.swing.JButton();
+        btnEditLayanan = new javax.swing.JButton();
+        btnSearchLayanan = new javax.swing.JButton();
+        txtSearchLayanan = new javax.swing.JTextField();
+        btnRefreshLayanan = new javax.swing.JButton();
+        btnDeleteLayanan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LAUNDRY HUB - Kasir Dashboard");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setIconImages(null);
-        setLocationByPlatform(true);
+        setLocation(new java.awt.Point(0, 0));
         setResizable(false);
 
         tittlePanel.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
@@ -108,12 +131,19 @@ public class kasirDashboard extends javax.swing.JFrame {
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("KASIR DASHBOARD");
 
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/laundry.png"))); // NOI18N
+        jLabel17.setText("Laundry - Hub");
+
         javax.swing.GroupLayout tittlePanelLayout = new javax.swing.GroupLayout(tittlePanel);
         tittlePanel.setLayout(tittlePanelLayout);
         tittlePanelLayout.setHorizontalGroup(
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tittlePanelLayout.createSequentialGroup()
-                .addGap(427, 427, 427)
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addGap(228, 228, 228)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -121,7 +151,9 @@ public class kasirDashboard extends javax.swing.JFrame {
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel17))
                 .addContainerGap())
         );
 
@@ -231,7 +263,7 @@ public class kasirDashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(410, 410, 410)
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,27 +273,6 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("NAMA :");
-
-        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ALAMAT :");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("NO TELEPON :");
-
-        txtTelepon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("BERAT CUCIAN(KG) :");
@@ -270,10 +281,10 @@ public class kasirDashboard extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("LAYANAN :");
 
-        cbLayanan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbLayanan.addActionListener(new java.awt.event.ActionListener() {
+        cmbLayanan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLayananActionPerformed(evt);
+                cmbLayananActionPerformed(evt);
             }
         });
 
@@ -288,13 +299,9 @@ public class kasirDashboard extends javax.swing.JFrame {
             }
         });
 
-        txtAlamat.setColumns(20);
-        txtAlamat.setRows(5);
-        jScrollPane1.setViewportView(txtAlamat);
-
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText(" TANGGAL :");
+        jLabel10.setText(" TANGGAL SELESAI:");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,94 +309,268 @@ public class kasirDashboard extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText(" JAM :");
+        jLabel12.setText(" JAM SELESAI:");
 
         labelHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelHarga.setForeground(new java.awt.Color(255, 255, 255));
-        labelHarga.setText("Rp.");
+        labelHarga.setText("Rp. 0 -,");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("CUSTOMER :");
+
+        rbCustomer.add(rbCustomerBaru);
+        rbCustomerBaru.setText("Baru");
+        rbCustomerBaru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCustomerBaruActionPerformed(evt);
+            }
+        });
+
+        rbCustomer.add(rbCustomerLama);
+        rbCustomerLama.setText("Lama");
+        rbCustomerLama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCustomerLamaActionPerformed(evt);
+            }
+        });
+
+        spnBerat.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnBeratStateChanged(evt);
+            }
+        });
+
+        spnJam.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnJamStateChanged(evt);
+            }
+        });
+
+        pnlCustomer.setBackground(new java.awt.Color(40, 40, 40));
+        pnlCustomer.setLayout(new java.awt.CardLayout());
+
+        customerBaruPanel.setBackground(new java.awt.Color(40, 40, 40));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("NAMA :");
+
+        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamaActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("NO TELEPON :");
+
+        txtTelepon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("ALAMAT :");
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        txtAlamat.setColumns(20);
+        txtAlamat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAlamat.setRows(5);
+        jScrollPane1.setViewportView(txtAlamat);
+
+        javax.swing.GroupLayout customerBaruPanelLayout = new javax.swing.GroupLayout(customerBaruPanel);
+        customerBaruPanel.setLayout(customerBaruPanelLayout);
+        customerBaruPanelLayout.setHorizontalGroup(
+            customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(customerBaruPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        customerBaruPanelLayout.setVerticalGroup(
+            customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(customerBaruPanelLayout.createSequentialGroup()
+                .addGroup(customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(customerBaruPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 71, Short.MAX_VALUE))
+                    .addGroup(customerBaruPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+
+        pnlCustomer.add(customerBaruPanel, "card2");
+
+        customerLamaPanel.setBackground(new java.awt.Color(40, 40, 40));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("NAMA :");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("NO TELEPON :");
+
+        txtTelepon2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("ALAMAT :");
+
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        txtAlamat2.setColumns(20);
+        txtAlamat2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAlamat2.setRows(5);
+        jScrollPane4.setViewportView(txtAlamat2);
+
+        cmbCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbCustomer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCustomerActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout customerLamaPanelLayout = new javax.swing.GroupLayout(customerLamaPanel);
+        customerLamaPanel.setLayout(customerLamaPanelLayout);
+        customerLamaPanelLayout.setHorizontalGroup(
+            customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(customerLamaPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbCustomer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                    .addComponent(txtTelepon2))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        customerLamaPanelLayout.setVerticalGroup(
+            customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(customerLamaPanelLayout.createSequentialGroup()
+                .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cmbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtTelepon2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        pnlCustomer.add(customerLamaPanel, "card3");
 
         javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
         orderPanel.setLayout(orderPanelLayout);
         orderPanelLayout.setHorizontalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(orderPanelLayout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(orderButton)
+                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderPanelLayout.createSequentialGroup()
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11))
-                        .addGap(18, 18, 18)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
-                                .addComponent(JamField, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jamLabel))
-                            .addComponent(txtTelepon, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                            .addComponent(txtNama, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                            .addComponent(cbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(countBerat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tanggalDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE))
+                    .addGroup(orderPanelLayout.createSequentialGroup()
+                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(orderPanelLayout.createSequentialGroup()
-                                .addComponent(labelHarga)
-                                .addGap(71, 71, 71)))))
-                .addGap(92, 275, Short.MAX_VALUE))
+                                .addGap(198, 198, 198)
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                                        .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jamLabel))
+                                    .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(calTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelHarga)
+                                    .addComponent(spnBerat)))
+                            .addGroup(orderPanelLayout.createSequentialGroup()
+                                .addGap(247, 247, 247)
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(orderButton)
+                                    .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(orderPanelLayout.createSequentialGroup()
+                                            .addGap(22, 22, 22)
+                                            .addComponent(jLabel6)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbCustomerBaru)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbCustomerLama))
+                                        .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         orderPanelLayout.setVerticalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(orderPanelLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(rbCustomerBaru)
+                    .addComponent(rbCustomerLama))
+                .addGap(11, 11, 11)
+                .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(countBerat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tanggalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(calTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)))
-                    .addComponent(jamLabel))
+                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jamLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelHarga)
                     .addComponent(jLabel11))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(orderButton)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         mainPanel.add(orderPanel, "card2");
@@ -432,13 +613,40 @@ public class kasirDashboard extends javax.swing.JFrame {
                 "No", "Nama", "No Telepon", "Tipe Layanan", "Berat", "Harga", "Tanggal", "Jam"
             }
         ));
+        tabelPesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelPesananMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabelPesanan);
 
-        jButton1.setText("Update");
+        btnUpdateLayanan.setText("Update");
+        btnUpdateLayanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateLayananActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setText("jTextField1");
+        btnSearchPesanan.setText("Search");
+        btnSearchPesanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchPesananActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Search");
+        btnRefreshPesanan.setText("Refresh");
+        btnRefreshPesanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshPesananActionPerformed(evt);
+            }
+        });
+
+        btnDeletePesanan.setText("Delete");
+        btnDeletePesanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePesananActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout orderListLayout = new javax.swing.GroupLayout(orderList);
         orderList.setLayout(orderListLayout);
@@ -446,18 +654,24 @@ public class kasirDashboard extends javax.swing.JFrame {
             orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(orderListLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(orderListLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                        .addComponent(btnSearchPesanan))
+                    .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(orderListLayout.createSequentialGroup()
+                            .addComponent(btnRefreshPesanan)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnDeletePesanan)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUpdateLayanan))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         orderListLayout.setVerticalGroup(
             orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,13 +680,16 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76)
                 .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(txtSearchPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchPesanan))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButton1)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdateLayanan)
+                    .addComponent(btnDeletePesanan)
+                    .addComponent(btnRefreshPesanan))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         mainPanel.add(orderList, "card3");
@@ -504,7 +721,7 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tabelLayanan.setModel(new javax.swing.table.DefaultTableModel(
+        tbLayanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -515,40 +732,40 @@ public class kasirDashboard extends javax.swing.JFrame {
                 "No", "id_layanan", "Nama Layanan", "Harga", "Deskripsi"
             }
         ));
-        tabelLayanan.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbLayanan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelLayananMouseClicked(evt);
+                tbLayananMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tabelLayanan);
+        jScrollPane3.setViewportView(tbLayanan);
 
-        jButton3.setText("Tambah Layanan");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAddLayanan.setText("Tambah Layanan");
+        btnAddLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        btneditLayanan.setText("Edit Layanan");
-        btneditLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneditLayananActionPerformed(evt);
+                btnAddLayananActionPerformed(evt);
             }
         });
 
-        searchLayananButton.setText("Search");
-
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+        btnEditLayanan.setText("Edit Layanan");
+        btnEditLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
+                btnEditLayananActionPerformed(evt);
             }
         });
 
-        deleteLayananButton.setText("Delete Layanan");
-        deleteLayananButton.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchLayanan.setText("Search");
+
+        btnRefreshLayanan.setText("Refresh");
+        btnRefreshLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteLayananButtonActionPerformed(evt);
+                btnRefreshLayananActionPerformed(evt);
+            }
+        });
+
+        btnDeleteLayanan.setText("Delete Layanan");
+        btnDeleteLayanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteLayananActionPerformed(evt);
             }
         });
 
@@ -558,24 +775,24 @@ public class kasirDashboard extends javax.swing.JFrame {
             layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layananPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layananPanelLayout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
+                .addContainerGap(151, Short.MAX_VALUE)
                 .addGroup(layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layananPanelLayout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchLayananButton))
+                        .addComponent(btnSearchLayanan))
                     .addGroup(layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layananPanelLayout.createSequentialGroup()
-                            .addComponent(refreshButton)
+                            .addComponent(btnRefreshLayanan)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteLayananButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton3)
-                            .addGap(18, 18, 18)
-                            .addComponent(btneditLayanan))
+                            .addComponent(btnDeleteLayanan)
+                            .addGap(10, 10, 10)
+                            .addComponent(btnAddLayanan)
+                            .addGap(10, 10, 10)
+                            .addComponent(btnEditLayanan))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(91, 91, 91))
         );
@@ -586,17 +803,17 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82)
                 .addGroup(layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchLayananButton)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearchLayanan)
+                    .addComponent(txtSearchLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(btneditLayanan)
-                    .addComponent(refreshButton)
-                    .addComponent(deleteLayananButton))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addComponent(btnAddLayanan)
+                    .addComponent(btnEditLayanan)
+                    .addComponent(btnRefreshLayanan)
+                    .addComponent(btnDeleteLayanan))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         mainPanel.add(layananPanel, "card4");
@@ -629,6 +846,75 @@ public class kasirDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public class SpinnerTimeModel extends AbstractSpinnerModel {
+        private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+        private Calendar calendar;
+        private Calendar startTime;
+        private Calendar endTime;
+    
+        public SpinnerTimeModel() {
+            calendar = Calendar.getInstance();
+
+            startTime = Calendar.getInstance();
+            startTime.set(Calendar.HOUR_OF_DAY, 8);
+            startTime.set(Calendar.MINUTE, 0);
+
+            endTime = Calendar.getInstance();
+            endTime.set(Calendar.HOUR_OF_DAY, 21);
+            endTime.set(Calendar.MINUTE, 0);
+
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            calendar.set(Calendar.MINUTE, 0);
+        }
+
+        @Override
+        public Object getValue() {
+            return timeFormat.format(calendar.getTime());
+        }
+
+        @Override
+        public void setValue(Object value) {
+            if (value instanceof String) {
+                try {
+                    calendar.setTime(timeFormat.parse((String) value));
+                    fireStateChanged();
+                } catch (ParseException e) {
+                    
+                }
+            }
+        }
+
+        @Override
+        public Object getNextValue() {
+            Calendar next = (Calendar) calendar.clone();
+            next.add(Calendar.MINUTE, 30);
+
+            if (next.after(endTime)) {
+                return null;
+            }
+            return timeFormat.format(next.getTime());
+        }
+
+        @Override
+        public Object getPreviousValue() {
+            Calendar prev = (Calendar) calendar.clone();
+            prev.add(Calendar.MINUTE, -30);
+
+            if (prev.before(startTime)) {
+                return null;
+            }
+            return timeFormat.format(prev.getTime());
+        }
+    }
+    
+    private void renderSpinerJam() {
+        spnJam.setModel(new SpinnerTimeModel());
+
+        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spnJam.getEditor();
+        editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
+
+    }
     
     private void bntRequestOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRequestOrderActionPerformed
         // TODO add your handling code here:
@@ -670,10 +956,10 @@ public class kasirDashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLayananActionPerformed
 
-    private void cbLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLayananActionPerformed
+    private void cmbLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLayananActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_cbLayananActionPerformed
+        renderHarga();
+    }//GEN-LAST:event_cmbLayananActionPerformed
 
     private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
         // TODO add your handling code here:
@@ -690,7 +976,7 @@ public class kasirDashboard extends javax.swing.JFrame {
         mainPanel.revalidate();
     }//GEN-LAST:event_btnOrderListActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAddLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLayananActionPerformed
         // TODO add your handling code here:
         try {
             tambahLayanan lyn = new tambahLayanan();
@@ -700,23 +986,23 @@ public class kasirDashboard extends javax.swing.JFrame {
         }
 
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAddLayananActionPerformed
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+    private void btnRefreshLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshLayananActionPerformed
         // TODO add your handling code here:
         showTabelLayanan();
-    }//GEN-LAST:event_refreshButtonActionPerformed
+    }//GEN-LAST:event_btnRefreshLayananActionPerformed
 
-    private void tabelLayananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelLayananMouseClicked
+    private void tbLayananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLayananMouseClicked
         // TODO add your handling code here:
-        int row = tabelLayanan.getSelectedRow();
-        TableModel model = tabelLayanan.getModel();
+        int row = tbLayanan.getSelectedRow();
+        TableModel model = tbLayanan.getModel();
         this.id_layanan = model.getValueAt(row, 1).toString();
         this.nama = model.getValueAt(row, 2).toString();
         this.harga = model.getValueAt(row, 3).toString();
-    }//GEN-LAST:event_tabelLayananMouseClicked
+    }//GEN-LAST:event_tbLayananMouseClicked
 
-    private void btneditLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditLayananActionPerformed
+    private void btnEditLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditLayananActionPerformed
         // TODO add your handling code here:
         try {
             if (!this.id_layanan.equals(null)){
@@ -725,9 +1011,9 @@ public class kasirDashboard extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Layanan Belum Di pilih");
         }
-    }//GEN-LAST:event_btneditLayananActionPerformed
+    }//GEN-LAST:event_btnEditLayananActionPerformed
 
-    private void deleteLayananButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLayananButtonActionPerformed
+    private void btnDeleteLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLayananActionPerformed
         // TODO add your handling code here:
         try {
             if (!this.id_layanan.equals(null) && !this.nama.equals(null)) {
@@ -749,36 +1035,232 @@ public class kasirDashboard extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Please choose an account");
         }
-    }//GEN-LAST:event_deleteLayananButtonActionPerformed
+    }//GEN-LAST:event_btnDeleteLayananActionPerformed
 
     private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
         // TODO add your handling code here:
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         
-        if (txtNama.getText().equals("") && txtTelepon.getText().equals("") && txtAlamat.getText().equals("") && ((Integer) countBerat.getValue()) == 0 && tanggalDate.getDate() == null) {
+        if (txtNama.getText().equals("") && txtTelepon.getText().equals("") && txtAlamat.getText().equals("") && ((Integer) spnBerat.getValue()) == 0 && calTanggal.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Please fill out the form");
             return;
         }
         try {
-            String formattedDate = dateFormat.format(tanggalDate.getDate());
+            String formattedDate = dateFormat.format(calTanggal.getDate());
             String getNumber = generateUserNumber();
             String number = getNumber.replace("CST", "");
             
             Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query1 = "INSERT INTO pesanan VALUE ('"+generateIdPesanan()+"','"+generateIdUser()+"','"+getIdLayanan()+"','"+countBerat.getValue()+"','"+hitungHarga(countBerat.getValue())+"','"+formattedDate+"','"+generateJam()+"')";
-            String query2 = "INSERT INTO customer (number,id_user,nama,telpon,alamat) VALUE ('"+number+"','"+generateIdUser()+"','"+txtNama.getText()+"','"+txtTelepon.getText()+"','"+txtAlamat.getText()+"')";
-            stmt.executeUpdate(query2);
-            stmt.executeUpdate(query1);
+            if(rbCustomerBaru.isSelected()){
+                String query1 = "INSERT INTO pesanan VALUE ('"+generateIdPesanan()+"','"+generateIdUser()+"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"','"+formattedDate+"','"+generateJam()+"')";
+                String query2 = "INSERT INTO customer (number,id_user,nama,telpon,alamat) VALUE ('"+number+"','"+generateIdUser()+"','"+txtNama.getText()+"','"+txtTelepon.getText()+"','"+txtAlamat.getText()+"')";
+                stmt.executeUpdate(query2);
+                stmt.executeUpdate(query1);
+                
+            } else {
+                String query = "INSERT INTO pesanan VALUE ('"+generateIdPesanan()+"','"+getIdUser()+"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"','"+formattedDate+"','"+generateJam()+"')";
+                stmt.executeUpdate(query);
+            }
             JOptionPane.showMessageDialog(this, "Order successfully placed");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_orderButtonActionPerformed
     
+    private String getIdUser(){
+        String id_user = "";
+        String name = cmbCustomer.getSelectedItem().toString();
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT id_user FROM customer WHERE nama = '"+name+"'";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if(rs.next()){
+                id_user = rs.getString("id_user");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id_user;
+    }
+    
+    private void btnUpdateLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateLayananActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (!this.berat.equals(null)){
+                insertIntoUpdatePesanan(this.id_pesanan,this.berat , this.hargaTotal);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Layanan Belum Di pilih");
+        }
+    }//GEN-LAST:event_btnUpdateLayananActionPerformed
+    
+    private void insertIntoUpdatePesanan (String id_pesanan,String berat, String harga){
+        updateOrder updt = new updateOrder();
+        
+        updt.idPesananField.setText(id_pesanan);
+        updt.countBerat.setValue(Integer.parseInt(berat));
+        updt.labelHarga.setText("RP" + harga);
+        
+        updt.setVisible(true);
+    }
+    
+    private void tabelPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPesananMouseClicked
+        // TODO add your handling code here:
+        int row = tabelPesanan.getSelectedRow();
+        TableModel model = tabelPesanan.getModel();
+        this.id_pesanan = model.getValueAt(row, 1).toString();
+        this.berat = model.getValueAt(row, 3).toString();
+        this.hargaTotal = model.getValueAt(row,4).toString();
+    }//GEN-LAST:event_tabelPesananMouseClicked
+
+    private void btnRefreshPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshPesananActionPerformed
+        // TODO add your handling code here:
+        showTabelPesanan();
+    }//GEN-LAST:event_btnRefreshPesananActionPerformed
+
+    private void btnDeletePesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePesananActionPerformed
+        // TODO add your handling code here:
+            try {
+            if (!this.id_pesanan.equals(null) && !this.berat.equals(null)) {
+                int response =JOptionPane.showConfirmDialog(this, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (response == JOptionPane.YES_OPTION) {
+                        try {
+                            Statement stmt = (Statement) Connect.configDB().createStatement();
+                            //delete record from login table
+                            stmt.executeUpdate("DELETE FROM pesanan WHERE id_pesanan = '" + this.id_pesanan+"';");
+
+                            JOptionPane.showMessageDialog(this, "The information was successfully updated");
+                            showTabelPesanan();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        return;
+                    }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Please choose an account");
+        }
+        
+    }//GEN-LAST:event_btnDeletePesananActionPerformed
+
+    private void rbCustomerBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomerBaruActionPerformed
+        // TODO add your handling code here:
+        pnlCustomer.removeAll();
+        pnlCustomer.repaint();
+        pnlCustomer.revalidate();
+
+        pnlCustomer.add(customerBaruPanel);
+        pnlCustomer.repaint();
+        pnlCustomer.revalidate();
+        
+    }//GEN-LAST:event_rbCustomerBaruActionPerformed
+
+    private void rbCustomerLamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomerLamaActionPerformed
+        // TODO add your handling code here:
+        pnlCustomer.removeAll();
+        pnlCustomer.repaint();
+        pnlCustomer.revalidate();
+
+        pnlCustomer.add(customerLamaPanel);
+        pnlCustomer.repaint();
+        pnlCustomer.revalidate();
+    }//GEN-LAST:event_rbCustomerLamaActionPerformed
+
+    private void cmbCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCustomerActionPerformed
+        // TODO add your handling code here:
+        String alamat = "", noTelp = "";
+        String SelectedName = (String) cmbCustomer.getSelectedItem();
+        try {
+            Statement stm = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM customer WHERE nama = '" + SelectedName + "';";
+            ResultSet rs = stm.executeQuery(query);
+            
+            if(rs.next()){
+                noTelp = rs.getString("telpon");
+                alamat = rs.getString("alamat");
+            }
+            txtAlamat2.setText(alamat);
+            txtTelepon2.setText(noTelp);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cmbCustomerActionPerformed
+
+    private void spnBeratStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnBeratStateChanged
+        // TODO add your handling code here:
+        renderHarga();
+    }//GEN-LAST:event_spnBeratStateChanged
+
+    private void spnJamStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnJamStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spnJamStateChanged
+
+    private void btnSearchPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchPesananActionPerformed
+        // TODO add your handling code here:
+        int n = 0;
+        String [] kolom = {"NO", "id_pesanan" ,"id_customer", "berat" ,"Harga", "Tanggal Ambil", "Jam Ambil"};
+        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
+        String search = txtSearchPesanan.getText();
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM pesanan WHERE id_pesanan = '" + search + "';";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()){
+                n++;
+                String id_pesanan = rs.getString("id_pesanan");
+                String id_user = rs.getString("id_user");
+                int berat = rs.getInt("berat");
+                int harga = rs.getInt("harga");
+                String tanggalAmbil = rs.getString("tanggalSelesai");
+                String jamAmbil = rs.getString("jamSelesai");
+                tb1.addRow(new String[] {String.valueOf(n), id_pesanan, id_user , String.valueOf(berat) , String.valueOf(harga), tanggalAmbil, jamAmbil});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        tabelPesanan.setModel(tb1);
+    }//GEN-LAST:event_btnSearchPesananActionPerformed
+
+    private void renderHarga(){
+        int berat = Integer.parseInt(spnBerat.getValue().toString());
+        
+        int HargaTotal = hitungHarga(berat);
+        
+        String displayHarga = "Rp. " + formatHarga(HargaTotal) +" -,";
+        
+        labelHarga.setText(displayHarga);
+    }
+    private String formatHarga(int harga) {
+        java.text.NumberFormat format = java.text.NumberFormat.getInstance();
+        format.setGroupingUsed(true);
+        
+        return format.format(harga);
+    }
+    
+    
     private String generateJam() {
-        int jam = Integer.parseInt(String.valueOf(JamField.getValue()));
-        return String.format("%02d:00", jam);
+        String jam = (String) spnJam.getValue();
+
+        String[] parts = jam.split(" ");
+        String time = parts[0];
+        String period = parts[1];
+
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        String minute = timeParts[1];
+
+
+        if (period.equals("PM") && hour != 12) {
+            hour += 12;
+        } else if (period.equals("AM") && hour == 12) {
+            hour = 0;
+        }
+
+        return String.format("%02d:%s:00", hour, minute);
     }
 
     private String generateIdUser(){
@@ -850,7 +1332,7 @@ public class kasirDashboard extends javax.swing.JFrame {
     
     private String getIdLayanan(){
         String idLayanan = null;
-        String namaLayanan = cbLayanan.getSelectedItem().toString();
+        String namaLayanan = cmbLayanan.getSelectedItem().toString();
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
             String query = "SELECT * FROM layanan WHERE nama = '"+ namaLayanan+ "'";
@@ -885,10 +1367,10 @@ public class kasirDashboard extends javax.swing.JFrame {
     
     private void insertIntoEditLayanan(String id_layanan,String nama, String harga){
         editLayanan edtLayanan = new editLayanan();
-        edtLayanan.idLayananField.setText(id_layanan);
+        edtLayanan.txtIdLayanan.setText(id_layanan);
         edtLayanan.namaField.setText(nama);
-        edtLayanan.hargaField.setText(harga);
-        edtLayanan.deskripsiField.setText(getDeskripsi(id_layanan));
+        edtLayanan.txtHarga.setText(harga);
+        edtLayanan.txtDeskripsi.setText(getDeskripsi(id_layanan));
         edtLayanan.setVisible(true);
     }
     
@@ -919,7 +1401,28 @@ public class kasirDashboard extends javax.swing.JFrame {
                 model.addElement(rs.getString("nama"));
             }
             
-            cbLayanan.setModel(model);
+            cmbLayanan.setModel(model);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void renderCbCustomer(){
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT nama FROM customer;";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Pilih Customer");
+            
+            while (rs.next()) {
+                model.addElement(rs.getString("nama"));
+            }
+            
+            cmbCustomer.setModel(model);
+            cmbCustomer.setSelectedIndex(0);
+            rbCustomerBaru.setSelected(true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -945,7 +1448,7 @@ public class kasirDashboard extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        tabelLayanan.setModel(tb1);
+        tbLayanan.setModel(tb1);
     }
     
         public void showTabelPesanan(){
@@ -974,6 +1477,7 @@ public class kasirDashboard extends javax.swing.JFrame {
         tabelPesanan.setModel(tb1);
     }
         
+        
     /**
      * @param args the command line arguments
      */
@@ -995,28 +1499,39 @@ public class kasirDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.components.JSpinField JamField;
     private javax.swing.JPanel Menu;
     private javax.swing.JButton bntRequestOrder;
+    private javax.swing.JButton btnAddLayanan;
+    private javax.swing.JButton btnDeleteLayanan;
+    private javax.swing.JButton btnDeletePesanan;
+    private javax.swing.JButton btnEditLayanan;
     private javax.swing.JButton btnLayanan;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnOrderList;
-    private javax.swing.JButton btneditLayanan;
-    private javax.swing.JComboBox<String> cbLayanan;
-    private com.toedter.components.JSpinField countBerat;
-    private javax.swing.JButton deleteLayananButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnRefreshLayanan;
+    private javax.swing.JButton btnRefreshPesanan;
+    private javax.swing.JButton btnSearchLayanan;
+    private javax.swing.JButton btnSearchPesanan;
+    private javax.swing.JButton btnUpdateLayanan;
+    private com.toedter.calendar.JDateChooser calTanggal;
+    private javax.swing.JComboBox<String> cmbCustomer;
+    private javax.swing.JComboBox<String> cmbLayanan;
+    private javax.swing.JPanel customerBaruPanel;
+    private javax.swing.JPanel customerLamaPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1026,8 +1541,7 @@ public class kasirDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel jamLabel;
     private javax.swing.JLabel labelHarga;
     private javax.swing.JPanel layananPanel;
@@ -1035,14 +1549,21 @@ public class kasirDashboard extends javax.swing.JFrame {
     private javax.swing.JButton orderButton;
     private javax.swing.JPanel orderList;
     private javax.swing.JPanel orderPanel;
-    private javax.swing.JButton refreshButton;
-    private javax.swing.JButton searchLayananButton;
-    private javax.swing.JTable tabelLayanan;
+    private javax.swing.JPanel pnlCustomer;
+    private javax.swing.ButtonGroup rbCustomer;
+    private javax.swing.JRadioButton rbCustomerBaru;
+    private javax.swing.JRadioButton rbCustomerLama;
+    private javax.swing.JSpinner spnBerat;
+    private javax.swing.JSpinner spnJam;
     private javax.swing.JTable tabelPesanan;
-    private com.toedter.calendar.JDateChooser tanggalDate;
+    private javax.swing.JTable tbLayanan;
     private javax.swing.JPanel tittlePanel;
     private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextArea txtAlamat2;
     private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtSearchLayanan;
+    private javax.swing.JTextField txtSearchPesanan;
     private javax.swing.JTextField txtTelepon;
+    private javax.swing.JTextField txtTelepon2;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,6 +20,7 @@ public class tambahLayanan extends javax.swing.JFrame {
      */
     public tambahLayanan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

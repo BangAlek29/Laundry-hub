@@ -21,6 +21,7 @@ public class editLayanan extends javax.swing.JFrame {
      */
     public editLayanan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -38,10 +39,10 @@ public class editLayanan extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        deskripsiField = new javax.swing.JTextArea();
-        idLayananField = new javax.swing.JTextField();
-        hargaField = new javax.swing.JTextField();
-        buttonEdit = new javax.swing.JButton();
+        txtDeskripsi = new javax.swing.JTextArea();
+        txtIdLayanan = new javax.swing.JTextField();
+        txtHarga = new javax.swing.JTextField();
+        btnEdit = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         namaField = new javax.swing.JTextField();
 
@@ -60,18 +61,18 @@ public class editLayanan extends javax.swing.JFrame {
         jLabel3.setText("Deskripsi :");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("Edit Layanan");
+        jLabel4.setText("EDIT LAYANAN");
 
-        deskripsiField.setColumns(20);
-        deskripsiField.setRows(5);
-        jScrollPane1.setViewportView(deskripsiField);
+        txtDeskripsi.setColumns(20);
+        txtDeskripsi.setRows(5);
+        jScrollPane1.setViewportView(txtDeskripsi);
 
-        idLayananField.setEditable(false);
+        txtIdLayanan.setEditable(false);
 
-        buttonEdit.setText("Edit");
-        buttonEdit.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEditActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
@@ -85,7 +86,7 @@ public class editLayanan extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonEdit)
+                    .addComponent(btnEdit)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(72, 72, 72))
@@ -98,8 +99,8 @@ public class editLayanan extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hargaField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idLayananField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(namaField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
@@ -110,7 +111,7 @@ public class editLayanan extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idLayananField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -119,13 +120,13 @@ public class editLayanan extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(hargaField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(buttonEdit)
+                .addComponent(btnEdit)
                 .addGap(38, 38, 38))
         );
 
@@ -144,9 +145,9 @@ public class editLayanan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        if (namaField.getText().equals("") && deskripsiField.getText().equals("") && hargaField.getText().equals("")) {
+        if (namaField.getText().equals("") && txtDeskripsi.getText().equals("") && txtHarga.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please fill out the form");
             return;
         }
@@ -155,7 +156,7 @@ public class editLayanan extends javax.swing.JFrame {
             try {
                 Statement stmt = (Statement) Connect.configDB().createStatement();
                 //update record from table customer
-                stmt.executeUpdate("UPDATE layanan SET nama = '"+namaField.getText()+"', harga = '"+hargaField.getText()+"', deskripsi = '"+deskripsiField.getText()+"' WHERE id_layanan = '"+idLayananField.getText()+"';");
+                stmt.executeUpdate("UPDATE layanan SET nama = '"+namaField.getText()+"', harga = '"+txtHarga.getText()+"', deskripsi = '"+txtDeskripsi.getText()+"' WHERE id_layanan = '"+txtIdLayanan.getText()+"';");
 
                 JOptionPane.showMessageDialog(this, "The information was successfully updated");
                 this.dispose();
@@ -166,7 +167,7 @@ public class editLayanan extends javax.swing.JFrame {
             return;
         }
         
-    }//GEN-LAST:event_buttonEditActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
     private String generateID(){
         String tempID = "";
         try {
@@ -223,10 +224,7 @@ public class editLayanan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonEdit;
-    public javax.swing.JTextArea deskripsiField;
-    public javax.swing.JTextField hargaField;
-    public javax.swing.JTextField idLayananField;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -235,5 +233,8 @@ public class editLayanan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField namaField;
+    public javax.swing.JTextArea txtDeskripsi;
+    public javax.swing.JTextField txtHarga;
+    public javax.swing.JTextField txtIdLayanan;
     // End of variables declaration//GEN-END:variables
 }

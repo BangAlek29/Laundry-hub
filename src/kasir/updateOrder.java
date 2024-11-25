@@ -8,8 +8,10 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 import koneksiDatabase.Connect;
 
 /**
@@ -23,6 +25,8 @@ public class updateOrder extends javax.swing.JFrame {
      */
     public updateOrder() {
         initComponents();
+        renderCbLayanan();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -35,55 +39,25 @@ public class updateOrder extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtNama = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtTelepon = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAlamat = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         countBerat = new com.toedter.components.JSpinField();
         jLabel9 = new javax.swing.JLabel();
         cbLayanan = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        tanggalDate = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
-        jSpinField1 = new com.toedter.components.JSpinField();
+        JamField = new com.toedter.components.JSpinField();
         jLabel11 = new javax.swing.JLabel();
         labelHarga = new javax.swing.JLabel();
         jamLabel = new javax.swing.JLabel();
         orderButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        idPesananField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("NAMA :");
-
-        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("NO TELEPON :");
-
-        txtTelepon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ALAMAT :");
-
-        txtAlamat.setColumns(20);
-        txtAlamat.setRows(5);
-        jScrollPane1.setViewportView(txtAlamat);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,11 +68,6 @@ public class updateOrder extends javax.swing.JFrame {
         jLabel9.setText("LAYANAN :");
 
         cbLayanan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLayananActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,10 +89,21 @@ public class updateOrder extends javax.swing.JFrame {
         jamLabel.setForeground(new java.awt.Color(255, 255, 255));
         jamLabel.setText("08.00 - 21.00");
 
-        orderButton.setText("Order");
+        orderButton.setText("Update");
+        orderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("UPDATE PESANAN");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("ID Pesanan :");
+
+        idPesananField.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,25 +122,21 @@ public class updateOrder extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel12)
-                                    .addComponent(jLabel11))
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JamField, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jamLabel))
-                                    .addComponent(txtTelepon)
-                                    .addComponent(txtNama)
                                     .addComponent(cbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(countBerat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelHarga))))))
+                                    .addComponent(tanggalDate, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                    .addComponent(labelHarga)
+                                    .addComponent(idPesananField))))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,21 +144,13 @@ public class updateOrder extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(idPesananField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(countBerat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -192,11 +160,11 @@ public class updateOrder extends javax.swing.JFrame {
                             .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tanggalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12)))
                     .addComponent(jamLabel))
                 .addGap(18, 18, 18)
@@ -216,20 +184,105 @@ public class updateOrder extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaActionPerformed
-
-    private void cbLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLayananActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbLayananActionPerformed
     
+    private void renderCbLayanan(){
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT nama FROM layanan;";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            
+            while (rs.next()) {
+                model.addElement(rs.getString("nama"));
+            }
+            
+            cbLayanan.setModel(model);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        
+        if (((Integer) countBerat.getValue()) == 0 && tanggalDate.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Please fill out the form");
+            return;
+        }
+        try {
+            String formattedDate = dateFormat.format(tanggalDate.getDate());
+
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "UPDATE pesanan SET " + 
+                          "berat = " + countBerat.getValue() + ", " +
+                          "harga = " + hitungHarga(countBerat.getValue()) + ", " +
+                          "tanggalSelesai = '" + formattedDate + "', " +
+                          "jamSelesai = '" + generateJam() + "' " +
+                          "WHERE id_pesanan = '" + idPesananField.getText() + "'";
+
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(this, "Order successfully updated");
+            this.dispose();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+       
+    }//GEN-LAST:event_orderButtonActionPerformed
+    
+    private String generateJam() {
+        int jam = Integer.parseInt(String.valueOf(JamField.getValue()));
+        return String.format("%02d:00", jam);
+    }
+    
+    private int hitungHarga(int berat){
+        int harga = 0;
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM layanan where id_layanan = '"+getIdLayanan()+"'";
+            
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()){
+                harga = rs.getInt("harga");
+            }
+            
+            while (rs.next()){
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return berat * harga;
+    }
+    
+    
+    private String getIdLayanan(){
+        String idLayanan = null;
+        String namaLayanan = cbLayanan.getSelectedItem().toString();
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM layanan WHERE nama = '"+ namaLayanan+ "'";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if(rs.next()){
+                idLayanan = rs.getString("id_layanan");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idLayanan;
+    }
 
     /**
      * @param args the command line arguments
@@ -256,26 +309,21 @@ public class updateOrder extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbLayanan;
-    private com.toedter.components.JSpinField countBerat;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    public com.toedter.components.JSpinField JamField;
+    public javax.swing.JComboBox<String> cbLayanan;
+    public com.toedter.components.JSpinField countBerat;
+    public javax.swing.JTextField idPesananField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JLabel jamLabel;
-    private javax.swing.JLabel labelHarga;
+    public javax.swing.JLabel labelHarga;
     private javax.swing.JButton orderButton;
-    private javax.swing.JTextArea txtAlamat;
-    private javax.swing.JTextField txtNama;
-    private javax.swing.JTextField txtTelepon;
+    public com.toedter.calendar.JDateChooser tanggalDate;
     // End of variables declaration//GEN-END:variables
 }

@@ -372,8 +372,6 @@ public class signupPage extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
-            UIManager.put( "TextComponent.arc", 10 );
-            UIManager.put( "Button.arc", 10 );
         } catch (Exception e) {
             e.printStackTrace();
         }

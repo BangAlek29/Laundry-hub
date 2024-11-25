@@ -8,7 +8,8 @@ package Main;
 import admin.adminDashboard;
 import Auth.forgotPassword;
 import Auth.signupPage;
-import com.formdev.flatlaf.FlatDarculaLaf;
+import User.userDashboard;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,9 +31,10 @@ public class loginPage extends javax.swing.JFrame {
      * Creates new form loginPage
      */
 
-    
+    String id_user = null;
     public loginPage() throws SQLException {
         initComponents();
+        
     }
 
     /**
@@ -213,7 +215,22 @@ public class loginPage extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
-
+    
+    private void getID() {
+        String username = txtUsername.getText();
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM customer where username = ('" + username + "');" ;
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if(rs.next()){
+                this.id_user = rs.getString("id_user");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // get username and password
         String username = txtUsername.getText();
@@ -243,6 +260,12 @@ public class loginPage extends javax.swing.JFrame {
                         else if(role.equals("kasir")){
                             kasirDashboard ksr = new kasirDashboard();
                             ksr.setVisible(true);
+                            clear();
+                            this.dispose();
+                        } else if(role.equals("member")){
+                            getID();
+                            userDashboard usr = new userDashboard(id_user);
+                            usr.setVisible(true);
                             clear();
                             this.dispose();
                         }
@@ -278,7 +301,7 @@ public class loginPage extends javax.swing.JFrame {
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }

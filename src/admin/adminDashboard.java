@@ -53,7 +53,6 @@ public class adminDashboard extends javax.swing.JFrame {
         userManagementPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLogin = new javax.swing.JTable();
-        btnSearch = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
@@ -67,7 +66,6 @@ public class adminDashboard extends javax.swing.JFrame {
         btnEdit2 = new javax.swing.JButton();
         btnRefresh2 = new javax.swing.JButton();
         txtIDUser = new javax.swing.JTextField();
-        btnSearch2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -140,9 +138,9 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnUserManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(btnUserInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(10, 10, 10)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -182,15 +180,6 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableLogin);
 
-        btnSearch.setBackground(new java.awt.Color(60, 60, 60));
-        btnSearch.setText("Search");
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-
         btnEdit.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
         btnEdit.setForeground(java.awt.Color.white);
         btnEdit.setText("Edit User");
@@ -216,6 +205,12 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         txtUsername.setBackground(new java.awt.Color(60, 60, 60));
+        txtUsername.setText("Search");
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         btnRefresh.setForeground(java.awt.Color.white);
@@ -271,12 +266,14 @@ public class adminDashboard extends javax.swing.JFrame {
         userManagementPanelLayout.setHorizontalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
-                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(userManagementPanelLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -290,23 +287,14 @@ public class adminDashboard extends javax.swing.JFrame {
                                 .addComponent(btnRefresh))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE))))
                 .addGap(90, 90, 90))
-            .addGroup(userManagementPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
-                .addContainerGap())
         );
         userManagementPanelLayout.setVerticalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(userManagementPanelLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(btnSearch))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -362,19 +350,10 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         txtIDUser.setBackground(new java.awt.Color(60, 60, 60));
+        txtIDUser.setText("Search");
         txtIDUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDUserActionPerformed(evt);
-            }
-        });
-
-        btnSearch2.setBackground(new java.awt.Color(60, 60, 60));
-        btnSearch2.setForeground(java.awt.Color.white);
-        btnSearch2.setText("Search");
-        btnSearch2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearch2ActionPerformed(evt);
             }
         });
 
@@ -406,40 +385,35 @@ public class adminDashboard extends javax.swing.JFrame {
         UserInformation.setLayout(UserInformationLayout);
         UserInformationLayout.setHorizontalGroup(
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserInformationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInformationLayout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(UserInformationLayout.createSequentialGroup()
-                        .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(UserInformationLayout.createSequentialGroup()
                         .addComponent(btnEdit2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRefresh2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(110, 110, 110))
-            .addGroup(UserInformationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
-                .addContainerGap())
         );
         UserInformationLayout.setVerticalGroup(
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(55, 55, 55)
+                .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit2)
                     .addComponent(btnRefresh2))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         mainPanel.add(UserInformation, "card3");
@@ -489,7 +463,7 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -593,40 +567,6 @@ public class adminDashboard extends javax.swing.JFrame {
         infoUserTable.setModel(tb1);
     }
     
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        if (!getUsername().equals("")) {
-            int n = 0;
-            String [] kolom = {"NO", "Username", "Password","role"};
-            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-            
-            try {
-                Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM akun WHERE username = ('"+getUsername()+"');";
-                ResultSet rs = stmt.executeQuery(query);
-
-                if (rs.next()) {
-                    n++;
-                    String username = rs.getString("username");
-                    String password = rs.getString("password");
-                    String role = rs.getString("role");
-
-                    tb1.addRow(new String[] {String.valueOf(n), username, password, role});
-                    tableLogin.setModel(tb1);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Username not found");
-                }
-
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return;
-        }
-
-    }//GEN-LAST:event_btnSearchActionPerformed
-
     private String getIDUser () {
         return txtIDUser.getText();
     }
@@ -714,41 +654,6 @@ public class adminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEdit2ActionPerformed
 
-    private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
-        // TODO add your handling code here:
-        if (!getIDUser().equals("")) {
-            int n = 0;
-            String [] kolom = {"NO", "ID User", "Nama", "Telepon", "Alamat"};
-            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-            
-            try {
-                Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM customer WHERE id_user = ('"+getIDUser()+"');";
-                ResultSet rs = stmt.executeQuery(query);
-
-                if (rs.next()) {
-                    n++;
-                    String IDUser = rs.getString("id_user");
-                    String nama = rs.getString("nama");
-                    String telpon = rs.getString("telpon");
-                    String addr = rs.getString("alamat");
-                    
-                    
-                    tb1.addRow(new String[] {String.valueOf(n), IDUser, nama, telpon, addr});
-                    infoUserTable.setModel(tb1);
-                }else{
-                    JOptionPane.showMessageDialog(this, "ID not found");
-                }
-
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return;
-        }
-    }//GEN-LAST:event_btnSearch2ActionPerformed
-
     private void btnRefresh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh2ActionPerformed
         // TODO add your handling code here:
         this.nama = null;
@@ -800,6 +705,37 @@ public class adminDashboard extends javax.swing.JFrame {
 
     private void txtIDUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDUserActionPerformed
         // TODO add your handling code here:
+        if (!getIDUser().equals("")) {
+            int n = 0;
+            String [] kolom = {"NO", "ID User", "Nama", "Telepon", "Alamat"};
+            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
+            
+            try {
+                Statement stmt = (Statement) Connect.configDB().createStatement();
+                String query = "SELECT * FROM customer WHERE id_user = ('"+getIDUser()+"');";
+                ResultSet rs = stmt.executeQuery(query);
+
+                if (rs.next()) {
+                    n++;
+                    String IDUser = rs.getString("id_user");
+                    String nama = rs.getString("nama");
+                    String telpon = rs.getString("telpon");
+                    String addr = rs.getString("alamat");
+                    
+                    
+                    tb1.addRow(new String[] {String.valueOf(n), IDUser, nama, telpon, addr});
+                    infoUserTable.setModel(tb1);
+                }else{
+                    JOptionPane.showMessageDialog(this, "ID not found");
+                }
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Please fill out the form");
+            return;
+        }
     }//GEN-LAST:event_txtIDUserActionPerformed
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
@@ -820,6 +756,41 @@ public class adminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddUserActionPerformed
 
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+        if (!getUsername().equals("")) {
+            int n = 0;
+            String [] kolom = {"NO", "Username", "Password","role"};
+            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
+            
+            try {
+                Statement stmt = (Statement) Connect.configDB().createStatement();
+                String query = "SELECT * FROM akun WHERE username LIKE '%" + getUsername() + "%' " +
+                           "OR password LIKE '%" + getUsername() + "%' " +
+                           "OR role LIKE '%" + getUsername() + "%';";
+                ResultSet rs = stmt.executeQuery(query);
+
+                if (rs.next()) {
+                    n++;
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+                    String role = rs.getString("role");
+
+                    tb1.addRow(new String[] {String.valueOf(n), username, password, role});
+                    tableLogin.setModel(tb1);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Username not found");
+                }
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Please fill out the form");
+            return;
+        }
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
     private void insertIntoEditForm (String username, String password) {
         editLoginForm edit = new editLoginForm();
         edit.tempUsername = username;
@@ -835,8 +806,6 @@ public class adminDashboard extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
-            UIManager.put( "TextComponent.arc", 10 );
-            UIManager.put( "Button.arc", 10 );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -860,8 +829,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRefresh2;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnSearch2;
     private javax.swing.JButton btnUserInformation;
     private javax.swing.JButton btnUserManagement;
     private javax.swing.JTable infoUserTable;
