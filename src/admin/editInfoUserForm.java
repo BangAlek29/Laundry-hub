@@ -194,7 +194,6 @@ public class editInfoUserForm extends javax.swing.JFrame {
         if (response == JOptionPane.YES_OPTION) {
             try {
                 Statement stmt = (Statement) Connect.configDB().createStatement();
-                //update record from table customer
                 stmt.executeUpdate("UPDATE customer SET nama = '"+txtName.getText()+"', telpon = '"+txtPhone.getText()+"', alamat = '"+txtAddrs.getText()+"' WHERE id_user = '"+txtID.getText()+"';");
 
                 JOptionPane.showMessageDialog(this, "The information was successfully updated");

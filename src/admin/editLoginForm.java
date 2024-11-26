@@ -191,12 +191,11 @@ public class editLoginForm extends javax.swing.JFrame {
         if (response == JOptionPane.YES_OPTION) {
             try {
                 Statement stmt = (Statement) Connect.configDB().createStatement();
-                //update record from table login
                 stmt.executeUpdate("UPDATE akun SET username = '" + txtUsername.getText() + "', password = '" + txtPassword.getText() + "', role = '" + selectedRole + "' WHERE username = '" + this.tempUsername + "';");
                 
-                //update record from table customer
                 stmt.executeUpdate("UPDATE customer SET username = '"+txtUsername.getText()+"' WHERE id_user = '"+getIDUserFromDB(this.tempUsername)+"';");
                 JOptionPane.showMessageDialog(this, "The information was successfully updated");
+                this.dispose();
             } catch (Exception e) {
             }
         }else{

@@ -31,7 +31,6 @@ public class loginPage extends javax.swing.JFrame {
      * Creates new form loginPage
      */
 
-    String id_user = null;
     public loginPage() throws SQLException {
         initComponents();
         
@@ -216,19 +215,39 @@ public class loginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
     
-    private void getID() {
-        String username = txtUsername.getText();
+    private String getIDCust(){
+        String id_cust = "";
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer where username = ('" + username + "');" ;
+            String query = "SELECT * FROM customer  where id_akun = ('" + getIDAkun() + "');" ;
             ResultSet rs = stmt.executeQuery(query);
             
             if(rs.next()){
-                this.id_user = rs.getString("id_user");
+                id_cust = rs.getString("id_customer");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    
+        return id_cust;
+    }
+    
+    private String getIDAkun() {
+        String username = txtUsername.getText();
+        String idAkun = "";
+        
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM akun where username = ('" + username + "');" ;
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if(rs.next()){
+                idAkun = rs.getString("id_akun");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idAkun; 
     }
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -238,7 +257,6 @@ public class loginPage extends javax.swing.JFrame {
 
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
-                //try connection
                 Statement stmt = (Statement) Connect.configDB().createStatement();
                 String query = "SELECT * FROM akun where username = ('" + username + "');" ;
                 ResultSet rs = stmt.executeQuery(query);
@@ -263,8 +281,7 @@ public class loginPage extends javax.swing.JFrame {
                             clear();
                             this.dispose();
                         } else if(role.equals("member")){
-                            getID();
-                            userDashboard usr = new userDashboard(id_user);
+                            userDashboard usr = new userDashboard(getIDCust());
                             usr.setVisible(true);
                             clear();
                             this.dispose();

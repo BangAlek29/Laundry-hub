@@ -43,7 +43,7 @@ public class tambahLayanan extends javax.swing.JFrame {
         hargaField = new javax.swing.JTextField();
         buttonTambah = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(40, 43, 40));
 

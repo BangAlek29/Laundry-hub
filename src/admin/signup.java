@@ -5,7 +5,7 @@
  */
 package admin;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
+import Main.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -171,7 +171,6 @@ public class signup extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
                             .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +179,8 @@ public class signup extends javax.swing.JFrame {
                                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(76, 76, 76)
                                     .addComponent(btnRegister))
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel6)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
@@ -218,11 +218,11 @@ public class signup extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegister))
@@ -262,25 +262,72 @@ public class signup extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         try {
-            if (isUsernameExist(txtUsername.getText()) && isPasswordEquals() && isFilled()) {
-                String getNumber = generateUserNumber();
-                String number = getNumber.replace("CST", "");
-                
+            String id_akun = generateIDAkun();
+            if (isUsernameExist(txtUsername.getText()) && isPasswordEquals() && isFilled()) {                
                 Statement stm = (Statement) Connect.configDB().createStatement();
-                stm.executeUpdate("INSERT INTO customer VALUES ('"+number+"','"+ getNumber +"','"+txtUsername.getText()+"','"+ txtName.getText() +"','"+ txtPhoneNumber.getText() +"','"+ txtAddress.getText() +"')");
-            
-                stm.executeUpdate("INSERT INTO akun VALUES ('"+txtUsername.getText()+"','"+ String.valueOf(txtPassword.getPassword()) +"','"+ String.valueOf("member") +"')");
+                stm.executeUpdate("INSERT INTO akun VALUES ('"+ id_akun+"','"+txtUsername.getText()+"','"+ String.valueOf(txtPassword.getPassword()) +"','"+ String.valueOf("member") +"')");
                 
+                stm.executeUpdate("INSERT INTO customer VALUES ('"+ generateIDCustomer() +"','"+ id_akun+"','"+ txtName.getText() +"','"+ txtPhoneNumber.getText() +"','"+ txtAddress.getText() +"')");
                 
+                                
                 stm.close();
                 
-                JOptionPane.showMessageDialog(this, "You are now registered");
+                JOptionPane.showMessageDialog(this, "User Successfuly added");
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Registration failed, please try again later");
             }
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private String generateIDAkun () { 
+        String lastId_akun = null;
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
+
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                lastId_akun = rs.getString("id_akun");
+            }
+            
+            if(lastId_akun == null){
+                lastId_akun = "AKN1";
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        int number = Integer.parseInt(lastId_akun.replace("AKN", ""));
+            return "AKN" + (number+1);
+    }
+    
+    private String generateIDCustomer () { 
+        String lastId_cust = null;
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM customer ORDER BY id_customer ASC";
+
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                lastId_cust = rs.getString("id_customer");
+            }
+            
+            if (lastId_cust == null) {
+                lastId_cust = "CST1";
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        int number = Integer.parseInt(lastId_cust.replace("CST", ""));
+            return "CST" + (number+1);
+    }
+    
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -323,24 +370,6 @@ public class signup extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please fill out the form");
             return false;
         }
-    }
-    
-    private String generateUserNumber () throws SQLException { 
-        int tempNumber = 0;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY number ASC";
-
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while (rs.next()) {
-                tempNumber = rs.getInt("number");
-            }
-
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-            return "CST" + (tempNumber+1);
     }
     
     private void clear () {
