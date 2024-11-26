@@ -27,7 +27,7 @@ public class adminDashboard extends javax.swing.JFrame {
     /**
      * Creates new form adminDashboard
      */
-    String username, password, idUser, nama, telepon, alamat;
+    String username, password, id_cust,id_akun ,nama, telepon, alamat;
     public adminDashboard() {
         initComponents();
         showTablesLogin();
@@ -249,9 +249,9 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
+                .addGap(209, 209, 209)
                 .addComponent(jLabel7)
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,26 +267,23 @@ public class adminDashboard extends javax.swing.JFrame {
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
+            .addGroup(userManagementPanelLayout.createSequentialGroup()
+                .addGap(72, 72, 72)
                 .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(userManagementPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(userManagementPanelLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, userManagementPanelLayout.createSequentialGroup()
-                                .addComponent(btnAddUser)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEdit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRefresh))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE))))
-                .addGap(90, 90, 90))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(userManagementPanelLayout.createSequentialGroup()
+                            .addComponent(btnAddUser)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnEdit)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnDelete)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRefresh))))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         userManagementPanelLayout.setVerticalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +368,7 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(297, 297, 297)
                 .addComponent(jLabel4)
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,32 +384,35 @@ public class adminDashboard extends javax.swing.JFrame {
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInformationLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(UserInformationLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserInformationLayout.createSequentialGroup()
+                        .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(63, Short.MAX_VALUE))
+                    .addGroup(UserInformationLayout.createSequentialGroup()
+                        .addComponent(btnRefresh2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEdit2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRefresh2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110))
+                        .addGap(71, 71, 71))))
         );
         UserInformationLayout.setVerticalGroup(
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(53, 53, 53)
                 .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEdit2)
-                    .addComponent(btnRefresh2))
+                .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRefresh2)
+                    .addComponent(btnEdit2))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
 
@@ -438,9 +438,9 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel2)
-                .addGap(215, 215, 215)
+                .addGap(166, 166, 166)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(327, 327, 327))
+                .addGap(264, 264, 264))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,14 +456,14 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -473,8 +473,8 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -506,7 +506,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
     private void showTablesLogin () {
         int n = 0;
-        String [] kolom = {"NO", "Username", "Password", "role"};
+        String [] kolom = {"NO","ID Akun", "Username", "Password", "role"};
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
@@ -515,10 +515,11 @@ public class adminDashboard extends javax.swing.JFrame {
             
             while (rs.next()){
                 n++;
+                String id_akun = rs.getString("id_akun");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String role = rs.getString("role");
-                tb1.addRow(new String[] {String.valueOf(n), username, password, role});
+                tb1.addRow(new String[] {String.valueOf(n),id_akun, username, password, role});
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -527,24 +528,9 @@ public class adminDashboard extends javax.swing.JFrame {
         tableLogin.setModel(tb1);
     }
     
-    private String getIDUserFromDB (String username) {
-        String result = "";
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer WHERE username = '"+username+"';";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if (rs.next()) {
-                result = rs.getString("id_user");
-            }
-        } catch (Exception e) {
-        }
-        return result;
-    }
-    
     private void showTableInformationUser () {
         int n = 0;
-        String [] kolom = {"NO", "ID User", "Nama", "Telepon", "Alamat"};
+        String [] kolom = {"NO", "ID Customer","ID Akun", "Nama", "Telepon", "Alamat"};
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
@@ -553,12 +539,13 @@ public class adminDashboard extends javax.swing.JFrame {
             
             while (rs.next()){
                 n++;
-                String idUser = rs.getString("id_user");
+                String id_cust = rs.getString("id_customer");
+                String id_akun = rs.getString("id_akun");
                 String Nama = rs.getString("nama");
                 String noTelp = rs.getString("telpon");
                 String alamat = rs.getString("alamat");
                 
-                tb1.addRow(new String[] {String.valueOf(n), idUser, Nama, noTelp, alamat});
+                tb1.addRow(new String[] {String.valueOf(n),id_cust,id_akun, Nama, noTelp, alamat});
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -566,31 +553,21 @@ public class adminDashboard extends javax.swing.JFrame {
         
         infoUserTable.setModel(tb1);
     }
-    
-    private String getIDUser () {
-        return txtIDUser.getText();
-    }
-    
-    private String getUsername () {
-        return txtUsername.getText();
-    }
-    
-    
-    
+       
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         try {
             if (!this.username.equals(null) && !this.password.equals(null)) {
-                insertIntoEditForm(this.username, this.password);
+                insertIntoEditForm(this.id_akun,this.username, this.password);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Please choose an account");
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void insertIntoEditInfoUser (String idUser, String nama, String noTelp, String addrs){
+    private void insertIntoEditInfoUser (){
         editInfoUserForm edtInfoUser = new editInfoUserForm();
-        edtInfoUser.txtID.setText(this.idUser);
+        edtInfoUser.txtID.setText(this.id_cust);
         edtInfoUser.txtName.setText(this.nama);
         edtInfoUser.txtPhone.setText(this.telepon);
         edtInfoUser.txtAddrs.setText(this.alamat);
@@ -601,20 +578,20 @@ public class adminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-            if (!this.username.equals(null) && !this.password.equals(null)) {
+            if (!this.username.equals(null) && !this.password.equals(null) && !this.id_cust.equals(null)) {
                 int response =JOptionPane.showConfirmDialog(this, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (response == JOptionPane.YES_OPTION) {
                         try {
                             Statement stmt = (Statement) Connect.configDB().createStatement();
-                            //delete record from login table
-                            stmt.executeUpdate("DELETE FROM akun WHERE username = '" + this.username+"';");
-
-                            //delete record from customer
-                            stmt.executeUpdate("DELETE FROM customer WHERE username = '" + this.username+"';");
-
+                            stmt.executeUpdate("DELETE FROM customer WHERE id_customer = '" + this.id_cust+"'");
+                            
+                            stmt.executeUpdate("DELETE FROM akun WHERE id_akun = '" + this.username+"'");
+                            jLabel1.setText(this.username);
+                            jLabel2.setText(this.id_cust);
                             JOptionPane.showMessageDialog(this, "The information was successfully updated");
                             showTablesLogin();
-                        } catch (Exception e) {
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
                     }else{
                         return;
@@ -638,16 +615,17 @@ public class adminDashboard extends javax.swing.JFrame {
         int row = tableLogin.getSelectedRow();
         TableModel model = tableLogin.getModel();
         
-        this.username = model.getValueAt(row, 1).toString();
-        this.password = model.getValueAt(row, 2).toString();
+        this.id_akun = model.getValueAt(row, 1).toString();
+        this.username = model.getValueAt(row, 2).toString();
+        this.password = model.getValueAt(row, 3).toString();
         
     }//GEN-LAST:event_tableLoginMouseClicked
 
     private void btnEdit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit2ActionPerformed
         // TODO add your handling code here:
         try {
-            if (!this.idUser.equals(null) && !this.nama.equals(null) && !this.telepon.equals(null) && !this.alamat.equals(null)) {
-                insertIntoEditInfoUser(this.idUser, this.nama, this.telepon, this.alamat);
+            if (!this.id_cust.equals(null) && !this.nama.equals(null) && !this.telepon.equals(null) && !this.alamat.equals(null)) {
+                insertIntoEditInfoUser();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Please choose an account");
@@ -657,7 +635,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private void btnRefresh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh2ActionPerformed
         // TODO add your handling code here:
         this.nama = null;
-        this.idUser = null;
+        this.id_cust = null;
         this.alamat = null;
         this.telepon = null;
         txtIDUser.setText("");
@@ -669,7 +647,7 @@ public class adminDashboard extends javax.swing.JFrame {
         int row = infoUserTable.getSelectedRow();
         TableModel model = infoUserTable.getModel();
         
-        this.idUser = model.getValueAt(row, 1).toString();
+        this.id_cust = model.getValueAt(row, 1).toString();
         this.nama = model.getValueAt(row, 2).toString();
         this.telepon = model.getValueAt(row, 3).toString();
         this.alamat = model.getValueAt(row, 4).toString();
@@ -705,25 +683,25 @@ public class adminDashboard extends javax.swing.JFrame {
 
     private void txtIDUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDUserActionPerformed
         // TODO add your handling code here:
-        if (!getIDUser().equals("")) {
+        if (!txtIDUser.getText().equals("")) {
             int n = 0;
-            String [] kolom = {"NO", "ID User", "Nama", "Telepon", "Alamat"};
+            String [] kolom = {"NO", "ID Customer","ID Akun" ,"Nama", "Telepon", "Alamat"};
             DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
             
             try {
                 Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM customer WHERE id_user = ('"+getIDUser()+"');";
+                String query = "SELECT * FROM customer WHERE id_customer = ('"+txtIDUser.getText()+"');";
                 ResultSet rs = stmt.executeQuery(query);
 
                 if (rs.next()) {
                     n++;
-                    String IDUser = rs.getString("id_user");
+                    String id_cust = rs.getString("id_customer");
                     String nama = rs.getString("nama");
                     String telpon = rs.getString("telpon");
                     String addr = rs.getString("alamat");
                     
                     
-                    tb1.addRow(new String[] {String.valueOf(n), IDUser, nama, telpon, addr});
+                    tb1.addRow(new String[] {String.valueOf(n), id_cust, nama, telpon, addr});
                     infoUserTable.setModel(tb1);
                 }else{
                     JOptionPane.showMessageDialog(this, "ID not found");
@@ -758,25 +736,26 @@ public class adminDashboard extends javax.swing.JFrame {
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
-        if (!getUsername().equals("")) {
+        if (!txtUsername.getText().equals("")) {
             int n = 0;
-            String [] kolom = {"NO", "Username", "Password","role"};
+            String [] kolom = {"NO", "ID Akun" ,"Username", "Password","role"};
             DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
             
             try {
                 Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM akun WHERE username LIKE '%" + getUsername() + "%' " +
-                           "OR password LIKE '%" + getUsername() + "%' " +
-                           "OR role LIKE '%" + getUsername() + "%';";
+                String query = "SELECT * FROM akun WHERE username LIKE '%" + txtUsername.getText() + "%' " +
+                           "OR password LIKE '%" + txtUsername.getText() + "%' " +
+                           "OR role LIKE '%" + txtUsername.getText() + "%';";
                 ResultSet rs = stmt.executeQuery(query);
 
                 if (rs.next()) {
                     n++;
+                    String id_akun = rs.getString("id_akun");
                     String username = rs.getString("username");
                     String password = rs.getString("password");
                     String role = rs.getString("role");
 
-                    tb1.addRow(new String[] {String.valueOf(n), username, password, role});
+                    tb1.addRow(new String[] {String.valueOf(n),id_akun, username, password, role});
                     tableLogin.setModel(tb1);
                 }else{
                     JOptionPane.showMessageDialog(this, "Username not found");
@@ -791,7 +770,7 @@ public class adminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtUsernameActionPerformed
 
-    private void insertIntoEditForm (String username, String password) {
+    private void insertIntoEditForm (String id_akun,String username, String password) {
         editLoginForm edit = new editLoginForm();
         edit.tempUsername = username;
         edit.txtUsername.setText(username);

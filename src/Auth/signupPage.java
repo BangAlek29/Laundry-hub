@@ -265,14 +265,13 @@ public class signupPage extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         try {
-            if (isUsernameExist(txtUsername.getText()) && isPasswordEquals() && isFilled()) {
-                String getNumber = generateUserNumber();
-                String number = getNumber.replace("CST", "");
-                
+            String id_akun = generateIDAkun();
+            if (isUsernameExist(txtUsername.getText()) && isPasswordEquals() && isFilled()) {                
                 Statement stm = (Statement) Connect.configDB().createStatement();
-                stm.executeUpdate("INSERT INTO customer VALUES ('"+number+"','"+ getNumber +"','"+txtUsername.getText()+"','"+ txtName.getText() +"','"+ txtPhoneNumber.getText() +"','"+ txtAddress.getText() +"')");
-
-                stm.executeUpdate("INSERT INTO akun VALUES ('"+txtUsername.getText()+"','"+ String.valueOf(txtPassword.getPassword()) +"','"+ String.valueOf("member") +"')");
+                stm.executeUpdate("INSERT INTO akun VALUES ('"+ id_akun+"','"+txtUsername.getText()+"','"+ String.valueOf(txtPassword.getPassword()) +"','"+ String.valueOf("member") +"')");
+                
+                stm.executeUpdate("INSERT INTO customer VALUES ('"+ generateIDCustomer() +"','"+ id_akun+"','"+ txtName.getText() +"','"+ txtPhoneNumber.getText() +"','"+ txtAddress.getText() +"')");
+                
                                 
                 stm.close();
                 
@@ -283,8 +282,8 @@ public class signupPage extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(this, "Registration failed, please try again later");
             }
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -338,22 +337,50 @@ public class signupPage extends javax.swing.JFrame {
         }
     }
     
-    private String generateUserNumber () throws SQLException { 
-        int tempNumber = 0;
+    private String generateIDCustomer () { 
+        String lastId_cust = null;
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY number ASC";
+            String query = "SELECT * FROM customer ORDER BY id_customer ASC";
 
             ResultSet rs = stmt.executeQuery(query);
             
             while (rs.next()) {
-                tempNumber = rs.getInt("number");
+                lastId_cust = rs.getString("id_customer");
+            }
+            
+            if (lastId_cust == null) {
+                lastId_cust = "CST1";
             }
 
         } catch (Exception e) {
             System.err.println(e);
         }
-            return "CST" + (tempNumber+1);
+        int number = Integer.parseInt(lastId_cust.replace("CST", ""));
+            return "CST" + (number+1);
+    }
+    
+    private String generateIDAkun () { 
+        String lastId_akun = null;
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
+
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                lastId_akun = rs.getString("id_akun");
+            }
+            
+            if(lastId_akun == null){
+                lastId_akun = "AKN1";
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        int number = Integer.parseInt(lastId_akun.replace("AKN", ""));
+            return "AKN" + (number+1);
     }
     
     private void clear () {
