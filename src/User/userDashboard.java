@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import koneksiDatabase.Connect;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import model.CustomerModel;
 /**
  *
  * @author dzikr
@@ -23,40 +24,21 @@ public class userDashboard extends javax.swing.JFrame {
     /**
      * Creates new form kasirDashboard
      */
-     String id_cust;
-    public userDashboard(String id_cust) {
-        this.id_cust = id_cust;
+    
+    private final UserController controller;
+    private final CustomerModel cst;
+
+    public userDashboard(CustomerModel cst) {
+        this.cst = cst; // Inisialisasi model CustomerModel
+        this.controller = new UserController(this); // Inisialisasi controller dengan userDashboard
         initComponents();
         setLocationRelativeTo(null);
         renderCbLayanan();
-        showTabelRiwayat();
+        controller.refreshTable(cst.getIdCustomer()); // Panggil refreshTable dengan idCustomer dari model
     }
     
-    private void showTabelRiwayat(){
-        int n = 0;
-        String [] kolom = {"NO", "id_pesanan" , "berat" ,"Harga", "Tanggal Selesai", "Jam Selesai"};
-        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM pesanan  WHERE id_customer = '"+this.id_cust+"'";
-            ResultSet rs = stmt.executeQuery(query);
+    
 
-            
-            while(rs.next()){
-                n++;
-                String id_pesanan = rs.getString("id_pesanan");
-                int berat = rs.getInt("berat");
-                int harga = rs.getInt("harga");
-                String tanggalAmbil = rs.getString("tanggalSelesai");
-                String jamAmbil = rs.getString("jamSelesai");
-                tb1.addRow(new String[] {String.valueOf(n), id_pesanan, String.valueOf(berat) , String.valueOf(harga), tanggalAmbil, jamAmbil});
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        jTable2.setModel(tb1);
-    }
-    
     private void renderCbLayanan(){
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
@@ -131,7 +113,6 @@ public class userDashboard extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         searchLayananButton = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -340,11 +321,6 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel3.setText("NAMA :");
 
         txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -418,11 +394,6 @@ public class userDashboard extends javax.swing.JFrame {
 
         txtNama1.setEditable(false);
         txtNama1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNama1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNama1ActionPerformed(evt);
-            }
-        });
 
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -510,7 +481,7 @@ public class userDashboard extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
                         .addComponent(orderButton)
                         .addGap(15, 15, 15)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         orderPanelLayout.setVerticalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,13 +556,6 @@ public class userDashboard extends javax.swing.JFrame {
 
         searchLayananButton.setText("Search");
 
-        jButton1.setText("Refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setText("Refresh");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -604,14 +568,8 @@ public class userDashboard extends javax.swing.JFrame {
         RiwayatPemesananPanelLayout.setHorizontalGroup(
             RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
-                .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RiwayatPemesananPanelLayout.createSequentialGroup()
-                        .addContainerGap(14, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 632, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
@@ -623,7 +581,7 @@ public class userDashboard extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(searchLayananButton))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         RiwayatPemesananPanelLayout.setVerticalGroup(
             RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -638,8 +596,6 @@ public class userDashboard extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addGap(77, 77, 77)
-                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -727,6 +683,7 @@ public class userDashboard extends javax.swing.JFrame {
         
         labelHarga.setText(displayHarga);
     }
+    
     private String formatHarga(int harga) {
         java.text.NumberFormat format = java.text.NumberFormat.getInstance();
         format.setGroupingUsed(true);
@@ -741,18 +698,15 @@ public class userDashboard extends javax.swing.JFrame {
             return;
         }
         try {
-            String getNumber = generateUserNumber();
-            String number = getNumber.replace("CST", "");
-
             Statement stmt = (Statement) Connect.configDB().createStatement();
             if(rbCustomerBaru.isSelected()){
-                String query1 = "INSERT INTO pesanan (id_pesanan,id_customer,id_layanan,berat,harga) VALUE (  '"+generateIdPesanan()+"','"+id_cust+"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"')";
-                String query2 = "INSERT INTO customer (number,id_customer,nama,telpon,alamat) VALUE ('"+number+"','"+generateIdCust()+"','"+txtNama.getText()+"','"+txtTelepon.getText()+"','"+txtAlamat.getText()+"')";
+                String query1 = "INSERT INTO pesanan (id_pesanan,id_customer,id_layanan,berat,harga) VALUE (  '"+generateIdPesanan()+"','"+ cst.getIdCustomer()+ "','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"')";
+                String query2 = "INSERT INTO customer VALUE ('"+generateIdCust()+"','"+generateIdAkun()+"','"+txtNama.getText()+"','"+txtTelepon.getText()+"','"+txtAlamat.getText()+"')";
                 stmt.executeUpdate(query2);
                 stmt.executeUpdate(query1);
 
             } else {
-                String query = "INSERT INTO pesanan (id_pesanan,id_customer,id_layanan,berat,harga) VALUE (  '"+generateIdPesanan()+"','"+id_cust+"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"')";
+                String query = "INSERT INTO pesanan (id_pesanan,id_customer,id_layanan,berat,harga) VALUE ('"+generateIdPesanan()+"','"+ cst.getIdCustomer() +"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"')";
                 stmt.executeUpdate(query);
             }
             JOptionPane.showMessageDialog(this, "Order successfully placed");
@@ -760,6 +714,26 @@ public class userDashboard extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_orderButtonActionPerformed
+    
+    private String generateIdAkun(){
+        String tempID = "";
+        try {
+            Statement stm = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
+            ResultSet rs = stm.executeQuery(query);
+            
+            while(rs.next()){
+                tempID = rs.getString("id_akun");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String ID = tempID.replace("AKN", "");
+        int IDint = Integer.parseInt(ID);
+        
+        return "AKN" + (IDint+1);
+    }
     
     private String generateIdCust(){
         String tempID = "";
@@ -791,7 +765,6 @@ public class userDashboard extends javax.swing.JFrame {
             if(rs.next()){
                 tempID = rs.getString("id_pesanan");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -806,7 +779,6 @@ public class userDashboard extends javax.swing.JFrame {
         return "LDR" + (IDint + 1);
     }
 
-    
     private int hitungHarga(int berat){
         int harga = 0;
         try {
@@ -845,24 +817,6 @@ public class userDashboard extends javax.swing.JFrame {
         return idLayanan;
     }
     
-    private String generateUserNumber () throws SQLException { 
-        int tempNumber = 0;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY number ASC";
-
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while (rs.next()) {
-                tempNumber = rs.getInt("number");
-            }
-
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-            return "CST" + (tempNumber+1);
-    }
-    
     private void rbCustomerBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomerBaruActionPerformed
         // TODO add your handling code here:
         pnlCustomer.removeAll();
@@ -887,7 +841,7 @@ public class userDashboard extends javax.swing.JFrame {
         String alamat = "", noTelp = "",nama = "";
         try {
             Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer WHERE id_customer = '" + this.id_cust + "';";
+            String query = "SELECT * FROM customer WHERE id_customer = '" + cst.getIdCustomer() + "';";
             ResultSet rs = stm.executeQuery(query);
             
             if(rs.next()){
@@ -908,40 +862,11 @@ public class userDashboard extends javax.swing.JFrame {
         renderHarga();
     }//GEN-LAST:event_spnBeratStateChanged
 
-    private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaActionPerformed
-
-    private void txtNama1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNama1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNama1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        showTabelRiwayat();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        showTabelRiwayat();
+        controller.refreshTable(cst.getIdCustomer());
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    
-    private void hitungHarga(){
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT nama,harga FROM layanan;";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while (rs.next()){
-                
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    
+     
     /**
      * @param args the command line arguments
      */
@@ -957,7 +882,8 @@ public class userDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new userDashboard("").setVisible(true);
+                CustomerModel cst = new CustomerModel();
+                new userDashboard(cst).setVisible(true);
             }
         });
     }
@@ -973,7 +899,6 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel customerBaruPanel;
     private javax.swing.JPanel customerLamaPanel;
     private admin.editLoginForm editLoginForm1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -994,7 +919,7 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
+    public javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel labelHarga;
     private javax.swing.JPanel mainPanel;

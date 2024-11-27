@@ -7,7 +7,9 @@ package kasir;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import koneksiDatabase.Connect;
+import model.LayananModel;
 
 /**
  *
@@ -132,16 +134,33 @@ public class tambahLayanan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        // TODO add your handling code here:
-        try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            stm.executeUpdate("INSERT INTO layanan VALUES('"+generateID()+"','"+namaField.getText()+"','"+hargaField.getText()+"','"+deskripsiField.getText()+"')");
-            stm.close();
-            this.dispose();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+            // Validasi input
+            if (namaField.getText().isEmpty() || hargaField.getText().isEmpty() || deskripsiField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Semua field harus diisi.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Membuat objek model LayananModel
+            LayananModel layanan = new LayananModel(
+                generateID(), // ID yang di-generate otomatis
+                namaField.getText(), // Nama layanan
+                Integer.parseInt(hargaField.getText()), // Harga layanan (konversi ke Integer)
+                deskripsiField.getText() // Deskripsi layanan
+            );
+
+            // Panggil controller untuk menambahkan layanan
+            LayananController controller = new LayananController();
+            controller.addLayanan(layanan);
+
+            // Berikan notifikasi berhasil
+            JOptionPane.showMessageDialog(this, "Layanan berhasil ditambahkan.");
+            this.dispose(); // Tutup form setelah selesai
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Harga harus berupa angka.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_buttonTambahActionPerformed
     private String generateID(){
         String tempID = "";

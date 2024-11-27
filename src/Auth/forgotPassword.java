@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
+import javax  .swing.JOptionPane;
 import javax.swing.UIManager;
 import koneksiDatabase.Connect;
 

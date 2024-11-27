@@ -7,6 +7,7 @@ package kasir;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import model.LayananModel;
 import javax.swing.JOptionPane;
 import koneksiDatabase.Connect;
 
@@ -16,14 +17,28 @@ import koneksiDatabase.Connect;
  */
 public class editLayanan extends javax.swing.JFrame {
 
-    /**
-     * Creates new form tambahLayanan
-     */
-    public editLayanan() {
+    private final LayananController layananController;
+    private final LayananModel layanan;
+
+    public editLayanan(LayananModel layanan) {
         initComponents();
         setLocationRelativeTo(null);
+        layananController = new LayananController(); // Inisialisasi controller
+        this.layanan = layanan; // Inisialisasi model layanan
+        loadLayananData(); // Muat data layanan ke form
     }
-
+    
+    // Constructor default untuk keperluan demo atau testing
+    public editLayanan() {
+        this(new LayananModel("LYN1", "Default", 0, "Deskripsi default"));
+    }
+    
+    private void loadLayananData() {
+        txtIdLayanan.setText(layanan.getIdLayanan());
+        namaField.setText(layanan.getNama());
+        txtHarga.setText(String.valueOf(layanan.getHarga()));
+        txtDeskripsi.setText(layanan.getDeskripsi());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,25 +161,16 @@ public class editLayanan extends javax.swing.JFrame {
     
     
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        if (namaField.getText().equals("") && txtDeskripsi.getText().equals("") && txtHarga.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return;
-        }
-        int response =JOptionPane.showConfirmDialog(this, "Are you sure ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.YES_OPTION) {
-            try {
-                Statement stmt = (Statement) Connect.configDB().createStatement();
-                //update record from table customer
-                stmt.executeUpdate("UPDATE layanan SET nama = '"+namaField.getText()+"', harga = '"+txtHarga.getText()+"', deskripsi = '"+txtDeskripsi.getText()+"' WHERE id_layanan = '"+txtIdLayanan.getText()+"';");
+    try {
+            layanan.setNama(namaField.getText());
+            layanan.setHarga(Integer.parseInt(txtHarga.getText()));
+            layanan.setDeskripsi(txtDeskripsi.getText());
 
-                JOptionPane.showMessageDialog(this, "The information was successfully updated");
-                this.dispose();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else{
-            return;
+            layananController.updateLayanan(layanan);
+            JOptionPane.showMessageDialog(this, "Layanan berhasil diperbarui.");
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
         
     }//GEN-LAST:event_btnEditActionPerformed

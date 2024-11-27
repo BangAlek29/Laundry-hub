@@ -5,20 +5,21 @@
  */
 package Main;
 
+import model.AkunModel;
 import admin.adminDashboard;
 import Auth.forgotPassword;
 import Auth.signupPage;
 import User.userDashboard;
 import com.formdev.flatlaf.FlatDarkLaf;
-import java.sql.ResultSet;
+import dao.CustomerDAO;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import kasir.kasirDashboard;
-import koneksiDatabase.Connect;
+import model.CustomerModel;
+import admin.adminController;
 
 
 /**
@@ -82,22 +83,12 @@ public class loginPage extends javax.swing.JFrame {
         txtUsername.setName(""); // NOI18N
         txtUsername.setPreferredSize(new java.awt.Dimension(80, 30));
         txtUsername.setSelectionColor(new java.awt.Color(187, 187, 187));
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
-            }
-        });
 
         txtPassword.setBackground(new java.awt.Color(60, 60, 60));
         txtPassword.setMinimumSize(new java.awt.Dimension(80, 30));
         txtPassword.setName(""); // NOI18N
         txtPassword.setPreferredSize(new java.awt.Dimension(80, 30));
         txtPassword.setSelectionColor(new java.awt.Color(187, 187, 187));
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
 
         btnSignUp.setText("SIGN UP");
         btnSignUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -204,114 +195,57 @@ public class loginPage extends javax.swing.JFrame {
         signupPage signup = null;
         try {
             signup = new signupPage();
-        } catch (SQLException ex) {
-            Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         signup.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSignUpActionPerformed
+    
 
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
-    
-    private String getIDCust(){
-        String id_cust = "";
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer  where id_akun = ('" + getIDAkun() + "');" ;
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if(rs.next()){
-                id_cust = rs.getString("id_customer");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    
-        return id_cust;
-    }
-    
-    private String getIDAkun() {
-        String username = txtUsername.getText();
-        String idAkun = "";
-        
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM akun where username = ('" + username + "');" ;
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if(rs.next()){
-                idAkun = rs.getString("id_akun");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return idAkun; 
-    }
-    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // get username and password
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
 
         if (!username.isEmpty() && !password.isEmpty()) {
-            try {
-                Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM akun where username = ('" + username + "');" ;
-                ResultSet rs = stmt.executeQuery(query);
+            AkunModel user = AuthController.validateLogin(username, password);
+            if (user != null) {
+                switch (user.getRole()) {
+                    case "admin":
+                        adminDashboard adm = new adminDashboard();
+                        adminController adm1 = new adminController(adm);
+                        adm.setVisible(true);
+                        break;
+                    case "kasir":
+                        kasirDashboard ksr = new kasirDashboard();
+                        ksr.setVisible(true);
+                        break;       
+                    case "member":
+                        CustomerDAO CD = new CustomerDAO();
+                        CustomerModel cst = null;
+                        try {
+                            cst = CD.getCustomerByIdAkun(user.getIdAkun());
+                            System.out.print(user.getIdAkun());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        userDashboard usr = new userDashboard(cst);
+                        usr.setVisible(true);
+                        break;
 
-                //check result from username
-                if (rs.next()) {
-                    //if username was found then we check the password
-                    if (password.equals(rs.getString("password"))){
-                        String role = rs.getString("role");
-                        //check if username is admin
-                        if (role.equals("admin")) {
-                            //create and redirect to admin dashboard
-                            adminDashboard adm = new adminDashboard();
-                            adm.setVisible(true);
-                            clear();
-                            this.dispose();
-                        }
-                        //check if username is admin
-                        else if(role.equals("kasir")){
-                            kasirDashboard ksr = new kasirDashboard();
-                            ksr.setVisible(true);
-                            clear();
-                            this.dispose();
-                        } else if(role.equals("member")){
-                            userDashboard usr = new userDashboard(getIDCust());
-                            usr.setVisible(true);
-                            clear();
-                            this.dispose();
-                        }
-                    }else{
-                        //Username was found but the password doesn't match
-                        JOptionPane.showMessageDialog(this, "Wrong Password");
-                        clear();
-                    }
-                }else{
-                    //username not found
-                    JOptionPane.showMessageDialog(this, "Username Not Found");
-                    clear();
+                    default:
+                        JOptionPane.showMessageDialog(this, "Invalid user role.");
+                        break;
                 }
-            } catch (Exception e) {
-                System.err.println(e);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Incorrect username or password.");
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please fill out both fields.");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
- 
-    private void clear (){
-        txtUsername.setText("");
-        txtPassword.setText("");
-    }
     /**
      * @param args the command line arguments
      */
@@ -329,8 +263,8 @@ public class loginPage extends javax.swing.JFrame {
             public void run() {
                 try {
                     new loginPage().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
