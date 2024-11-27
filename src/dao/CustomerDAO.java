@@ -41,6 +41,8 @@ public class CustomerDAO {
 
         return customer;
     }
+    
+    
 
     public static void addCustomer(CustomerModel customer) throws SQLException {
         Connection conn = Connect.configDB();
@@ -127,4 +129,27 @@ public class CustomerDAO {
         int number = Integer.parseInt(lastId_cust.replace("CST", ""));
             return "CST" + (number+1);
     }
+    
+    public List<CustomerModel> searchCustomer(String keyword) throws SQLException {
+        Connection conn = Connect.configDB();
+        String query = "SELECT * FROM customer WHERE nama LIKE ? OR id_customer LIKE ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, "%" + keyword + "%");
+        stmt.setString(2, "%" + keyword + "%");
+        ResultSet rs = stmt.executeQuery();
+
+        List<CustomerModel> customers = new ArrayList<>();
+        while (rs.next()) {
+            CustomerModel customer = new CustomerModel(
+                    rs.getString("id_customer"),
+                    rs.getString("id_akun"),
+                    rs.getString("nama"),
+                    rs.getString("telpon"),
+                    rs.getString("alamat"));
+            customers.add(customer);
+        }
+
+        return customers;
+    }
+
 }

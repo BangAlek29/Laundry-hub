@@ -5,20 +5,16 @@
  */
 package admin;
 
-import Auth.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import koneksiDatabase.Connect;
 
 /**
@@ -30,9 +26,6 @@ public class adminDashboard extends javax.swing.JFrame {
     /**
      * Creates new form adminDashboard
      */
-    String username, password, id_cust, id_akun, nama, telepon, alamat;
-
-
     public adminDashboard() {
         initComponents();
     }
@@ -50,6 +43,8 @@ public class adminDashboard extends javax.swing.JFrame {
         tableLogin.addMouseListener(aThis);
         btnEdit2.addActionListener(aThis);
         btnRefresh2.addActionListener(aThis);
+        txtSearchInfo.addActionListener(aThis);
+        txtSearchUser.addActionListener(aThis);
     }
     
     public JButton getBtnAddUser(){
@@ -107,6 +102,15 @@ public class adminDashboard extends javax.swing.JFrame {
     public JButton getBtnEditInfoUser(){
         return btnEdit2;
     }
+    
+    public JTextField getTxtSearchUsername(){
+        return txtSearchUser;
+    }
+    
+    
+    public JTextField getTxtSeachInfo(){
+        return txtSearchInfo;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,7 +132,7 @@ public class adminDashboard extends javax.swing.JFrame {
         tableLogin = new javax.swing.JTable();
         btnEditUser = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        txtUsername = new javax.swing.JTextField();
+        txtSearchUser = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
         btnAddUser = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -138,7 +142,7 @@ public class adminDashboard extends javax.swing.JFrame {
         infoUserTable = new javax.swing.JTable();
         btnEdit2 = new javax.swing.JButton();
         btnRefresh2 = new javax.swing.JButton();
-        txtIDUser = new javax.swing.JTextField();
+        txtSearchInfo = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -242,13 +246,8 @@ public class adminDashboard extends javax.swing.JFrame {
         btnDelete.setForeground(java.awt.Color.white);
         btnDelete.setText("Delete User");
 
-        txtUsername.setBackground(new java.awt.Color(60, 60, 60));
-        txtUsername.setText("Search");
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
-            }
-        });
+        txtSearchUser.setBackground(new java.awt.Color(60, 60, 60));
+        txtSearchUser.setText("Search");
 
         btnRefresh.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         btnRefresh.setForeground(java.awt.Color.white);
@@ -295,7 +294,7 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(userManagementPanelLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(userManagementPanelLayout.createSequentialGroup()
@@ -314,7 +313,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -354,13 +353,8 @@ public class adminDashboard extends javax.swing.JFrame {
         btnRefresh2.setText("Refresh");
         btnRefresh2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        txtIDUser.setBackground(new java.awt.Color(60, 60, 60));
-        txtIDUser.setText("Search");
-        txtIDUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDUserActionPerformed(evt);
-            }
-        });
+        txtSearchInfo.setBackground(new java.awt.Color(60, 60, 60));
+        txtSearchInfo.setText("Search");
 
         jPanel4.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
         jPanel4.setPreferredSize(new java.awt.Dimension(443, 45));
@@ -399,7 +393,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserInformationLayout.createSequentialGroup()
                         .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(63, Short.MAX_VALUE))
                     .addGroup(UserInformationLayout.createSequentialGroup()
@@ -414,7 +408,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
-                .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -501,75 +495,6 @@ public class adminDashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDUserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtIDUserActionPerformed
-        // TODO add your handling code here:
-        if (!txtIDUser.getText().equals("")) {
-            int n = 0;
-            String[] kolom = { "NO", "ID Customer", "ID Akun", "Nama", "Telepon", "Alamat" };
-            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-
-            try {
-                Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM customer WHERE id_customer = ('" + txtIDUser.getText() + "');";
-                ResultSet rs = stmt.executeQuery(query);
-
-                if (rs.next()) {
-                    n++;
-                    String id_cust = rs.getString("id_customer");
-                    String nama = rs.getString("nama");
-                    String telpon = rs.getString("telpon");
-                    String addr = rs.getString("alamat");
-
-                    tb1.addRow(new String[] { String.valueOf(n), id_cust, nama, telpon, addr });
-                    infoUserTable.setModel(tb1);
-                } else {
-                    JOptionPane.showMessageDialog(this, "ID not found");
-                }
-
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return;
-        }
-    }// GEN-LAST:event_txtIDUserActionPerformed
-
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtUsernameActionPerformed
-        // TODO add your handling code here:
-        if (!txtUsername.getText().equals("")) {
-            int n = 0;
-            String[] kolom = { "NO", "ID Akun", "Username", "Password", "role" };
-            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-
-            try {
-                Statement stmt = (Statement) Connect.configDB().createStatement();
-                String query = "SELECT * FROM akun WHERE username LIKE '%" + txtUsername.getText() + "%' " +
-                        "OR password LIKE '%" + txtUsername.getText() + "%' " +
-                        "OR role LIKE '%" + txtUsername.getText() + "%';";
-                ResultSet rs = stmt.executeQuery(query);
-
-                if (rs.next()) {
-                    n++;
-                    String id_akun = rs.getString("id_akun");
-                    String username = rs.getString("username");
-                    String password = rs.getString("password");
-                    String role = rs.getString("role");
-
-                    tb1.addRow(new String[] { String.valueOf(n), id_akun, username, password, role });
-                    tableLogin.setModel(tb1);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Username not found");
-                }
-
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return;
-        }
-    }// GEN-LAST:event_txtUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -617,8 +542,8 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTable tableLogin;
-    private javax.swing.JTextField txtIDUser;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtSearchInfo;
+    private javax.swing.JTextField txtSearchUser;
     private javax.swing.JPanel userManagementPanel;
     // End of variables declaration//GEN-END:variables
 }

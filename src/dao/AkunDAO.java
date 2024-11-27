@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import koneksiDatabase.Connect;
 import model.AkunModel;
 
@@ -40,6 +42,30 @@ public class AkunDAO {
         return null;
     }
     
+    public static List<AkunModel> SearchAkun(String key){
+        List<AkunModel> listAkun = new ArrayList<>();
+        try {
+            
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM akun WHERE username LIKE '%" + key + "%' " +
+                    "OR password LIKE '%" + key + "%' " +
+                    "OR role LIKE '%" + key + "%';";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                AkunModel akun = new AkunModel();
+                akun.setIdAkun(rs.getString("id_akun"));
+                akun.setUsername(rs.getString("username"));
+                akun.setPassword(rs.getString("password"));
+                akun.setRole(rs.getString("role"));
+                listAkun.add(akun);
+            }
+            return listAkun;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return null;
+    }
     
     private static String getIdAkunByUsername(String username) {
         String idAkun = "";
