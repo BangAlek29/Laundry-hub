@@ -18,7 +18,6 @@ public class UserController {
     public UserController(userDashboard view) {
         this.view = view;
         this.pesananDAO = new PesananDAO();
-
     }
 
     public void refreshTable(String idCustomer) {

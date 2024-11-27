@@ -3,23 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package Auth;
 
-import model.AkunModel;
-import admin.adminDashboard;
-import Auth.forgotPassword;
-import Auth.signupPage;
-import User.userDashboard;
-import com.formdev.flatlaf.FlatDarkLaf;
-import dao.CustomerDAO;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import kasir.kasirDashboard;
-import model.CustomerModel;
-import admin.adminController;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 
 /**
@@ -32,9 +19,38 @@ public class loginPage extends javax.swing.JFrame {
      * Creates new form loginPage
      */
 
-    public loginPage() throws SQLException {
+    public loginPage(){
         initComponents();
         
+    }
+    
+    public String getUsername(){
+        return txtUsername.getText();
+    }
+    
+    public String getPassword(){
+        return txtPassword.getText();
+    }
+    
+    public JButton getLoginbtn(){
+        return btnLogin;
+    }
+    
+    public JButton getSignButton(){
+        return btnSignUp;
+    }
+    
+    public JLabel getForgotPass(){
+        return forgotPassword;
+    }
+    
+    public void addActionListener(LoginController aThis) {
+        btnLogin.addActionListener(aThis);
+        btnSignUp.addActionListener(aThis);
+    }
+    
+    public void addMouseListener(LoginController aThis){
+        forgotPassword.addMouseListener(aThis);
     }
 
     /**
@@ -68,7 +84,6 @@ public class loginPage extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/laundry.png"))); // NOI18N
         jLabel1.setText("LOGIN");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -92,53 +107,39 @@ public class loginPage extends javax.swing.JFrame {
 
         btnSignUp.setText("SIGN UP");
         btnSignUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSignUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSignUpActionPerformed(evt);
-            }
-        });
 
         btnLogin.setBackground(new java.awt.Color(99, 102, 241));
         btnLogin.setText("LOGIN");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setFocusPainted(false);
         btnLogin.setPreferredSize(new java.awt.Dimension(74, 23));
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
 
         forgotPassword.setForeground(new java.awt.Color(99, 102, 241));
         forgotPassword.setText("Forgot Password ?");
         forgotPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        forgotPassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                forgotPasswordMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(forgotPassword)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSignUp)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(forgotPassword)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnSignUp)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel1)))
                 .addContainerGap(65, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(97, 97, 97))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,83 +183,13 @@ public class loginPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void forgotPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordMouseClicked
-        // TODO add your handling code here:
-        forgotPassword reset = new forgotPassword();
-        reset.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_forgotPasswordMouseClicked
-
-    private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        // TODO add your handling code here:
-        signupPage signup = null;
-        try {
-            signup = new signupPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        signup.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnSignUpActionPerformed
     
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String username = txtUsername.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-
-        if (!username.isEmpty() && !password.isEmpty()) {
-            AkunModel user = AuthController.validateLogin(username, password);
-            if (user != null) {
-                switch (user.getRole()) {
-                    case "admin":
-                        adminDashboard adm = new adminDashboard();
-                        adminController adm1 = new adminController(adm);
-                        adm.setVisible(true);
-                        break;
-                    case "kasir":
-                        kasirDashboard ksr = new kasirDashboard();
-                        ksr.setVisible(true);
-                        break;       
-                    case "member":
-                        CustomerDAO CD = new CustomerDAO();
-                        CustomerModel cst = null;
-                        try {
-                            cst = CD.getCustomerByIdAkun(user.getIdAkun());
-                            System.out.print(user.getIdAkun());
-                        } catch (SQLException ex) {
-                            Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        userDashboard usr = new userDashboard(cst);
-                        usr.setVisible(true);
-                        break;
-
-                    default:
-                        JOptionPane.showMessageDialog(this, "Invalid user role.");
-                        break;
-                }
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Incorrect username or password.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please fill out both fields.");
-        }
-    }//GEN-LAST:event_btnLoginActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

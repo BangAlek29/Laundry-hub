@@ -5,18 +5,12 @@
  */
 package Auth;
 
-import Main.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
-import java.awt.Color;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
-import koneksiDatabase.Connect;
 
 /**
  *
@@ -27,10 +21,71 @@ public class signupPage extends javax.swing.JFrame {
     /**
      * Creates new form signupPage
      */
-    public signupPage() throws SQLException {
+    public signupPage(){
         initComponents();
     }
+    
+    public String getNameField(){
+        return txtName.getText();
+    }
+    
+    public void setNameField(String name){
+        txtName.setText(name);
+    }
+    
+    public String getUsernameField(){
+        return txtUsername.getText();
+    }
+    
+    public String getPhoneField(){
+        return txtPhoneNumber.getText();
+    }
+    
+    public String getPasswordField(){
+        return txtPassword.getText();
+    }
+    
+    public String getConfrimPasswordField(){
+        return txtConfirmPassword.getText();
+    }
+    
+    public void setUsernameField(String username){
+    txtUsername.setText(username);
+}
 
+    public void setPhoneField(String phoneNumber){
+        txtPhoneNumber.setText(phoneNumber);
+    }
+
+    public void setPasswordField(String password){
+        txtPassword.setText(password);
+    }
+
+    public void setConfirmPasswordField(String confirmPassword){
+        txtConfirmPassword.setText(confirmPassword);
+    }
+
+    
+    public String getAddressField(){
+        return txtAddress.getText();
+    }
+    
+    public JLabel getBackToLogin(){
+        return backToLogin;
+    }
+    
+    public JButton getSignUpButton(){
+        return btnRegister;
+    }
+    
+    public void addActionListener(SignUpController aThis) {
+        btnRegister.addActionListener(aThis);
+    }
+    
+    public void addMouseListener(SignUpController aThis){
+        backToLogin.addMouseListener(aThis);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,79 +137,24 @@ public class signupPage extends javax.swing.JFrame {
         jLabel7.setText("Address");
 
         txtName.setBackground(new java.awt.Color(60, 60, 60));
-        txtName.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
 
         txtPhoneNumber.setBackground(new java.awt.Color(60, 60, 60));
-        txtPhoneNumber.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        txtPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPhoneNumberActionPerformed(evt);
-            }
-        });
 
         txtUsername.setBackground(new java.awt.Color(60, 60, 60));
-        txtUsername.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
-            }
-        });
 
         txtPassword.setBackground(new java.awt.Color(60, 60, 60));
-        txtPassword.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
         txtConfirmPassword.setBackground(new java.awt.Color(60, 60, 60));
-        txtConfirmPassword.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
         txtAddress.setBackground(new java.awt.Color(60, 60, 60));
-        txtAddress.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        txtAddress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAddressActionPerformed(evt);
-            }
-        });
 
         btnRegister.setBackground(new java.awt.Color(99, 102, 241));
         btnRegister.setText("SIGN UP");
-        btnRegister.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegisterActionPerformed(evt);
-            }
-        });
 
         backToLogin.setForeground(new java.awt.Color(99, 102, 241));
         backToLogin.setText("Already Registered ?");
         backToLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        backToLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backToLoginMouseClicked(evt);
-            }
-        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -247,150 +247,7 @@ public class signupPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
-
-    private void txtPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPhoneNumberActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-
-    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAddressActionPerformed
-
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        try {
-            String id_akun = generateIDAkun();
-            if (isUsernameExist(txtUsername.getText()) && isPasswordEquals() && isFilled()) {                
-                Statement stm = (Statement) Connect.configDB().createStatement();
-                stm.executeUpdate("INSERT INTO akun VALUES ('"+ id_akun+"','"+txtUsername.getText()+"','"+ String.valueOf(txtPassword.getPassword()) +"','"+ String.valueOf("member") +"')");
-                
-                stm.executeUpdate("INSERT INTO customer VALUES ('"+ generateIDCustomer() +"','"+ id_akun+"','"+ txtName.getText() +"','"+ txtPhoneNumber.getText() +"','"+ txtAddress.getText() +"')");
-                
-                                
-                stm.close();
-                
-                JOptionPane.showMessageDialog(this, "You are now registered, please login to continue");
-                loginPage login = new loginPage();
-                login.setVisible(true);
-                this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(this, "Registration failed, please try again later");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnRegisterActionPerformed
-
-    private void backToLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToLoginMouseClicked
-        loginPage login = null;
-        try {
-            login = new loginPage();
-        } catch (SQLException ex) {
-            Logger.getLogger(signupPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backToLoginMouseClicked
-
-    private boolean isPasswordEquals () {
-        if (!String.valueOf(txtPassword.getPassword()).equals(String.valueOf(txtConfirmPassword.getPassword()))) {
-            JOptionPane.showMessageDialog(this, "Password Do Not Match");
-            txtPassword.setText("");
-            txtConfirmPassword.setText("");
-            return false;
-        }else{
-            return true;
-        }
-    }
-    
-    private boolean isUsernameExist (String username) throws SQLException {
-        boolean result = false;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM akun where username = ('" + username + "');" ;              
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Username Already Exist");
-                txtUsername.setText("");
-                result = false;
-            }else{
-                result = true;
-            }   
-        } catch (Exception e) {
-            System.err.print(e);
-        }
-        return result;
-    }
-    
-    private boolean isFilled () {
-        if (!txtName.getText().isEmpty() && !txtPhoneNumber.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtAddress.getText().isEmpty() && !String.valueOf(txtPassword.getPassword()).isEmpty() && !String.valueOf(txtConfirmPassword.getPassword()).isEmpty()) {
-            return true;
-        }else{
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return false;
-        }
-    }
-    
-    private String generateIDCustomer () { 
-        String lastId_cust = null;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY id_customer ASC";
-
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while (rs.next()) {
-                lastId_cust = rs.getString("id_customer");
-            }
-            
-            if (lastId_cust == null) {
-                lastId_cust = "CST1";
-            }
-
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        int number = Integer.parseInt(lastId_cust.replace("CST", ""));
-            return "CST" + (number+1);
-    }
-    
-    private String generateIDAkun () { 
-        String lastId_akun = null;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
-
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while (rs.next()) {
-                lastId_akun = rs.getString("id_akun");
-            }
-            
-            if(lastId_akun == null){
-                lastId_akun = "AKN1";
-            }
-
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        int number = Integer.parseInt(lastId_akun.replace("AKN", ""));
-            return "AKN" + (number+1);
-    }
-    
-    private void clear () {
-        txtName.setText("");
-        txtPhoneNumber.setText("");
-        txtUsername.setText("");
-        txtPassword.setText("");
-        txtConfirmPassword.setText("");
-        txtAddress.setText("");
-    }
+   
     
     /**
      * @param args the command line arguments
@@ -409,7 +266,7 @@ public class signupPage extends javax.swing.JFrame {
             public void run() {
                 try {
                     new signupPage().setVisible(true);
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     Logger.getLogger(signupPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

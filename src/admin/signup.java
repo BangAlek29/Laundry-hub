@@ -5,7 +5,7 @@
  */
 package admin;
 
-import Main.loginPage;
+import Auth.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.sql.ResultSet;

@@ -1,13 +1,9 @@
 package Auth;
 
-import Main.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax  .swing.JOptionPane;
 import javax.swing.UIManager;
@@ -160,8 +156,8 @@ public class forgotPassword extends javax.swing.JFrame {
             loginPage login = new loginPage();
             login.setVisible(true);
             this.dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(forgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

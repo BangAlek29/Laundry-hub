@@ -4,7 +4,7 @@
  */
 package kasir;
 
-import Main.loginPage;
+import Auth.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -928,7 +928,7 @@ public class kasirDashboard extends javax.swing.JFrame {
             loginPage logout = null;
             try {
                 logout = new loginPage();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 //Logger.getLogger(memberDashboard.class.getName()).log(Level.SEVERE, null, ex);
             }
             logout.setVisible(true);

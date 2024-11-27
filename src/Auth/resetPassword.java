@@ -5,7 +5,6 @@
  */
 package Auth;
 
-import Main.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -170,8 +169,8 @@ public class resetPassword extends javax.swing.JFrame {
         loginPage login = null;
         try {
             login = new loginPage();
-        } catch (SQLException ex) {
-            Logger.getLogger(resetPassword.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         login.setVisible(true);
         this.dispose();

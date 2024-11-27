@@ -4,7 +4,7 @@
  */
 package User;
 
-import Main.loginPage;
+import Auth.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -648,7 +648,7 @@ public class userDashboard extends javax.swing.JFrame {
             loginPage logout = null;
             try {
                 logout = new loginPage();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             logout.setVisible(true);

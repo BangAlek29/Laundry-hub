@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import model.CustomerModel;
  */
 public class CustomerDAO {
 
-    public CustomerModel getCustomerByIdAkun(String idAkun) throws SQLException {
+    public static CustomerModel getCustomerByIdAkun(String idAkun) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "SELECT * FROM customer WHERE id_akun = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -32,20 +33,16 @@ public class CustomerDAO {
         if (rs.next()) {
             customer = new CustomerModel(
                     rs.getString("id_customer"),
+                    rs.getString("id_akun"),
                     rs.getString("nama"),
                     rs.getString("telpon"),
                     rs.getString("alamat"));
-            customer.setIdAkun(rs.getString("id_akun"));
         }
-
-        rs.close();
-        stmt.close();
-        conn.close();
 
         return customer;
     }
 
-    public boolean addCustomer(CustomerModel customer) throws SQLException {
+    public static void addCustomer(CustomerModel customer) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "INSERT INTO customer (id_customer, nama, telpon, alamat, id_akun) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -57,7 +54,6 @@ public class CustomerDAO {
 
         boolean isSuccess = stmt.executeUpdate() > 0;
 
-        return isSuccess;
     }
 
     public boolean updateCustomer(CustomerModel customer) throws SQLException {
@@ -99,18 +95,36 @@ public class CustomerDAO {
         while (rs.next()) {
             CustomerModel customer = new CustomerModel(
                     rs.getString("id_customer"),
+                    rs.getString("id_akun"),
                     rs.getString("nama"),
                     rs.getString("telpon"),
                     rs.getString("alamat"));
-            customer.setIdAkun(rs.getString("id_akun"));
             customers.add(customer);
         }
 
-        rs.close();
-        stmt.close();
-        conn.close();
-
         return customers;
     }
+    
+    public static String generateIDCustomer () { 
+        String lastId_cust = null;
+        try {
+            Statement stmt = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM customer ORDER BY id_customer ASC";
 
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                lastId_cust = rs.getString("id_customer");
+            }
+            
+            if (lastId_cust == null) {
+                lastId_cust = "CST1";
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        int number = Integer.parseInt(lastId_cust.replace("CST", ""));
+            return "CST" + (number+1);
+    }
 }

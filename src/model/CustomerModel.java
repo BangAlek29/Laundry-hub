@@ -7,16 +7,18 @@ public class CustomerModel {
     private String phone;
     private String address;
 
-    public CustomerModel(String idCustomer, String name, String phone, String address) {
+    public CustomerModel(String idCustomer,String idAkun ,String name, String phone, String address) {
         this.idCustomer = idCustomer;
         this.name = name;
         this.phone = phone;
         this.address = address;
+        this.idAkun = idAkun;
     }
     
     public CustomerModel(){
         
     }
+    
 
     public String getIdCustomer() {
         return idCustomer;

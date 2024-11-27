@@ -179,47 +179,26 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="3c" red="3c" type="rgb"/>
             </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createCompoundBorder(&#xa;            BorderFactory.createLineBorder(new Color(80, 80, 80)),&#xa;            BorderFactory.createEmptyBorder(5, 10, 5, 10)&#xa;        )" type="code"/>
-            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPhoneNumber">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="3c" red="3c" type="rgb"/>
             </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createCompoundBorder(&#xa;            BorderFactory.createLineBorder(new Color(80, 80, 80)),&#xa;            BorderFactory.createEmptyBorder(5, 10, 5, 10)&#xa;        )" type="code"/>
-            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhoneNumberActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtUsername">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="3c" red="3c" type="rgb"/>
             </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createCompoundBorder(&#xa;            BorderFactory.createLineBorder(new Color(80, 80, 80)),&#xa;            BorderFactory.createEmptyBorder(5, 10, 5, 10)&#xa;        )" type="code"/>
-            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsernameActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="3c" red="3c" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createCompoundBorder(&#xa;            BorderFactory.createLineBorder(new Color(80, 80, 80)),&#xa;            BorderFactory.createEmptyBorder(5, 10, 5, 10)&#xa;        )" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -228,9 +207,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="3c" red="3c" type="rgb"/>
             </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createCompoundBorder(&#xa;            BorderFactory.createLineBorder(new Color(80, 80, 80)),&#xa;            BorderFactory.createEmptyBorder(5, 10, 5, 10)&#xa;        )" type="code"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAddress">
@@ -238,13 +214,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="3c" red="3c" type="rgb"/>
             </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createCompoundBorder(&#xa;            BorderFactory.createLineBorder(new Color(80, 80, 80)),&#xa;            BorderFactory.createEmptyBorder(5, 10, 5, 10)&#xa;        )" type="code"/>
-            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAddressActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRegister">
           <Properties>
@@ -252,16 +222,10 @@
               <Color blue="f1" green="66" red="63" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SIGN UP"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="BorderFactory.createEmptyBorder(8, 20, 8, 20)" type="code"/>
-            </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="backToLogin">
           <Properties>
@@ -273,9 +237,6 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="backToLoginMouseClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
