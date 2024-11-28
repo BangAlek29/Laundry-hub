@@ -26,14 +26,16 @@ public class LayananDAO {
     }
 
     public void updateLayanan(LayananModel layanan) throws SQLException {
-        try (Connection conn = Connect.configDB();
-             PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE layanan SET nama = ?, harga = ?, deskripsi = ? WHERE id_layanan = ?")) {
+        try {
+            Connection conn = Connect.configDB();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE layanan SET nama = ?, harga = ?, deskripsi = ? WHERE id_layanan = ?");
             stmt.setString(1, layanan.getNama());
             stmt.setInt(2, layanan.getHarga());
             stmt.setString(3, layanan.getDeskripsi());
             stmt.setString(4, layanan.getIdLayanan());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

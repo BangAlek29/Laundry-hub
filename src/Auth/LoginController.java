@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import kasir.KasirController;
 import kasir.kasirDashboard;
 
 public class LoginController extends MouseAdapter implements ActionListener {
@@ -41,7 +42,6 @@ public class LoginController extends MouseAdapter implements ActionListener {
 
                 if (!username.isEmpty() && !password.isEmpty()) {
                     AkunModel user = AkunDAO.validateLogin(username, password);
-                    System.out.println(user.getIdAkun());
                     if (user != null) {
                         switch (user.getRole()) {
                             case "admin":
@@ -99,6 +99,7 @@ public class LoginController extends MouseAdapter implements ActionListener {
     private void openKasirDashboard() {
         try {
             kasirDashboard ksr = new kasirDashboard();
+            new KasirController(ksr);
             ksr.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,9 +112,10 @@ public class LoginController extends MouseAdapter implements ActionListener {
             CustomerDAO customerDAO = new CustomerDAO();
             CustomerModel customer = customerDAO.getCustomerByIdAkun(user.getIdAkun());
 
-            if (customer != null) {
+            if (customer != null && user.getIdAkun() != null) {
                 userDashboard usr = new userDashboard(customer);
                 usr.setVisible(true);
+                
             } else {
                 JOptionPane.showMessageDialog(view, "Customer data not found.");
             }

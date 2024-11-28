@@ -162,6 +162,7 @@ public class editLayanan extends javax.swing.JFrame {
     
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
     try {
+            layanan.setIdLayanan(txtIdLayanan.getText());
             layanan.setNama(namaField.getText());
             layanan.setHarga(Integer.parseInt(txtHarga.getText()));
             layanan.setDeskripsi(txtDeskripsi.getText());

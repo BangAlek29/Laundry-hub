@@ -49,4 +49,30 @@ public class PesananDAO {
         stmt.setInt(5, pesanan.getHarga());
         stmt.executeUpdate();
     }
+    
+    public static String generateIdPesanan(){
+        String tempID = "";
+        try {
+            Statement stm = (Statement) Connect.configDB().createStatement();
+            String query = "SELECT * FROM pesanan ORDER BY id_pesanan DESC LIMIT 1";
+            ResultSet rs = stm.executeQuery(query);
+
+            if(rs.next()){
+                tempID = rs.getString("id_pesanan");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (tempID.isEmpty()) {
+            return "LDR1";
+        }
+
+        String ID = tempID.replace("LDR", "");
+        int IDint = Integer.parseInt(ID);
+
+        return "LDR" + (IDint + 1);
+    }
+
 }

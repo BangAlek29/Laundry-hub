@@ -6,6 +6,7 @@ package kasir;
 
 import Auth.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.toedter.calendar.JDateChooser;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
@@ -35,10 +36,190 @@ public class kasirDashboard extends javax.swing.JFrame {
         renderCbLayanan();
         renderCbCustomer();
         renderSpinerJam();
-        showTabelLayanan();
-        showTabelPesanan();
         setLocationRelativeTo(null);
     }
+//getter komponen
+    
+    public void addActionListener(KasirController aThis){
+        orderButton.addActionListener(aThis);
+        btnAddLayanan.addActionListener(aThis);
+        btnDeleteLayanan.addActionListener(aThis);
+        btnDeletePesanan.addActionListener(aThis);
+        btnEditLayanan.addActionListener(aThis);
+        btnLayanan.addActionListener(aThis);
+        btnLogout.addActionListener(aThis);
+        btnOrderList.addActionListener(aThis);
+        btnRefreshLayanan.addActionListener(aThis);
+        btnRefreshPesanan.addActionListener(aThis);
+        btnSearchLayanan.addActionListener(aThis);
+        btnSearchPesanan.addActionListener(aThis);
+        btnUpdatePesanan.addActionListener(aThis);
+        bntRequestOrder.addActionListener(aThis);
+        tabelPesanan.addMouseListener(aThis);
+    }
+    
+    public JButton getorderButton() {
+        return orderButton;
+    }
+
+    public JButton getBtnAddLayanan() {
+        return btnAddLayanan;
+    }
+
+    public JButton getBtnDeleteLayanan() {
+        return btnDeleteLayanan;
+    }
+
+    public JButton getBtnDeletePesanan() {
+        return btnDeletePesanan;
+    }
+
+    public JButton getBtnEditLayanan() {
+        return btnEditLayanan;
+    }
+
+    public JButton getBtnLayanan() {
+        return btnLayanan;
+    }
+
+    public JButton getBtnLogout() {
+        return btnLogout;
+    }
+
+    public JButton getBtnOrderList() {
+        return btnOrderList;
+    }
+
+    public JButton getBtnRefreshLayanan() {
+        return btnRefreshLayanan;
+    }
+
+    public JButton getBtnRefreshPesanan() {
+        return btnRefreshPesanan;
+    }
+
+    public JButton getBtnSearchLayanan() {
+        return btnSearchLayanan;
+    }
+
+    public JButton getBtnSearchPesanan() {
+        return btnSearchPesanan;
+    }
+
+    public JButton getBtnUpdateLayanan() {
+        return btnUpdatePesanan;
+    }
+    public JComboBox<String> getCmbCustomer() {
+        return cmbCustomer;
+    }
+
+    public JComboBox<String> getCmbLayanan() {
+        return cmbLayanan;
+    }
+    public JPanel getCustomerBaruPanel() {
+        return customerBaruPanel;
+    }
+
+    public JPanel getCustomerLamaPanel() {
+        return customerLamaPanel;
+    }
+    
+    public JButton getBntOrderRequest(){
+        return bntRequestOrder;
+    }
+    public JPanel getMainPanel(){
+        return mainPanel;
+    }
+    public JPanel getOrderPanel(){
+        return orderPanel;
+    }
+    public JLabel getJamLabel() {
+    return jamLabel;
+}
+
+public JLabel getLabelHarga() {
+    return labelHarga;
+}
+
+public JPanel getLayananPanel() {
+    return layananPanel;
+}
+
+public JButton getOrderButton() {
+    return orderButton;
+}
+
+public JPanel getOrderList() {
+    return orderList;
+}
+
+public JPanel getPnlCustomer() {
+    return pnlCustomer;
+}
+
+public ButtonGroup getRbCustomer() {
+    return rbCustomer;
+}
+
+public JRadioButton getRbCustomerBaru() {
+    return rbCustomerBaru;
+}
+
+public JRadioButton getRbCustomerLama() {
+    return rbCustomerLama;
+}
+
+public JSpinner getSpnBerat() {
+    return spnBerat;
+}
+
+public JSpinner getSpnJam() {
+    return spnJam;
+}
+
+public JTable getTabelPesanan() {
+    return tabelPesanan;
+}
+
+public JTable getTbLayanan() {
+    return tbLayanan;
+}
+
+public JPanel getTittlePanel() {
+    return tittlePanel;
+}
+
+public JTextArea getTxtAlamat() {
+    return txtAlamat;
+}
+
+public JTextArea getTxtAlamat2() {
+    return txtAlamat2;
+}
+
+public JTextField getTxtNama() {
+    return txtNama;
+}
+
+public JTextField getTxtSearchLayanan() {
+    return txtSearchLayanan;
+}
+
+public JTextField getTxtSearchPesanan() {
+    return txtSearchPesanan;
+}
+
+public JTextField getTxtTelepon() {
+    return txtTelepon;
+}
+
+public JTextField getTxtTelepon2() {
+    return txtTelepon2;
+}
+
+public JDateChooser getcalTanggal(){
+    return calTanggal;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,12 +275,13 @@ public class kasirDashboard extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtAlamat2 = new javax.swing.JTextArea();
         cmbCustomer = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
         orderList = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelPesanan = new javax.swing.JTable();
-        btnUpdateLayanan = new javax.swing.JButton();
+        btnUpdatePesanan = new javax.swing.JButton();
         txtSearchPesanan = new javax.swing.JTextField();
         btnSearchPesanan = new javax.swing.JButton();
         btnRefreshPesanan = new javax.swing.JButton();
@@ -167,11 +349,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         bntRequestOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bntRequestOrder.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bntRequestOrder.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        bntRequestOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntRequestOrderActionPerformed(evt);
-            }
-        });
 
         btnLogout.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -182,11 +359,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLogout.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
 
         btnLayanan.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         btnLayanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -196,11 +368,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         btnLayanan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLayanan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLayanan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLayananActionPerformed(evt);
-            }
-        });
 
         btnOrderList.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
         btnOrderList.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -210,11 +377,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         btnOrderList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnOrderList.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnOrderList.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnOrderList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrderListActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
@@ -293,11 +455,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         jamLabel.setText("08.00 - 21.00");
 
         orderButton.setText("Order");
-        orderButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderButtonActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -485,48 +642,57 @@ public class kasirDashboard extends javax.swing.JFrame {
 
         pnlCustomer.add(customerLamaPanel, "card3");
 
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/mesincuci__2_-removebg-preview.png"))); // NOI18N
+
         javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
         orderPanel.setLayout(orderPanelLayout);
         orderPanelLayout.setHorizontalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(orderPanelLayout.createSequentialGroup()
-                .addGap(92, 92, 92)
                 .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderPanelLayout.createSequentialGroup()
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
-                                .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jamLabel))
-                            .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(calTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelHarga)
-                            .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE))
                     .addGroup(orderPanelLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(orderButton)
-                            .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(orderPanelLayout.createSequentialGroup()
-                                    .addGap(22, 22, 22)
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbCustomerBaru)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbCustomerLama))
-                                .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(154, Short.MAX_VALUE))
+                        .addGap(92, 92, 92)
+                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(orderPanelLayout.createSequentialGroup()
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                                        .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jamLabel))
+                                    .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(calTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelHarga)
+                                    .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(orderPanelLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(orderButton)
+                                    .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(orderPanelLayout.createSequentialGroup()
+                                            .addGap(22, 22, 22)
+                                            .addComponent(jLabel6)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbCustomerBaru)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rbCustomerLama))
+                                        .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 173, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                    .addContainerGap(557, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(16, 16, 16)))
         );
         orderPanelLayout.setVerticalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,7 +712,17 @@ public class kasirDashboard extends javax.swing.JFrame {
                     .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                    .addGroup(orderPanelLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jamLabel)
+                        .addGap(10, 10, 10)
+                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelHarga)
+                            .addComponent(jLabel11))
+                        .addGap(10, 10, 10)
+                        .addComponent(orderButton)
+                        .addContainerGap(41, Short.MAX_VALUE))
+                    .addGroup(orderPanelLayout.createSequentialGroup()
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
@@ -557,15 +733,13 @@ public class kasirDashboard extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jamLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(10, 10, 10)
-                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelHarga)
-                    .addComponent(jLabel11))
-                .addGap(10, 10, 10)
-                .addComponent(orderButton)
-                .addContainerGap(41, Short.MAX_VALUE))
+                            .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                    .addContainerGap(376, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(16, 16, 16)))
         );
 
         mainPanel.add(orderPanel, "card2");
@@ -615,12 +789,7 @@ public class kasirDashboard extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabelPesanan);
 
-        btnUpdateLayanan.setText("Update");
-        btnUpdateLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateLayananActionPerformed(evt);
-            }
-        });
+        btnUpdatePesanan.setText("Update");
 
         btnSearchPesanan.setText("Search");
         btnSearchPesanan.addActionListener(new java.awt.event.ActionListener() {
@@ -630,18 +799,8 @@ public class kasirDashboard extends javax.swing.JFrame {
         });
 
         btnRefreshPesanan.setText("Refresh");
-        btnRefreshPesanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshPesananActionPerformed(evt);
-            }
-        });
 
         btnDeletePesanan.setText("Delete");
-        btnDeletePesanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletePesananActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout orderListLayout = new javax.swing.GroupLayout(orderList);
         orderList.setLayout(orderListLayout);
@@ -649,7 +808,7 @@ public class kasirDashboard extends javax.swing.JFrame {
             orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(orderListLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
@@ -664,9 +823,9 @@ public class kasirDashboard extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btnDeletePesanan)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUpdateLayanan))
+                            .addComponent(btnUpdatePesanan))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         orderListLayout.setVerticalGroup(
             orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,7 +840,7 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateLayanan)
+                    .addComponent(btnUpdatePesanan)
                     .addComponent(btnRefreshPesanan)
                     .addComponent(btnDeletePesanan))
                 .addGap(27, 27, 27))
@@ -735,34 +894,14 @@ public class kasirDashboard extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tbLayanan);
 
         btnAddLayanan.setText("Tambah Layanan");
-        btnAddLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddLayananActionPerformed(evt);
-            }
-        });
 
         btnEditLayanan.setText("Edit Layanan");
-        btnEditLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditLayananActionPerformed(evt);
-            }
-        });
 
         btnSearchLayanan.setText("Search");
 
         btnRefreshLayanan.setText("Refresh");
-        btnRefreshLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshLayananActionPerformed(evt);
-            }
-        });
 
         btnDeleteLayanan.setText("Delete Layanan");
-        btnDeleteLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteLayananActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layananPanelLayout = new javax.swing.GroupLayout(layananPanel);
         layananPanel.setLayout(layananPanelLayout);
@@ -770,7 +909,7 @@ public class kasirDashboard extends javax.swing.JFrame {
             layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layananPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layananPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
@@ -788,7 +927,7 @@ public class kasirDashboard extends javax.swing.JFrame {
                         .addComponent(txtSearchLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSearchLayanan)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layananPanelLayout.setVerticalGroup(
             layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -910,46 +1049,6 @@ public class kasirDashboard extends javax.swing.JFrame {
 
     }
     
-    private void bntRequestOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRequestOrderActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.repaint();
-        mainPanel.revalidate();
-
-        mainPanel.add(orderPanel);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-    }//GEN-LAST:event_bntRequestOrderActionPerformed
-
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
-        int response =JOptionPane.showConfirmDialog(this, "Are you sure ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.YES_OPTION) {
-            loginPage logout = null;
-            try {
-                logout = new loginPage();
-            } catch (Exception ex) {
-                //Logger.getLogger(memberDashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            logout.setVisible(true);
-            this.dispose();
-        }else{
-            return;
-        }
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLayananActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.repaint();
-        mainPanel.revalidate();
-
-        mainPanel.add(layananPanel);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-
-    }//GEN-LAST:event_btnLayananActionPerformed
-
     private void cmbLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLayananActionPerformed
         // TODO add your handling code here:
         renderHarga();
@@ -959,34 +1058,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaActionPerformed
 
-    private void btnOrderListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderListActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.repaint();
-        mainPanel.revalidate();
-
-        mainPanel.add(orderList);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-    }//GEN-LAST:event_btnOrderListActionPerformed
-
-    private void btnAddLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLayananActionPerformed
-        // TODO add your handling code here:
-        try {
-            tambahLayanan lyn = new tambahLayanan();
-            lyn.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        
-    }//GEN-LAST:event_btnAddLayananActionPerformed
-
-    private void btnRefreshLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshLayananActionPerformed
-        // TODO add your handling code here:
-        showTabelLayanan();
-    }//GEN-LAST:event_btnRefreshLayananActionPerformed
-
     private void tbLayananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLayananMouseClicked
         // TODO add your handling code here:
         int row = tbLayanan.getSelectedRow();
@@ -995,111 +1066,7 @@ public class kasirDashboard extends javax.swing.JFrame {
         this.nama = model.getValueAt(row, 2).toString();
         this.harga = model.getValueAt(row, 3).toString();
     }//GEN-LAST:event_tbLayananMouseClicked
-
-    private void btnEditLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditLayananActionPerformed
-        // TODO add your handling code here:
-        try {
-            if (!this.id_layanan.equals(null)){
-                insertIntoEditLayanan(this.id_layanan,this.nama,this.harga);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Layanan Belum Di pilih");
-        }
-    }//GEN-LAST:event_btnEditLayananActionPerformed
-
-    private void btnDeleteLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLayananActionPerformed
-        // TODO add your handling code here:
-        try {
-            if (!this.id_layanan.equals(null) && !this.nama.equals(null)) {
-                int response =JOptionPane.showConfirmDialog(this, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (response == JOptionPane.YES_OPTION) {
-                        try {
-                            Statement stmt = (Statement) Connect.configDB().createStatement();
-                            //delete record from login table
-                            stmt.executeUpdate("DELETE FROM layanan WHERE id_layanan = '" + this.id_layanan+"';");
-
-                            JOptionPane.showMessageDialog(this, "The information was successfully updated");
-                            showTabelLayanan();
-                        } catch (Exception e) {
-                        }
-                    }else{
-                        return;
-                    }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Please choose an account");
-        }
-    }//GEN-LAST:event_btnDeleteLayananActionPerformed
-
-    private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
-        // TODO add your handling code here:
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        
-        if (txtNama.getText().equals("") && txtTelepon.getText().equals("") && txtAlamat.getText().equals("") && ((Integer) spnBerat.getValue()) == 0 && calTanggal.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Please fill out the form");
-            return;
-        }
-        try {
-            String formattedDate = dateFormat.format(calTanggal.getDate());
-            String getNumber = generateUserNumber();
-            String number = getNumber.replace("CST", "");
-            
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            if(rbCustomerBaru.isSelected()){
-                String query1 = "INSERT INTO pesanan VALUE ('"+generateIdPesanan()+"','"+generateIdUser()+"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"','"+formattedDate+"','"+generateJam()+"')";
-                String query2 = "INSERT INTO customer (number,id_user,nama,telpon,alamat) VALUE ('"+number+"','"+generateIdUser()+"','"+txtNama.getText()+"','"+txtTelepon.getText()+"','"+txtAlamat.getText()+"')";
-                stmt.executeUpdate(query2);
-                stmt.executeUpdate(query1);
-                
-            } else {
-                String query = "INSERT INTO pesanan VALUE ('"+generateIdPesanan()+"','"+getIdUser()+"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"','"+formattedDate+"','"+generateJam()+"')";
-                stmt.executeUpdate(query);
-            }
-            JOptionPane.showMessageDialog(this, "Order successfully placed");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_orderButtonActionPerformed
     
-    private String getIdUser(){
-        String id_user = "";
-        String name = cmbCustomer.getSelectedItem().toString();
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT id_user FROM customer WHERE nama = '"+name+"'";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if(rs.next()){
-                id_user = rs.getString("id_user");
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id_user;
-    }
-    
-    private void btnUpdateLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateLayananActionPerformed
-        // TODO add your handling code here:
-        try {
-            if (!this.berat.equals(null)){
-                insertIntoUpdatePesanan(this.id_pesanan,this.berat , this.hargaTotal);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Layanan Belum Di pilih");
-        }
-    }//GEN-LAST:event_btnUpdateLayananActionPerformed
-    
-    private void insertIntoUpdatePesanan (String id_pesanan,String berat, String harga){
-        updateOrder updt = new updateOrder();
-        
-        updt.idPesananField.setText(id_pesanan);
-        updt.countBerat.setValue(Integer.parseInt(berat));
-        updt.labelHarga.setText("RP" + harga);
-        
-        updt.setVisible(true);
-    }
     
     private void tabelPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPesananMouseClicked
         // TODO add your handling code here:
@@ -1109,37 +1076,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         this.berat = model.getValueAt(row, 3).toString();
         this.hargaTotal = model.getValueAt(row,4).toString();
     }//GEN-LAST:event_tabelPesananMouseClicked
-
-    private void btnRefreshPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshPesananActionPerformed
-        // TODO add your handling code here:
-        showTabelPesanan();
-    }//GEN-LAST:event_btnRefreshPesananActionPerformed
-
-    private void btnDeletePesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePesananActionPerformed
-        // TODO add your handling code here:
-            try {
-            if (!this.id_pesanan.equals(null) && !this.berat.equals(null)) {
-                int response =JOptionPane.showConfirmDialog(this, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (response == JOptionPane.YES_OPTION) {
-                        try {
-                            Statement stmt = (Statement) Connect.configDB().createStatement();
-                            //delete record from login table
-                            stmt.executeUpdate("DELETE FROM pesanan WHERE id_pesanan = '" + this.id_pesanan+"';");
-
-                            JOptionPane.showMessageDialog(this, "The information was successfully updated");
-                            showTabelPesanan();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }else{
-                        return;
-                    }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Please choose an account");
-        }
-        
-    }//GEN-LAST:event_btnDeletePesananActionPerformed
 
     private void rbCustomerBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomerBaruActionPerformed
         // TODO add your handling code here:
@@ -1206,12 +1142,13 @@ public class kasirDashboard extends javax.swing.JFrame {
             while(rs.next()){
                 n++;
                 String id_pesanan = rs.getString("id_pesanan");
-                String id_user = rs.getString("id_user");
+                String id_customer = rs.getString("id_customer");
+                String id_layanan = rs.getString("id_layanan");
                 int berat = rs.getInt("berat");
                 int harga = rs.getInt("harga");
                 String tanggalAmbil = rs.getString("tanggalSelesai");
                 String jamAmbil = rs.getString("jamSelesai");
-                tb1.addRow(new String[] {String.valueOf(n), id_pesanan, id_user , String.valueOf(berat) , String.valueOf(harga), tanggalAmbil, jamAmbil});
+                tb1.addRow(new String[] {String.valueOf(n), id_pesanan, id_customer , String.valueOf(berat) , String.valueOf(harga), tanggalAmbil, jamAmbil});
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1234,75 +1171,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         
         return format.format(harga);
     }
-    
-    
-    private String generateJam() {
-        String jam = (String) spnJam.getValue();
-
-        String[] parts = jam.split(" ");
-        String time = parts[0];
-        String period = parts[1];
-
-        String[] timeParts = time.split(":");
-        int hour = Integer.parseInt(timeParts[0]);
-        String minute = timeParts[1];
-
-
-        if (period.equals("PM") && hour != 12) {
-            hour += 12;
-        } else if (period.equals("AM") && hour == 12) {
-            hour = 0;
-        }
-
-        return String.format("%02d:%s:00", hour, minute);
-    }
-
-    private String generateIdUser(){
-        String tempID = "";
-        try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY id_user ASC";
-            ResultSet rs = stm.executeQuery(query);
-            
-            while(rs.next()){
-                tempID = rs.getString("id_user");
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        String ID = tempID.replace("CST", "");
-        int IDint = Integer.parseInt(ID);
-        
-        return "CST" + (IDint+1);
-    }
-    
-    private String generateIdPesanan(){
-        String tempID = "";
-        try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM pesanan ORDER BY id_pesanan DESC LIMIT 1";
-            ResultSet rs = stm.executeQuery(query);
-
-            if(rs.next()){
-                tempID = rs.getString("id_pesanan");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (tempID.isEmpty()) {
-            return "LDR1";
-        }
-
-        String ID = tempID.replace("LDR", "");
-        int IDint = Integer.parseInt(ID);
-
-        return "LDR" + (IDint + 1);
-    }
-
-    
     private int hitungHarga(int berat){
         int harga = 0;
         try {
@@ -1323,6 +1191,8 @@ public class kasirDashboard extends javax.swing.JFrame {
         }
         return berat * harga;
     }
+
+    
     
     private String getIdLayanan(){
         String idLayanan = null;
@@ -1357,30 +1227,6 @@ public class kasirDashboard extends javax.swing.JFrame {
             System.err.println(e);
         }
             return "CST" + (tempNumber+1);
-    }
-    
-    private void insertIntoEditLayanan(String id_layanan,String nama, String harga){
-        editLayanan edtLayanan = new editLayanan();
-        edtLayanan.txtIdLayanan.setText(id_layanan);
-        edtLayanan.namaField.setText(nama);
-        edtLayanan.txtHarga.setText(harga);
-        edtLayanan.txtDeskripsi.setText(getDeskripsi(id_layanan));
-        edtLayanan.setVisible(true);
-    }
-    
-    private String getDeskripsi(String id_layanan){
-        String deskripsi ="";
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan WHERE id_layanan = '" + id_layanan + "'";
-            ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()){
-                deskripsi = rs.getString("deskripsi");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return deskripsi;
     }
     
     private void renderCbLayanan(){
@@ -1422,54 +1268,7 @@ public class kasirDashboard extends javax.swing.JFrame {
         }
     }
     
-    public void showTabelLayanan(){
-        int n = 0;
-        String [] kolom = {"NO", "Id_layanan" ,"Nama", "Harga"};
-        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan";
-            ResultSet rs = stmt.executeQuery(query);
-
-            
-            while(rs.next()){
-                n++;
-                String id_layanan = rs.getString("id_layanan");
-                String nama = rs.getString("nama");
-                int harga = rs.getInt("harga");
-                tb1.addRow(new String[] {String.valueOf(n), id_layanan, nama, String.valueOf(harga)});
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        tbLayanan.setModel(tb1);
-    }
     
-        public void showTabelPesanan(){
-        int n = 0;
-        String [] kolom = {"NO", "id_pesanan" ,"id_customer", "berat" ,"Harga", "Tanggal Ambil", "Jam Ambil"};
-        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM pesanan";
-            ResultSet rs = stmt.executeQuery(query);
-
-            while(rs.next()){
-                n++;
-                String id_pesanan = rs.getString("id_pesanan");
-                String id_user = rs.getString("id_user");
-                int berat = rs.getInt("berat");
-                int harga = rs.getInt("harga");
-                String tanggalAmbil = rs.getString("tanggalSelesai");
-                String jamAmbil = rs.getString("jamSelesai");
-                tb1.addRow(new String[] {String.valueOf(n), id_pesanan, id_user , String.valueOf(berat) , String.valueOf(harga), tanggalAmbil, jamAmbil});
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        tabelPesanan.setModel(tb1);
-    }
-        
         
     /**
      * @param args the command line arguments
@@ -1505,7 +1304,7 @@ public class kasirDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnRefreshPesanan;
     private javax.swing.JButton btnSearchLayanan;
     private javax.swing.JButton btnSearchPesanan;
-    private javax.swing.JButton btnUpdateLayanan;
+    private javax.swing.JButton btnUpdatePesanan;
     private com.toedter.calendar.JDateChooser calTanggal;
     private javax.swing.JComboBox<String> cmbCustomer;
     private javax.swing.JComboBox<String> cmbLayanan;
@@ -1520,6 +1319,7 @@ public class kasirDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
