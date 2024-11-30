@@ -10,16 +10,24 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import java.awt.Component;
+import javax.swing.table.TableColumn;
 
 import dao.CustomerDAO;
 import dao.LayananDAO;
 import dao.PesananDAO;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import model.CustomerModel;
 import model.LayananModel;
 import model.PesananModel;
 import util.PanelUtils;
 import util.PesananUtil;
 import view.user.userDashboard;
+
+
 
 public class UserController extends MouseAdapter implements ActionListener {
     private final userDashboard view;
@@ -153,11 +161,27 @@ public class UserController extends MouseAdapter implements ActionListener {
             }
 
             view.tabelPesanan.setModel(model);
+            setColumnAlignment(view.tabelPesanan);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    private void setColumnAlignment(JTable table) {
+        // Mendapatkan model kolom tabel
+        TableColumnModel columnModel = table.getColumnModel();
 
+        // Set alignment untuk semua kolom menjadi rata tengah
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    setHorizontalAlignment(SwingConstants.CENTER);  // Set semua kolom rata tengah
+                    return comp;
+                }
+            });
+        }
+    }
     private void renderCbLayanan() {
         List<LayananModel> listLayanan = LayananDAO.getAllLayanan();
         DefaultComboBoxModel<LayananModel> model = new DefaultComboBoxModel<>();

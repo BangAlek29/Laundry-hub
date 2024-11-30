@@ -239,7 +239,7 @@
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                           <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="btnRefresh" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="btnRefresh" min="-2" pref="112" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>

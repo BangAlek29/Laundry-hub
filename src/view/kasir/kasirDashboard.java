@@ -417,7 +417,10 @@ public class kasirDashboard extends javax.swing.JFrame {
         jamLabel.setForeground(new java.awt.Color(255, 255, 255));
         jamLabel.setText("08.00 - 21.00");
 
-        orderButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        orderButton.setBackground(new java.awt.Color(0, 153, 0));
+        orderButton.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        orderButton.setForeground(new java.awt.Color(255, 255, 255));
+        orderButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/laundry.png"))); // NOI18N
         orderButton.setText("ORDER");
         orderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -629,10 +632,11 @@ public class kasirDashboard extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(167, 167, 167)
-                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jamLabel)
-                                    .addComponent(orderButton))
-                                .addGap(30, 30, 30)))))
+                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(orderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                                        .addComponent(jamLabel)
+                                        .addGap(30, 30, 30)))))))
                 .addContainerGap(369, Short.MAX_VALUE))
             .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
@@ -666,19 +670,20 @@ public class kasirDashboard extends javax.swing.JFrame {
                     .addComponent(calTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderPanelLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jamLabel)))
-                    .addGroup(orderPanelLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelHarga)
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
-                        .addComponent(orderButton)))
-                .addGap(111, 111, 111))
+                        .addGap(148, 148, 148))
+                    .addGroup(orderPanelLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jamLabel))
+                        .addGap(45, 45, 45)
+                        .addComponent(orderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
                     .addContainerGap(501, Short.MAX_VALUE)
@@ -728,14 +733,30 @@ public class kasirDashboard extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tabelPesanan);
 
+        btnUpdatePesanan.setBackground(new java.awt.Color(103, 58, 183));
+        btnUpdatePesanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnUpdatePesanan.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdatePesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/editing.png"))); // NOI18N
         btnUpdatePesanan.setText("Update");
 
+        txtSearchPesanan.setBackground(new java.awt.Color(40, 40, 40));
+        txtSearchPesanan.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search Pesanan");
+
+        btnSearchPesanan.setBackground(new java.awt.Color(0, 153, 0));
+        btnSearchPesanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnSearchPesanan.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchPesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/search.png"))); // NOI18N
         btnSearchPesanan.setText("Search");
 
+        btnRefreshPesanan.setBackground(new java.awt.Color(0, 153, 204));
+        btnRefreshPesanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnRefreshPesanan.setForeground(new java.awt.Color(255, 255, 255));
         btnRefreshPesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/refresh-page-option.png"))); // NOI18N
         btnRefreshPesanan.setText("Refresh");
 
+        btnDeletePesanan.setBackground(new java.awt.Color(255, 0, 0));
+        btnDeletePesanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnDeletePesanan.setForeground(new java.awt.Color(255, 255, 255));
         btnDeletePesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/remove.png"))); // NOI18N
         btnDeletePesanan.setText("Delete");
 
@@ -751,17 +772,17 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(orderListLayout.createSequentialGroup()
-                        .addComponent(btnRefreshPesanan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDeletePesanan)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnUpdatePesanan))
+                        .addComponent(btnRefreshPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDeletePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUpdatePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(orderListLayout.createSequentialGroup()
-                        .addGap(701, 701, 701)
+                        .addGap(668, 668, 668)
                         .addComponent(txtSearchPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearchPesanan)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearchPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         orderListLayout.setVerticalGroup(
@@ -825,14 +846,42 @@ public class kasirDashboard extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tbLayanan);
 
-        btnAddLayanan.setText("Tambah Layanan");
+        btnAddLayanan.setBackground(new java.awt.Color(0, 153, 204));
+        btnAddLayanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnAddLayanan.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddLayanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/plus.png"))); // NOI18N
+        btnAddLayanan.setText("Add Layanan");
+        btnAddLayanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddLayananActionPerformed(evt);
+            }
+        });
 
+        btnEditLayanan.setBackground(new java.awt.Color(103, 58, 183));
+        btnEditLayanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnEditLayanan.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditLayanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/editing.png"))); // NOI18N
         btnEditLayanan.setText("Edit Layanan");
 
+        btnSearchLayanan.setBackground(new java.awt.Color(0, 153, 0));
+        btnSearchLayanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnSearchLayanan.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchLayanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/search.png"))); // NOI18N
         btnSearchLayanan.setText("Search");
 
+        txtSearchLayanan.setBackground(new java.awt.Color(40, 40, 40));
+        txtSearchLayanan.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search Layanan");
+
+        btnRefreshLayanan.setBackground(new java.awt.Color(0, 0, 255));
+        btnRefreshLayanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnRefreshLayanan.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshLayanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/refresh-page-option.png"))); // NOI18N
         btnRefreshLayanan.setText("Refresh");
 
+        btnDeleteLayanan.setBackground(new java.awt.Color(255, 0, 0));
+        btnDeleteLayanan.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnDeleteLayanan.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteLayanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/remove.png"))); // NOI18N
         btnDeleteLayanan.setText("Delete Layanan");
 
         javax.swing.GroupLayout layananPanelLayout = new javax.swing.GroupLayout(layananPanel);
@@ -848,18 +897,18 @@ public class kasirDashboard extends javax.swing.JFrame {
                         .addContainerGap(47, Short.MAX_VALUE)
                         .addGroup(layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layananPanelLayout.createSequentialGroup()
-                                .addComponent(txtSearchLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSearchLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSearchLayanan))
+                                .addComponent(btnSearchLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layananPanelLayout.createSequentialGroup()
-                                    .addComponent(btnRefreshLayanan)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnDeleteLayanan)
-                                    .addGap(18, 18, 18)
                                     .addComponent(btnAddLayanan)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnEditLayanan)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnDeleteLayanan)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnEditLayanan))
+                                    .addComponent(btnRefreshLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 19, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -914,6 +963,10 @@ public class kasirDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLayananActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddLayananActionPerformed
 
     
 

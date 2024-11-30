@@ -25,6 +25,11 @@ import javax.swing.table.TableModel;
 import dao.CustomerDAO;
 import dao.LayananDAO;
 import dao.PesananDAO;
+import java.awt.Component;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import model.CustomerModel;
 import model.LayananModel;
 import model.PesananModel;
@@ -330,6 +335,23 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         }
 
         view.getTbLayanan().setModel(tb1);
+        setColumnAlignment(view.getTbLayanan());
+    }
+    private void setColumnAlignment(JTable table) {
+        // Mendapatkan model kolom tabel
+        TableColumnModel columnModel = table.getColumnModel();
+
+        // Set alignment untuk semua kolom menjadi rata tengah
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    setHorizontalAlignment(SwingConstants.CENTER);  // Set semua kolom rata tengah
+                    return comp;
+                }
+            });
+        }
     }
 
     public void showTabelPesanan() {
@@ -353,6 +375,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
             e.printStackTrace();
         }
         view.getTabelPesanan().setModel(tb1);
+        setColumnAlignment(view.getTabelPesanan());
     }
 
     private void renderCbLayanan() {

@@ -13,6 +13,11 @@ import javax.swing.table.TableModel;
 
 import dao.AkunDAO;
 import dao.CustomerDAO;
+import java.awt.Component;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import model.AkunModel;
 import model.CustomerModel;
 import util.PanelUtils;
@@ -218,8 +223,24 @@ public class AdminController extends MouseAdapter implements ActionListener {
             e.printStackTrace();
         }
         view.getTableInformationUser().setModel(tb1);
+        setColumnAlignment(view.getTableInformationUser());
     }
+    private void setColumnAlignment(JTable table) {
+        // Mendapatkan model kolom tabel
+        TableColumnModel columnModel = table.getColumnModel();
 
+        // Set alignment untuk semua kolom menjadi rata tengah
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    setHorizontalAlignment(SwingConstants.CENTER);  // Set semua kolom rata tengah
+                    return comp;
+                }
+            });
+        }
+    }
     public void showAkunTable() {
         String[] kolom = { "NO", "ID Akun", "Username", "Password", "Role" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
@@ -240,6 +261,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
         }
 
         view.getTableLogin().setModel(tb1);
+        setColumnAlignment(view.getTableLogin());
     }
 
     @Override
