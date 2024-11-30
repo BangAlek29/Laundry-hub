@@ -47,7 +47,7 @@ public class LoginController extends MouseAdapter {
                             openKasirDashboard();
                             break;
                         case "member":
-                            openUserDashboard(user);
+                            openUserDashboard();
                             break;
                         default:
                             JOptionPane.showMessageDialog(view, "Role tidak valid.", "Login Error", JOptionPane.ERROR_MESSAGE);
@@ -106,23 +106,12 @@ public class LoginController extends MouseAdapter {
         }
     }
 
-    private void openUserDashboard(AkunModel user) {
+    private void openUserDashboard() {
         try {
-            CustomerDAO customerDAO = new CustomerDAO();
-            CustomerModel customer = customerDAO.getCustomerByIdAkun(user.getIdAkun());
-
-            if (customer != null && user.getIdAkun() != null) {
-                userDashboard usr = new userDashboard(customer);
-                usr.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(view, "Data pelanggan tidak ditemukan.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(view, "Kesalahan database saat mengambil data pelanggan: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            UserController user = new UserController();
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(view, "Gagal membuka User Dashboard.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, "Gagal membuka Kasir Dashboard.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

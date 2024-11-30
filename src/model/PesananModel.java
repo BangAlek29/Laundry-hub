@@ -19,6 +19,14 @@ public class PesananModel {
         this.jamSelesai = jamSelesai;
     }
     
+    public PesananModel(String idPesanan, String idCustomer, String idLayanan, int berat, int harga) {
+        this.idPesanan = idPesanan;
+        this.idCustomer = idCustomer;
+        this.idLayanan = idLayanan;
+        this.berat = berat;
+        this.harga = harga;
+    }
+    
     public PesananModel(){
         
     }
