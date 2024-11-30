@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import koneksiDatabase.Connect;
 import model.AkunModel;
 
@@ -22,7 +20,7 @@ import model.AkunModel;
  */
 public class AkunDAO {
 
-    public static AkunModel validateLogin(String username, String password) {
+    public static AkunModel validateLogin(String username, String password) throws SQLException{
         try {
             Statement stmt = Connect.configDB().createStatement();
             String query = "SELECT * FROM akun WHERE username = '" + username + "';";
@@ -103,14 +101,12 @@ public class AkunDAO {
         return akun;
     }
 
-    public boolean deleteAkun(String idAkun) throws SQLException {
+    public static boolean deleteAkun(String idAkun) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "DELETE FROM akun WHERE id_akun = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, idAkun);
-
         boolean isSuccess = stmt.executeUpdate() > 0;
-
         return isSuccess;
     }
 
@@ -183,6 +179,19 @@ public class AkunDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result; // True jika username ada
+        return result;
     }
+    
+    public static boolean updateAkun(AkunModel akun) throws SQLException {
+        Connection conn = Connect.configDB();
+        String query = "UPDATE akun SET username = ?, password = ?, role = ? WHERE id_akun = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, akun.getUsername());
+        stmt.setString(2, akun.getPassword());
+        stmt.setString(3, akun.getRole());
+        stmt.setString(4, akun.getIdAkun());
+
+        return stmt.executeUpdate() > 0;
+    }
+
 }

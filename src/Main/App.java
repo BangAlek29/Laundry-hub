@@ -4,7 +4,7 @@
  */
 package Main;
 
-import Auth.LoginController;
+import controller.LoginController;
 import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.UIManager;
 

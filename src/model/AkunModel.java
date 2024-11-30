@@ -14,11 +14,11 @@ public class AkunModel {
         this.idAkun = null;
     }
     
-    public AkunModel(String idCustomer,String username, String password, String role) {
+    public AkunModel(String idAkun,String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.idAkun = idCustomer;
+        this.idAkun = idAkun;
     }
 
     // Getter dan Setter

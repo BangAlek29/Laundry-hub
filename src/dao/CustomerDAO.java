@@ -42,8 +42,6 @@ public class CustomerDAO {
         return customer;
     }
     
-    
-
     public static void addCustomer(CustomerModel customer) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "INSERT INTO customer (id_customer, nama, telpon, alamat, id_akun) VALUES (?, ?, ?, ?, ?)";
@@ -55,10 +53,9 @@ public class CustomerDAO {
         stmt.setString(5, customer.getIdAkun());
 
         boolean isSuccess = stmt.executeUpdate() > 0;
-
     }
 
-    public boolean updateCustomer(CustomerModel customer) throws SQLException {
+    public static boolean updateCustomer(CustomerModel customer) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "UPDATE customer SET nama = ?, telpon = ?, alamat = ?, id_akun = ? WHERE id_customer = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -70,13 +67,10 @@ public class CustomerDAO {
 
         boolean isSuccess = stmt.executeUpdate() > 0;
 
-        stmt.close();
-        conn.close();
-
         return isSuccess;
     }
 
-    public boolean deleteCustomer(String idCustomer) throws SQLException {
+    public static boolean deleteCustomer(String idCustomer) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "DELETE FROM customer WHERE id_customer = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -87,7 +81,7 @@ public class CustomerDAO {
         return isSuccess;
     }
 
-    public List<CustomerModel> getAllCustomers() throws SQLException {
+    public static List<CustomerModel> getAllCustomers() throws SQLException {
         Connection conn = Connect.configDB();
         String query = "SELECT * FROM customer";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -130,7 +124,7 @@ public class CustomerDAO {
             return "CST" + (number+1);
     }
     
-    public List<CustomerModel> searchCustomer(String keyword) throws SQLException {
+    public static List<CustomerModel> searchCustomer(String keyword) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "SELECT * FROM customer WHERE nama LIKE ? OR id_customer LIKE ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -150,6 +144,27 @@ public class CustomerDAO {
         }
 
         return customers;
+    }
+    
+    
+    public static CustomerModel getCustomerByIdCustomer(String idCustomer) throws SQLException {
+        Connection conn = Connect.configDB();
+        String query = "SELECT * FROM customer WHERE id_customer = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, idCustomer);
+        ResultSet rs = stmt.executeQuery();
+
+        CustomerModel customer = null;
+
+        if (rs.next()) {
+            customer = new CustomerModel(
+                    rs.getString("id_customer"),
+                    rs.getString("id_akun"),
+                    rs.getString("nama"),
+                    rs.getString("telpon"),
+                    rs.getString("alamat"));
+        }
+        return customer;
     }
 
 }

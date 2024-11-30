@@ -12,6 +12,10 @@ public class LayananModel {
         this.harga = harga;
         this.deskripsi = deskripsi;
     }
+    
+    public LayananModel(){
+        
+    }
 
     public String getIdLayanan() {
         return idLayanan;
@@ -43,5 +47,10 @@ public class LayananModel {
 
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
+    }
+    
+    @Override
+    public String toString() {
+        return nama;
     }
 }

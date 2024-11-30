@@ -9,6 +9,20 @@ public class PesananModel {
     private String tanggalSelesai;
     private String jamSelesai;
 
+    public PesananModel(String idPesanan, String idCustomer, String idLayanan, int berat, int harga, String tanggalSelesai, String jamSelesai) {
+        this.idPesanan = idPesanan;
+        this.idCustomer = idCustomer;
+        this.idLayanan = idLayanan;
+        this.berat = berat;
+        this.harga = harga;
+        this.tanggalSelesai = tanggalSelesai;
+        this.jamSelesai = jamSelesai;
+    }
+    
+    public PesananModel(){
+        
+    }
+
     public String getIdPesanan() {
         return idPesanan;
     }

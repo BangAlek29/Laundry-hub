@@ -59,4 +59,9 @@ public class CustomerModel {
     public void setIdAkun(String idAkun){
         this.idAkun = idAkun;
     }
+    
+    @Override
+    public String toString() {
+        return name;
+    }
 }
