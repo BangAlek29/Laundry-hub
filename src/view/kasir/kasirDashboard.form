@@ -11,13 +11,16 @@
     <Property name="bounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
       <Rectangle value="[0, 0, 0, 0]"/>
     </Property>
-    <Property name="iconImages" type="java.util.List" editor="org.netbeans.modules.form.ComponentChooserEditor">
-      <ComponentRef name="null"/>
+    <Property name="iconImage" type="java.awt.Image" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="new ImageIcon(getClass().getResource(&quot;/Asset/laundry-machine.png&quot;)).getImage()" type="code"/>
     </Property>
     <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
       <Point value="[0, 0]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
+    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1280, 720]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -45,7 +48,7 @@
                   <Group type="102" attributes="0">
                       <Component id="Menu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mainPanel" max="32767" attributes="0"/>
+                      <Component id="mainPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -59,10 +62,10 @@
               <Component id="tittlePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mainPanel" max="32767" attributes="0"/>
-                  <Component id="Menu" max="32767" attributes="0"/>
+                  <Component id="Menu" min="-2" max="-2" attributes="0"/>
+                  <Component id="mainPanel" min="-2" pref="658" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,6 +80,9 @@
           <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tittlePanel.putClientProperty(FlatClientProperties.STYLE, &quot;arc:15&quot;);"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -167,7 +173,7 @@
                   <Component id="btnLayanan" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="btnLogout" min="-2" pref="42" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="445" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -927,30 +933,19 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnRefreshPesanan" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnDeletePesanan" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="txtSearchPesanan" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnSearchPesanan" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Component id="btnUpdatePesanan" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="btnRefreshPesanan" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnDeletePesanan" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnUpdatePesanan" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" min="-2" pref="1024" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="701" max="-2" attributes="0"/>
+                              <Component id="txtSearchPesanan" min="-2" pref="233" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnSearchPesanan" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="39" max="32767" attributes="0"/>
                   </Group>
@@ -961,18 +956,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtSearchPesanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnSearchPesanan" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSearchPesanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnSearchPesanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="498" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="449" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnUpdatePesanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnRefreshPesanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDeletePesanan" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUpdatePesanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnRefreshPesanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnDeletePesanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
@@ -996,19 +991,19 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="462" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          <Component id="jLabel8" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel8" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1101,6 +1096,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnUpdatePesanan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Asset/editing.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>
             </Component>
@@ -1113,11 +1111,17 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnRefreshPesanan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Asset/refresh-page-option.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnDeletePesanan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Asset/remove.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
             </Component>
@@ -1179,19 +1183,19 @@
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnSearchLayanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtSearchLayanan" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSearchLayanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="txtSearchLayanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="458" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnRefreshLayanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDeleteLayanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAddLayanan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEditLayanan" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRefreshLayanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnDeleteLayanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnAddLayanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnEditLayanan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

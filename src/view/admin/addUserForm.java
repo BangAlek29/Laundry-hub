@@ -104,94 +104,77 @@ public class addUserForm extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("LAUNDRY HUB - Add User");
-        setResizable(false);
+        setTitle("Add User");
         setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ADD USER");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Full Name");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Phone Number");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Confirm Password");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Password");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Address");
 
-        txtName.setBackground(new java.awt.Color(60, 60, 60));
+        txtName.setBackground(new java.awt.Color(40, 40, 40));
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtName.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
-        txtPhoneNumber.setBackground(new java.awt.Color(60, 60, 60));
+        txtPhoneNumber.setBackground(new java.awt.Color(40, 40, 40));
         txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPhoneNumber.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
-        txtUsername.setBackground(new java.awt.Color(60, 60, 60));
+        txtUsername.setBackground(new java.awt.Color(40, 40, 40));
         txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtUsername.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
-        txtPassword.setBackground(new java.awt.Color(60, 60, 60));
+        txtPassword.setBackground(new java.awt.Color(40, 40, 40));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPassword.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
-        txtConfirmPassword.setBackground(new java.awt.Color(60, 60, 60));
+        txtConfirmPassword.setBackground(new java.awt.Color(40, 40, 40));
         txtConfirmPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtConfirmPassword.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
-        txtAddress.setBackground(new java.awt.Color(60, 60, 60));
+        txtAddress.setBackground(new java.awt.Color(40, 40, 40));
         txtAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtAddress.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
         txtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        btnRegister.setBackground(new java.awt.Color(45, 45, 45));
+        btnRegister.setBackground(new java.awt.Color(40, 40, 40));
         btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnRegister.setForeground(new java.awt.Color(255, 255, 255));
         btnRegister.setText("ADD");
 
-        btnBack.setBackground(new java.awt.Color(45, 45, 45));
+        btnBack.setBackground(new java.awt.Color(40, 40, 40));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("BACK");
 
-        jComboBoxRole.setBackground(new java.awt.Color(60, 60, 60));
+        jComboBoxRole.setBackground(new java.awt.Color(40, 40, 40));
         jComboBoxRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jComboBoxRole.setForeground(new java.awt.Color(255, 255, 255));
         jComboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "member", "kasir", "admin" }));
-        jComboBoxRole.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 80)),
-            BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Role");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -233,32 +216,32 @@ public class addUserForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(5, 5, 5)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel4)
                 .addGap(5, 5, 5)
-                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel2)
                 .addGap(5, 5, 5)
-                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel6)
                 .addGap(5, 5, 5)
-                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel5)
                 .addGap(5, 5, 5)
-                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel7)
                 .addGap(5, 5, 5)
-                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel18)
                 .addGap(5, 5, 5)
-                .addComponent(jComboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jComboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

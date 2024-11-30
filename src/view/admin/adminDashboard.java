@@ -13,9 +13,7 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -133,11 +131,14 @@ public class adminDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LAUNDRY HUB - Admin Dashboard");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
         setResizable(false);
 
         Menu.setBackground(new java.awt.Color(40, 40, 40));
+        Menu.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
-        btnUserManagement.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
+        btnUserManagement.setBackground(new java.awt.Color(0, 119, 182));
         btnUserManagement.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUserManagement.setForeground(java.awt.Color.white);
         btnUserManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/icons8-management-24.png"))); // NOI18N
@@ -146,7 +147,7 @@ public class adminDashboard extends javax.swing.JFrame {
         btnUserManagement.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUserManagement.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        btnLogout.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        btnLogout.setBackground(new java.awt.Color(229, 57, 53));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setForeground(java.awt.Color.white);
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/icons8-logout-30.png"))); // NOI18N
@@ -156,7 +157,7 @@ public class adminDashboard extends javax.swing.JFrame {
         btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLogout.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        btnUserInformation.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
+        btnUserInformation.setBackground(new java.awt.Color(103, 58, 183));
         btnUserInformation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUserInformation.setForeground(java.awt.Color.white);
         btnUserInformation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/profile_1.png"))); // NOI18N
@@ -170,17 +171,17 @@ public class adminDashboard extends javax.swing.JFrame {
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUserManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUserInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(btnUserManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(btnUserInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,12 +192,14 @@ public class adminDashboard extends javax.swing.JFrame {
 
         mainPanel.setBackground(new java.awt.Color(2, 48, 71));
         mainPanel.setLayout(new java.awt.CardLayout());
+        mainPanel.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         userManagementPanel.setBackground(new java.awt.Color(40, 40, 40));
         userManagementPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userManagementPanel.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         tableLogin.setAutoCreateRowSorter(true);
-        tableLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tableLogin.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         tableLogin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -210,40 +213,41 @@ public class adminDashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tableLogin);
         tableLogin.getAccessibleContext().setAccessibleName("");
 
-        btnEditUser.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
+        btnEditUser.setBackground(new java.awt.Color(103, 58, 183));
         btnEditUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditUser.setForeground(java.awt.Color.white);
         btnEditUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/editing.png"))); // NOI18N
         btnEditUser.setText("Edit User");
         btnEditUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnDelete.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        btnDelete.setBackground(new java.awt.Color(229, 57, 53));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDelete.setForeground(java.awt.Color.white);
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/remove.png"))); // NOI18N
         btnDelete.setText("Delete User");
 
-        txtSearchUser.setBackground(new java.awt.Color(60, 60, 60));
+        txtSearchUser.setBackground(new java.awt.Color(40, 40, 40));
         txtSearchUser.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtSearchUser.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search User");
 
-        btnRefresh.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        btnRefresh.setBackground(new java.awt.Color(76, 175, 80));
         btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRefresh.setForeground(java.awt.Color.white);
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/refresh-page-option.png"))); // NOI18N
         btnRefresh.setText("Refresh");
         btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnAddUser.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
+        btnAddUser.setBackground(new java.awt.Color(0, 119, 182));
         btnAddUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAddUser.setForeground(java.awt.Color.white);
         btnAddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/plus.png"))); // NOI18N
         btnAddUser.setText("Add User");
         btnAddUser.setPreferredSize(new java.awt.Dimension(87, 10));
 
-        jPanel3.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
+        jPanel3.setBackground(new java.awt.Color(0, 119, 182));
         jPanel3.setForeground(java.awt.Color.white);
         jPanel3.setPreferredSize(new java.awt.Dimension(443, 45));
+        jPanel3.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel7.setForeground(java.awt.Color.white);
@@ -256,7 +260,7 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(423, 423, 423)
                 .addComponent(jLabel7)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +276,7 @@ public class adminDashboard extends javax.swing.JFrame {
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
                 .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -303,11 +307,12 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addGap(15, 15, 15)
-                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30))
         );
 
@@ -316,10 +321,10 @@ public class adminDashboard extends javax.swing.JFrame {
         mainPanel.add(userManagementPanel, "card2");
 
         UserInformation.setBackground(new java.awt.Color(40, 40, 40));
+        UserInformation.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         infoUserTable.setAutoCreateRowSorter(true);
-        infoUserTable.setBackground(new java.awt.Color(45, 45, 45));
-        infoUserTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        infoUserTable.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         infoUserTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -343,27 +348,27 @@ public class adminDashboard extends javax.swing.JFrame {
         infoUserTable.setShowGrid(false);
         jScrollPane2.setViewportView(infoUserTable);
 
-        btnEdit2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
+        btnEdit2.setBackground(new java.awt.Color(103, 58, 183));
         btnEdit2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEdit2.setForeground(java.awt.Color.white);
         btnEdit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/editing.png"))); // NOI18N
         btnEdit2.setText("Edit Info User");
         btnEdit2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEdit2.setPreferredSize(new java.awt.Dimension(139, 27));
 
-        btnRefresh2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        btnRefresh2.setBackground(new java.awt.Color(76, 175, 80));
         btnRefresh2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRefresh2.setForeground(java.awt.Color.white);
         btnRefresh2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/refresh-page-option.png"))); // NOI18N
         btnRefresh2.setText("Refresh");
         btnRefresh2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        txtSearchInfo.setBackground(new java.awt.Color(60, 60, 60));
+        txtSearchInfo.setBackground(new java.awt.Color(40, 40, 40));
         txtSearchInfo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtSearchInfo.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search Customer");
 
-        jPanel4.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
+        jPanel4.setBackground(new java.awt.Color(103, 58, 183));
         jPanel4.setPreferredSize(new java.awt.Dimension(443, 45));
+        jPanel4.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setForeground(java.awt.Color.white);
@@ -376,7 +381,7 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(414, 414, 414)
                 .addComponent(jLabel4)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap(407, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +397,7 @@ public class adminDashboard extends javax.swing.JFrame {
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInformationLayout.createSequentialGroup()
                 .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -404,7 +409,7 @@ public class adminDashboard extends javax.swing.JFrame {
                         .addGroup(UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2)
                             .addGroup(UserInformationLayout.createSequentialGroup()
-                                .addComponent(btnEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEdit2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRefresh2)))))
                 .addGap(60, 60, 60))
@@ -427,8 +432,9 @@ public class adminDashboard extends javax.swing.JFrame {
 
         mainPanel.add(UserInformation, "card3");
 
-        jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
+        jPanel2.setBackground(new java.awt.Color(0, 119, 182));
         jPanel2.setForeground(java.awt.Color.white);
+        jPanel2.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
