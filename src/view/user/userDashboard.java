@@ -4,17 +4,11 @@
  */
 package view.user;
 
-import controller.UserController;
-import view.auth.loginPage;
 import com.formdev.flatlaf.FlatDarkLaf;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.UIManager;
-import koneksiDatabase.Connect;
+
 import javax.swing.*;
 import model.CustomerModel;
+import model.LayananModel;
 /**
  *
  * @author dzikr
@@ -29,10 +23,6 @@ public class userDashboard extends javax.swing.JFrame {
         initComponents();
     }
     
-    public JPanel getMenuPanel() {
-        return Menu;
-    }
-
     public JPanel getRiwayatPemesananPanel() {
         return RiwayatPemesananPanel;
     }
@@ -48,12 +38,8 @@ public class userDashboard extends javax.swing.JFrame {
     public JButton getBtnOrderList() {
         return btnOrderList;
     }
-
-    public ButtonGroup getButtonGroup1() {
-        return buttonGroup1;
-    }
     
-    public JComboBox<String> getCmbLayanan() {
+    public JComboBox<LayananModel> getCmbLayanan() {
         return cmbLayanan;
     }
 
@@ -65,88 +51,8 @@ public class userDashboard extends javax.swing.JFrame {
         return customerLamaPanel;
     }
 
-    public JButton getJButton2() {
-        return jButton2;
-    }
-
-    public JLabel getJLabel1() {
-        return jLabel1;
-    }
-
-    public JLabel getJLabel11() {
-        return jLabel11;
-    }
-
-    public JLabel getJLabel13() {
-        return jLabel13;
-    }
-
-    public JLabel getJLabel14() {
-        return jLabel14;
-    }
-
-    public JLabel getJLabel15() {
-        return jLabel15;
-    }
-
-    public JLabel getJLabel16() {
-        return jLabel16;
-    }
-
-    public JLabel getJLabel17() {
-        return jLabel17;
-    }
-
-    public JLabel getJLabel2() {
-        return jLabel2;
-    }
-
-    public JLabel getJLabel3() {
-        return jLabel3;
-    }
-
-    public JLabel getJLabel4() {
-        return jLabel4;
-    }
-
-    public JLabel getJLabel5() {
-        return jLabel5;
-    }
-
-    public JLabel getJLabel6() {
-        return jLabel6;
-    }
-
-    public JLabel getJLabel7() {
-        return jLabel7;
-    }
-
-    public JLabel getJLabel8() {
-        return jLabel8;
-    }
-    
-    public JLabel getJLabel9() {
-        return jLabel9;
-    }
-
-    public JPanel getJPanel3() {
-        return jPanel3;
-    }
-
-    public JPanel getJPanel5() {
-        return jPanel5;
-    }
-
-    public JScrollPane getJScrollPane1() {
-        return jScrollPane1;
-    }
-
-    public JScrollPane getJScrollPane3() {
-        return jScrollPane3;
-    }
-
-    public JScrollPane getJScrollPane4() {
-        return jScrollPane4;
+    public JButton getBtnRefresh() {
+        return btnRefresh;
     }
 
     public JTable getTabelPesanan() {
@@ -193,10 +99,6 @@ public class userDashboard extends javax.swing.JFrame {
         return spnBerat;
     }
 
-    public JPanel getTittlePanel() {
-        return tittlePanel;
-    }
-
     public JTextArea getTxtAlamat() {
         return txtAlamat;
     }
@@ -221,24 +123,6 @@ public class userDashboard extends javax.swing.JFrame {
         return txtTelepon2;
     }
 
-
-    private void renderCbLayanan(){
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT nama FROM layanan;";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-            
-            while (rs.next()) {
-                model.addElement(rs.getString("nama"));
-            }
-            
-            cmbLayanan.setModel(model);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -249,7 +133,6 @@ public class userDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        editLoginForm1 = new admin.editLoginForm();
         buttonGroup1 = new javax.swing.ButtonGroup();
         tittlePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -297,13 +180,15 @@ public class userDashboard extends javax.swing.JFrame {
         tabelPesanan = new javax.swing.JTable();
         searchPesananButton = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LAUNDRY HUB - Kasir Dashboard");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setIconImages(null);
         setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         tittlePanel.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
@@ -316,7 +201,7 @@ public class userDashboard extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/laundry.png"))); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/laundry-machine-kecil.png"))); // NOI18N
         jLabel17.setText("Laundry - Hub");
 
         javax.swing.GroupLayout tittlePanelLayout = new javax.swing.GroupLayout(tittlePanel);
@@ -326,7 +211,7 @@ public class userDashboard extends javax.swing.JFrame {
             .addGroup(tittlePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel17)
-                .addGap(205, 205, 205)
+                .addGap(426, 426, 426)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -345,36 +230,26 @@ public class userDashboard extends javax.swing.JFrame {
         bntRequestOrder.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.background"));
         bntRequestOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntRequestOrder.setForeground(java.awt.Color.white);
-        bntRequestOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/booking.png"))); // NOI18N
+        bntRequestOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/booking.png"))); // NOI18N
         bntRequestOrder.setText("Request Order");
         bntRequestOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bntRequestOrder.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bntRequestOrder.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        bntRequestOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntRequestOrderActionPerformed(evt);
-            }
-        });
 
         btnLogout.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setForeground(java.awt.Color.white);
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/icons8-logout-30.png"))); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/icons8-logout-30.png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setAlignmentY(0.0F);
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLogout.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
 
         btnOrderList.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
         btnOrderList.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnOrderList.setForeground(java.awt.Color.white);
-        btnOrderList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/shopping-list.png"))); // NOI18N
+        btnOrderList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/shopping-list.png"))); // NOI18N
         btnOrderList.setText("Riwayat");
         btnOrderList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnOrderList.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -401,7 +276,7 @@ public class userDashboard extends javax.swing.JFrame {
                 .addComponent(btnOrderList, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.setBackground(new java.awt.Color(40, 40, 40));
@@ -421,10 +296,10 @@ public class userDashboard extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(312, 312, 312)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(491, 491, 491))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,18 +318,8 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel9.setText("LAYANAN :");
 
         cmbLayanan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLayananActionPerformed(evt);
-            }
-        });
 
         orderButton.setText("Order");
-        orderButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderButtonActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -469,26 +334,12 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel6.setText("CUSTOMER :");
 
         buttonGroup1.add(rbCustomerBaru);
+        rbCustomerBaru.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbCustomerBaru.setText("Baru");
-        rbCustomerBaru.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCustomerBaruActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(rbCustomerLama);
+        rbCustomerLama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbCustomerLama.setText("Isi Otomatis");
-        rbCustomerLama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCustomerLamaActionPerformed(evt);
-            }
-        });
-
-        spnBerat.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnBeratStateChanged(evt);
-            }
-        });
 
         pnlCustomer.setBackground(new java.awt.Color(40, 40, 40));
         pnlCustomer.setLayout(new java.awt.CardLayout());
@@ -534,7 +385,7 @@ public class userDashboard extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         customerBaruPanelLayout.setVerticalGroup(
             customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,7 +401,7 @@ public class userDashboard extends javax.swing.JFrame {
                 .addGroup(customerBaruPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pnlCustomer.add(customerBaruPanel, "card2");
@@ -595,10 +446,10 @@ public class userDashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4)
                         .addComponent(txtTelepon2))
                     .addComponent(txtNama1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         customerLamaPanelLayout.setVerticalGroup(
             customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -614,13 +465,13 @@ public class userDashboard extends javax.swing.JFrame {
                 .addGroup(customerLamaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(customerLamaPanelLayout.createSequentialGroup()
                         .addComponent(jLabel16)
-                        .addGap(0, 68, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4)))
         );
 
         pnlCustomer.add(customerLamaPanel, "card3");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Foto/mesincuci__2_-removebg-preview.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/mesincuci__2_-removebg-preview_1.png"))); // NOI18N
 
         javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
         orderPanel.setLayout(orderPanelLayout);
@@ -628,62 +479,63 @@ public class userDashboard extends javax.swing.JFrame {
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(orderPanelLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(49, 49, 49)
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(orderPanelLayout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(orderPanelLayout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbCustomerBaru)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbCustomerLama))
-                                    .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(orderPanelLayout.createSequentialGroup()
-                                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(orderButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(68, 68, 68))
-                                    .addGroup(orderPanelLayout.createSequentialGroup()
-                                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(orderPanelLayout.createSequentialGroup()
-                                                .addGap(104, 104, 104)
-                                                .addComponent(jLabel11)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(labelHarga))
-                                            .addGroup(orderPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(143, 143, 143)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 15, Short.MAX_VALUE))))
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbCustomerBaru)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbCustomerLama))
+                            .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(orderButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(68, 68, 68))
+                        .addGroup(orderPanelLayout.createSequentialGroup()
+                            .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(orderPanelLayout.createSequentialGroup()
+                                    .addGap(104, 104, 104)
+                                    .addComponent(jLabel11)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(labelHarga))
+                                .addGroup(orderPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(143, 143, 143))))
+                .addGap(114, 114, 114)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         orderPanelLayout.setVerticalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(rbCustomerBaru)
-                    .addComponent(rbCustomerLama))
-                .addGap(11, 11, 11)
-                .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
+                    .addGroup(orderPanelLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(rbCustomerBaru)
+                            .addComponent(rbCustomerLama))
+                        .addGap(20, 20, 20)
+                        .addComponent(pnlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addGroup(orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -698,11 +550,7 @@ public class userDashboard extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(orderButton)
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
+                        .addContainerGap())))
         );
 
         mainPanel.add(orderPanel, "card2");
@@ -721,17 +569,17 @@ public class userDashboard extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(386, 386, 386))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         tabelPesanan.setModel(new javax.swing.table.DefaultTableModel(
@@ -748,52 +596,46 @@ public class userDashboard extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tabelPesanan);
 
         searchPesananButton.setText("Search");
-        searchPesananButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchPesananButtonActionPerformed(evt);
-            }
-        });
 
-        jButton2.setText("Refresh");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        btnRefresh.setText("Refresh");
 
         javax.swing.GroupLayout RiwayatPemesananPanelLayout = new javax.swing.GroupLayout(RiwayatPemesananPanel);
         RiwayatPemesananPanel.setLayout(RiwayatPemesananPanelLayout);
         RiwayatPemesananPanelLayout.setHorizontalGroup(
             RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
                 .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(searchPesananButton))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE))
+                    .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
+                        .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
+                                .addGap(194, 194, 194)
+                                .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnRefresh)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
+                                .addGap(617, 617, 617)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchPesananButton)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         RiwayatPemesananPanelLayout.setVerticalGroup(
             RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(98, 98, 98)
                 .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchPesananButton)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchPesananButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGap(26, 26, 26)
+                .addComponent(btnRefresh)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -821,242 +663,14 @@ public class userDashboard extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bntRequestOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRequestOrderActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.repaint();
-        mainPanel.revalidate();
-
-        mainPanel.add(orderPanel);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-    }//GEN-LAST:event_bntRequestOrderActionPerformed
-
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
-        int response =JOptionPane.showConfirmDialog(this, "Are you sure ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.YES_OPTION) {
-            loginPage logout = null;
-            try {
-                logout = new loginPage();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            logout.setVisible(true);
-            this.dispose();
-        }else{
-            return;
-        }
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void cmbLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLayananActionPerformed
-        // TODO add your handling code here:
-        renderHarga();
-    }//GEN-LAST:event_cmbLayananActionPerformed
     
-    private void renderHarga(){
-        int berat = Integer.parseInt(spnBerat.getValue().toString());
-        
-        int HargaTotal = hitungHarga(berat);
-        
-        String displayHarga = "Rp. " + formatHarga(HargaTotal) +" -,";
-        
-        labelHarga.setText(displayHarga);
-    }
-    
-    private String formatHarga(int harga) {
-        java.text.NumberFormat format = java.text.NumberFormat.getInstance();
-        format.setGroupingUsed(true);
-        
-        return format.format(harga);
-    }
-    
-    private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
-//        // TODO add your handling code here:
-//        if (txtNama.getText().equals("") && txtTelepon.getText().equals("") && txtAlamat.getText().equals("") && ((Integer) spnBerat.getValue()) == 0) {
-//            JOptionPane.showMessageDialog(this, "Please fill out the form");
-//            return;
-//        }
-//        try {
-//            Statement stmt = (Statement) Connect.configDB().createStatement();
-//            if(rbCustomerBaru.isSelected()){
-//                String query1 = "INSERT INTO pesanan (id_pesanan,id_customer,id_layanan,berat,harga) VALUE (  '"+generateIdPesanan()+"','"+ cst.getIdCustomer()+ "','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"')";
-//                String query2 = "INSERT INTO customer VALUE ('"+generateIdCust()+"','"+generateIdAkun()+"','"+txtNama.getText()+"','"+txtTelepon.getText()+"','"+txtAlamat.getText()+"')";
-//                stmt.executeUpdate(query2);
-//                stmt.executeUpdate(query1);
-//
-//            } else {
-//                String query = "INSERT INTO pesanan (id_pesanan,id_customer,id_layanan,berat,harga) VALUE ('"+generateIdPesanan()+"','"+ cst.getIdCustomer() +"','"+getIdLayanan()+"','"+spnBerat.getValue()+"','"+hitungHarga(Integer.parseInt(spnBerat.getValue().toString()))+"')";
-//                stmt.executeUpdate(query);
-//            }
-//            JOptionPane.showMessageDialog(this, "Order successfully placed");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-    }//GEN-LAST:event_orderButtonActionPerformed
-    
-    private String generateIdAkun(){
-        String tempID = "";
-        try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
-            ResultSet rs = stm.executeQuery(query);
-            
-            while(rs.next()){
-                tempID = rs.getString("id_akun");
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        String ID = tempID.replace("AKN", "");
-        int IDint = Integer.parseInt(ID);
-        
-        return "AKN" + (IDint+1);
-    }
-    
-    private String generateIdCust(){
-        String tempID = "";
-        try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY id_customer ASC";
-            ResultSet rs = stm.executeQuery(query);
-            
-            while(rs.next()){
-                tempID = rs.getString("id_customer");
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        String ID = tempID.replace("CST", "");
-        int IDint = Integer.parseInt(ID);
-        
-        return "CST" + (IDint+1);
-    }
-    
-    private String generateIdPesanan(){
-        String tempID = "";
-        try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM pesanan ORDER BY id_pesanan DESC LIMIT 1";
-            ResultSet rs = stm.executeQuery(query);
-
-            if(rs.next()){
-                tempID = rs.getString("id_pesanan");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (tempID.isEmpty()) {
-            return "LDR1";
-        }
-
-        String ID = tempID.replace("LDR", "");
-        int IDint = Integer.parseInt(ID);
-
-        return "LDR" + (IDint + 1);
-    }
-
-    private int hitungHarga(int berat){
-        int harga = 0;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan where id_layanan = '"+getIdLayanan()+"'";
-            
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if (rs.next()){
-                harga = rs.getInt("harga");
-            }
-            
-            while (rs.next()){
-                
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return berat * harga;
-    }
-    
-    private String getIdLayanan(){
-        String idLayanan = null;
-        String namaLayanan = cmbLayanan.getSelectedItem().toString();
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan WHERE nama = '"+ namaLayanan+ "'";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if(rs.next()){
-                idLayanan = rs.getString("id_layanan");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return idLayanan;
-    }
-    
-    private void rbCustomerBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomerBaruActionPerformed
-        // TODO add your handling code here:
-        pnlCustomer.removeAll();
-        pnlCustomer.repaint();
-        pnlCustomer.revalidate();
-
-        pnlCustomer.add(customerBaruPanel);
-        pnlCustomer.repaint();
-        pnlCustomer.revalidate();
-
-    }//GEN-LAST:event_rbCustomerBaruActionPerformed
-
-    private void rbCustomerLamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomerLamaActionPerformed
-//        // TODO add your handling code here:
-//        pnlCustomer.removeAll();
-//        pnlCustomer.repaint();
-//        pnlCustomer.revalidate();
-//
-//        pnlCustomer.add(customerLamaPanel);
-//        pnlCustomer.repaint();
-//        pnlCustomer.revalidate();
-//        String alamat = "", noTelp = "",nama = "";
-//        try {
-//            Statement stm = (Statement) Connect.configDB().createStatement();
-//            String query = "SELECT * FROM customer WHERE id_customer = '" + cst.getIdCustomer() + "';";
-//            ResultSet rs = stm.executeQuery(query);
-//            
-//            if(rs.next()){
-//                nama = rs.getString("nama");
-//                noTelp = rs.getString("telpon");
-//                alamat = rs.getString("alamat");
-//            }
-//            txtNama1.setText(nama);
-//            txtAlamat2.setText(alamat);
-//            txtTelepon2.setText(noTelp);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-    }//GEN-LAST:event_rbCustomerLamaActionPerformed
-
-    private void spnBeratStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnBeratStateChanged
-        // TODO add your handling code here:
-        renderHarga();
-    }//GEN-LAST:event_spnBeratStateChanged
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        //controller.refreshTable(cst.getIdCustomer());
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void searchPesananButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPesananButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchPesananButtonActionPerformed
+   
      
     /**
      * @param args the command line arguments
@@ -1085,12 +699,11 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JButton bntRequestOrder;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnOrderList;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cmbLayanan;
+    private javax.swing.JComboBox<LayananModel> cmbLayanan;
     private javax.swing.JPanel customerBaruPanel;
     private javax.swing.JPanel customerLamaPanel;
-    private admin.editLoginForm editLoginForm1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

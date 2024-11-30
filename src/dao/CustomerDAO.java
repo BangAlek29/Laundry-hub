@@ -41,7 +41,7 @@ public class CustomerDAO {
 
         return customer;
     }
-    
+
     public static void addCustomer(CustomerModel customer) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "INSERT INTO customer (id_customer, nama, telpon, alamat, id_akun) VALUES (?, ?, ?, ?, ?)";
@@ -100,19 +100,19 @@ public class CustomerDAO {
 
         return customers;
     }
-    
-    public static String generateIDCustomer () { 
+
+    public static String generateIDCustomer() {
         String lastId_cust = null;
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
             String query = "SELECT * FROM customer ORDER BY id_customer ASC";
 
             ResultSet rs = stmt.executeQuery(query);
-            
+
             while (rs.next()) {
                 lastId_cust = rs.getString("id_customer");
             }
-            
+
             if (lastId_cust == null) {
                 lastId_cust = "CST1";
             }
@@ -121,9 +121,9 @@ public class CustomerDAO {
             System.err.println(e);
         }
         int number = Integer.parseInt(lastId_cust.replace("CST", ""));
-            return "CST" + (number+1);
+        return "CST" + (number + 1);
     }
-    
+
     public static List<CustomerModel> searchCustomer(String keyword) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "SELECT * FROM customer WHERE nama LIKE ? OR id_customer LIKE ?";
@@ -145,8 +145,7 @@ public class CustomerDAO {
 
         return customers;
     }
-    
-    
+
     public static CustomerModel getCustomerByIdCustomer(String idCustomer) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "SELECT * FROM customer WHERE id_customer = ?";

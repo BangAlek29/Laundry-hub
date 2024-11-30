@@ -6,15 +6,14 @@ public class AkunModel {
     private String password;
     private String role;
 
-    // Constructor
-    public AkunModel (){
+    public AkunModel() {
         this.username = null;
         this.password = null;
         this.role = null;
         this.idAkun = null;
     }
-    
-    public AkunModel(String idAkun,String username, String password, String role) {
+
+    public AkunModel(String idAkun, String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -45,12 +44,12 @@ public class AkunModel {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    public String getIdAkun(){
+
+    public String getIdAkun() {
         return idAkun;
     }
-    
-    public void setIdAkun(String idAkun){
+
+    public void setIdAkun(String idAkun) {
         this.idAkun = idAkun;
     }
 }

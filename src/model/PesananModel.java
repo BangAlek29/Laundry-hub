@@ -9,7 +9,8 @@ public class PesananModel {
     private String tanggalSelesai;
     private String jamSelesai;
 
-    public PesananModel(String idPesanan, String idCustomer, String idLayanan, int berat, int harga, String tanggalSelesai, String jamSelesai) {
+    public PesananModel(String idPesanan, String idCustomer, String idLayanan, int berat, int harga,
+            String tanggalSelesai, String jamSelesai) {
         this.idPesanan = idPesanan;
         this.idCustomer = idCustomer;
         this.idLayanan = idLayanan;
@@ -18,7 +19,7 @@ public class PesananModel {
         this.tanggalSelesai = tanggalSelesai;
         this.jamSelesai = jamSelesai;
     }
-    
+
     public PesananModel(String idPesanan, String idCustomer, String idLayanan, int berat, int harga) {
         this.idPesanan = idPesanan;
         this.idCustomer = idCustomer;
@@ -26,9 +27,9 @@ public class PesananModel {
         this.berat = berat;
         this.harga = harga;
     }
-    
-    public PesananModel(){
-        
+
+    public PesananModel() {
+
     }
 
     public String getIdPesanan() {
@@ -70,22 +71,21 @@ public class PesananModel {
     public void setHarga(int harga) {
         this.harga = harga;
     }
-    
-    public String getTanggalSelesai(){
+
+    public String getTanggalSelesai() {
         return tanggalSelesai;
     }
-    
-    public void setTanggalSelesai(String tanggalSelesai){
+
+    public void setTanggalSelesai(String tanggalSelesai) {
         this.tanggalSelesai = tanggalSelesai;
     }
-    
-    public String getJamSelesai(){
+
+    public String getJamSelesai() {
         return jamSelesai;
     }
-    
-    public void setJamSelesai(String jamSelesai){
+
+    public void setJamSelesai(String jamSelesai) {
         this.jamSelesai = jamSelesai;
     }
-    
-    
+
 }

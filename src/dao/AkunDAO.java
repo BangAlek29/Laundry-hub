@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import koneksiDatabase.Connect;
 import model.AkunModel;
 
@@ -20,7 +21,7 @@ import model.AkunModel;
  */
 public class AkunDAO {
 
-    public static AkunModel validateLogin(String username, String password) throws SQLException{
+    public static AkunModel validateLogin(String username, String password) throws SQLException {
         try {
             Statement stmt = Connect.configDB().createStatement();
             String query = "SELECT * FROM akun WHERE username = '" + username + "';";
@@ -31,7 +32,7 @@ public class AkunDAO {
                 if (storedPassword.equals(password)) {
                     String role = rs.getString("role");
                     String idAkun = getIdAkunByUsername(username);
-                    return new AkunModel(idAkun,username, password, role);
+                    return new AkunModel(idAkun, username, password, role);
                 }
             }
         } catch (SQLException e) {
@@ -39,11 +40,10 @@ public class AkunDAO {
         }
         return null;
     }
-    
-    public static List<AkunModel> SearchAkun(String key){
+
+    public static List<AkunModel> SearchAkun(String key) {
         List<AkunModel> listAkun = new ArrayList<>();
         try {
-            
             Statement stmt = (Statement) Connect.configDB().createStatement();
             String query = "SELECT * FROM akun WHERE username LIKE '%" + key + "%' " +
                     "OR password LIKE '%" + key + "%' " +
@@ -64,7 +64,7 @@ public class AkunDAO {
         }
         return null;
     }
-    
+
     private static String getIdAkunByUsername(String username) {
         String idAkun = "";
         try {
@@ -80,7 +80,7 @@ public class AkunDAO {
         }
         return idAkun;
     }
-    
+
     public static AkunModel getAkunByID(String idAkun) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "SELECT * FROM akun WHERE id_akun = ?";
@@ -128,7 +128,7 @@ public class AkunDAO {
 
         return listAkun;
     }
-    
+
     public static void addAkun(AkunModel akun) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
@@ -140,20 +140,20 @@ public class AkunDAO {
 
         boolean isSuccess = stmt.executeUpdate() > 0;
     }
-    
-    public static String generateIDAkun () { 
+
+    public static String generateIDAkun() {
         String lastId_akun = null;
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
             String query = "SELECT * FROM akun ORDER BY id_akun ASC";
 
             ResultSet rs = stmt.executeQuery(query);
-            
+
             while (rs.next()) {
                 lastId_akun = rs.getString("id_akun");
             }
-            
-            if(lastId_akun == null){
+
+            if (lastId_akun == null) {
                 lastId_akun = "AKN1";
             }
 
@@ -161,10 +161,9 @@ public class AkunDAO {
             System.err.println(e);
         }
         int number = Integer.parseInt(lastId_akun.replace("AKN", ""));
-            return "AKN" + (number+1);
+        return "AKN" + (number + 1);
     }
-    
-    
+
     public static boolean IsUsernameExist(String username) {
         boolean result = false;
         try {
@@ -181,7 +180,7 @@ public class AkunDAO {
         }
         return result;
     }
-    
+
     public static boolean updateAkun(AkunModel akun) throws SQLException {
         Connection conn = Connect.configDB();
         String query = "UPDATE akun SET username = ?, password = ?, role = ? WHERE id_akun = ?";

@@ -1,17 +1,19 @@
 package controller;
 
-import dao.LayananDAO;
-import dao.PesananDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+
+import dao.LayananDAO;
+import dao.PesananDAO;
 import model.LayananModel;
 import model.PesananModel;
 import util.PesananUtil;
@@ -61,14 +63,13 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
             String idLayanan = selectedLayanan.getIdLayanan();
             String formattedDate = dateFormat.format(view.getCalTanggal().getDate());
             PesananModel newOrder = new PesananModel(
-                pesanan.getIdPesanan(),
-                pesanan.getIdPesanan(),
-                idLayanan,
-                (Integer) view.getSpnBerat().getValue(),
-                hitungHarga((Integer) view.getSpnBerat().getValue()),
-                formattedDate,
-                PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue())
-            );
+                    pesanan.getIdPesanan(),
+                    pesanan.getIdPesanan(),
+                    idLayanan,
+                    (Integer) view.getSpnBerat().getValue(),
+                    hitungHarga((Integer) view.getSpnBerat().getValue()),
+                    formattedDate,
+                    PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue()));
             PesananDAO.updatePesanan(newOrder);
             JOptionPane.showMessageDialog(view, "Order successfully updated");
             view.dispose();
@@ -77,7 +78,7 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
         }
     }
 
-    private int hitungHarga(int berat){
+    private int hitungHarga(int berat) {
         LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
         String idLayanan = selectedLayanan.getIdLayanan();
         int harga = LayananDAO.getHargaById(idLayanan);
@@ -86,26 +87,27 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void fillForm(){
+    private void fillForm() {
         view.getIdPesananField().setText(pesanan.getIdPesanan());
         view.getSpnBerat().setValue(pesanan.getBerat());
         view.getLabelHarga().setText("Rp. " + PesananUtil.formatCurrency(pesanan.getHarga()) + " -,");
     }
-    
+
     private void renderSpinerJam() {
         view.getSpnJam().setModel(new SpinerTimeModel());
 
         JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) view.getSpnJam().getEditor();
         editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
     }
-    
-    private void renderHarga(){
+
+    private void renderHarga() {
         int berat = Integer.parseInt(view.getSpnBerat().getValue().toString());
         int HargaTotal = hitungHarga(berat);
-        String displayHarga = "Rp. " + PesananUtil.formatCurrency(HargaTotal) +" -,";
+        String displayHarga = "Rp. " + PesananUtil.formatCurrency(HargaTotal) + " -,";
         view.getLabelHarga().setText(displayHarga);
     }
 }

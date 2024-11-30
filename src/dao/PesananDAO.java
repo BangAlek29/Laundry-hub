@@ -4,15 +4,20 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import koneksiDatabase.Connect;
 /**
  *
  * @author David
  
  */
 import model.PesananModel;
-import java.sql.*;
-import java.util.ArrayList;
-import koneksiDatabase.Connect;
 
 public class PesananDAO {
     public static ArrayList<PesananModel> searchPesanan(String keyword) {
@@ -48,7 +53,49 @@ public class PesananDAO {
         }
         return pesananList;
     }
-    
+
+    public static ArrayList<PesananModel> searchPesananCustomer(String keyword, String idCustomer) {
+        ArrayList<PesananModel> pesananList = new ArrayList<>();
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM pesanan WHERE id_customer = ? AND " +
+                    "(id_pesanan LIKE ? OR id_layanan LIKE ? OR CAST(berat AS CHAR) LIKE ? OR " +
+                    "CAST(harga AS CHAR) LIKE ? OR tanggalSelesai LIKE ? OR jamSelesai LIKE ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+            stmt.setString(1, idCustomer);
+
+            stmt.setString(2, "%" + keyword + "%");
+            stmt.setString(3, "%" + keyword + "%");
+            stmt.setString(4, "%" + keyword + "%");
+            stmt.setString(5, "%" + keyword + "%");
+            stmt.setString(6, "%" + keyword + "%");
+            stmt.setString(7, "%" + keyword + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                PesananModel pesanan = new PesananModel();
+                pesanan.setIdPesanan(rs.getString("id_pesanan"));
+                pesanan.setIdCustomer(rs.getString("id_customer"));
+                pesanan.setIdLayanan(rs.getString("id_layanan"));
+                pesanan.setBerat(rs.getInt("berat"));
+                pesanan.setHarga(rs.getInt("harga"));
+
+                String tanggalSelesai = rs.getString("tanggalSelesai");
+                pesanan.setTanggalSelesai(tanggalSelesai != null ? tanggalSelesai : "");
+
+                String jamSelesai = rs.getString("jamSelesai");
+                pesanan.setJamSelesai(jamSelesai != null ? jamSelesai : "");
+
+                pesananList.add(pesanan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pesananList;
+    }
+
     public static ArrayList<PesananModel> getPesananByCustomerId(String idCustomer) throws SQLException {
         ArrayList<PesananModel> pesananList = new ArrayList<>();
         Connection conn = Connect.configDB();
@@ -64,8 +111,6 @@ public class PesananDAO {
             pesanan.setIdLayanan(rs.getString("id_layanan"));
             pesanan.setBerat(rs.getInt("berat"));
             pesanan.setHarga(rs.getInt("harga"));
-            pesanan.setTanggalSelesai("tanggalSelesai");
-            pesanan.setJamSelesai("jamSelesai");
             pesananList.add(pesanan);
         }
 
@@ -83,7 +128,7 @@ public class PesananDAO {
         stmt.setInt(5, pesanan.getHarga());
         stmt.executeUpdate();
     }
-    
+
     public static ArrayList<PesananModel> getAllPesanan() throws SQLException {
         ArrayList<PesananModel> pesananList = new ArrayList<>();
         Connection conn = Connect.configDB();
@@ -106,15 +151,14 @@ public class PesananDAO {
         return pesananList;
     }
 
-    
-    public static String generateIdPesanan(){
+    public static String generateIdPesanan() {
         String tempID = "";
         try {
             Statement stm = (Statement) Connect.configDB().createStatement();
             String query = "SELECT * FROM pesanan ORDER BY id_pesanan DESC LIMIT 1";
             ResultSet rs = stm.executeQuery(query);
 
-            if(rs.next()){
+            if (rs.next()) {
                 tempID = rs.getString("id_pesanan");
             }
 
@@ -131,7 +175,7 @@ public class PesananDAO {
 
         return "LDR" + (IDint + 1);
     }
-    
+
     public static boolean deletePesananById(String idPesanan) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -144,7 +188,7 @@ public class PesananDAO {
 
             stmt.executeUpdate();
             int affectedRows = stmt.executeUpdate();
-            
+
             if (affectedRows > 0) {
                 success = true;
             }
@@ -153,8 +197,7 @@ public class PesananDAO {
         }
         return success;
     }
-    
-    
+
     public static boolean updatePesanan(PesananModel pesanan) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

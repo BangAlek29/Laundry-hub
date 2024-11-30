@@ -7,18 +7,17 @@ public class CustomerModel {
     private String phone;
     private String address;
 
-    public CustomerModel(String idCustomer,String idAkun ,String name, String phone, String address) {
+    public CustomerModel(String idCustomer, String idAkun, String name, String phone, String address) {
         this.idCustomer = idCustomer;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.idAkun = idAkun;
     }
-    
-    public CustomerModel(){
-        
+
+    public CustomerModel() {
+
     }
-    
 
     public String getIdCustomer() {
         return idCustomer;
@@ -51,15 +50,15 @@ public class CustomerModel {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public String getIdAkun(){
+
+    public String getIdAkun() {
         return idAkun;
     }
-    
-    public void setIdAkun(String idAkun){
+
+    public void setIdAkun(String idAkun) {
         this.idAkun = idAkun;
     }
-    
+
     @Override
     public String toString() {
         return name;

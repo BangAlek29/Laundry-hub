@@ -1,21 +1,22 @@
 package controller;
 
-import java.sql.SQLException;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import dao.CustomerDAO;
-import dao.AkunDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import model.CustomerModel;
+
+import dao.AkunDAO;
+import dao.CustomerDAO;
 import model.AkunModel;
+import model.CustomerModel;
 import util.PanelUtils;
 import view.admin.adminDashboard;
-
 
 public class AdminController extends MouseAdapter implements ActionListener {
     private final adminDashboard view;
@@ -28,8 +29,8 @@ public class AdminController extends MouseAdapter implements ActionListener {
         refreshTable();
         addEvents();
     }
-    
-   public void addEvents() {
+
+    public void addEvents() {
         view.getBtnAddUser().addActionListener(e -> showAddUserPanel());
         view.getBtnEditUser().addActionListener(e -> showEditUserPanel());
         view.getBtnRefreshUser().addActionListener(e -> refreshTable());
@@ -44,7 +45,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
         view.getTableLogin().addMouseListener(this);
         view.getTableInformationUser().addMouseListener(this);
     }
-    
+
     private void showAddUserPanel() {
         AddUserController addUser = new AddUserController();
     }
@@ -67,19 +68,20 @@ public class AdminController extends MouseAdapter implements ActionListener {
     private void deleteAkun() {
         try {
             if (akun != null) {
-                int response =JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (response == JOptionPane.YES_OPTION) {
-                        try {
-                            CustomerDAO.deleteCustomer(cust.getIdCustomer());
-                            AkunDAO.deleteAkun(akun.getIdAkun());
-                            showAkunTable();
-                            showCustomerTable();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }else{
-                        return;
+                int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
+                        JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    try {
+                        CustomerDAO.deleteCustomer(cust.getIdCustomer());
+                        AkunDAO.deleteAkun(akun.getIdAkun());
+                        showAkunTable();
+                        showCustomerTable();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    return;
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Please choose an account");
@@ -108,8 +110,8 @@ public class AdminController extends MouseAdapter implements ActionListener {
             JOptionPane.showMessageDialog(view, "Please choose an account");
         }
     }
-    
-    private void searchUser(){
+
+    private void searchUser() {
         if (!view.getTxtSearchUsername().equals("")) {
             String[] kolom = { "NO", "ID Akun", "Username", "Password", "Role" };
             DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
@@ -128,36 +130,36 @@ public class AdminController extends MouseAdapter implements ActionListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        
-        view.getTableLogin().setModel(tb1);
-            
+
+            view.getTableLogin().setModel(tb1);
+
         } else {
             JOptionPane.showMessageDialog(view, "Please fill out the form");
         }
     }
-    
-    private void searchInfoUser(){
+
+    private void searchInfoUser() {
         if (!view.getTxtSeachInfo().getText().equals("")) {
             int n = 0;
             String[] kolom = { "NO", "ID Customer", "ID Akun", "Nama", "Telepon", "Alamat" };
             DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
             String keyword = view.getTxtSeachInfo().getText();
-            
+
             try {
                 List<CustomerModel> customers = CustomerDAO.searchCustomer(keyword);
                 for (CustomerModel customer : customers) {
-                n++;
-                String[] rowData = {
-                    String.valueOf(n), 
-                    customer.getIdCustomer(), 
-                    customer.getIdAkun(), 
-                    customer.getName(), 
-                    customer.getPhone(), 
-                    customer.getAddress()
-                };
-                tb1.addRow(rowData);
-            }
-            view.getTableInformationUser().setModel(tb1);
+                    n++;
+                    String[] rowData = {
+                            String.valueOf(n),
+                            customer.getIdCustomer(),
+                            customer.getIdAkun(),
+                            customer.getName(),
+                            customer.getPhone(),
+                            customer.getAddress()
+                    };
+                    tb1.addRow(rowData);
+                }
+                view.getTableInformationUser().setModel(tb1);
                 if (n == 0) {
                     JOptionPane.showMessageDialog(view, "No data found for keyword: " + keyword);
                 }
@@ -174,25 +176,25 @@ public class AdminController extends MouseAdapter implements ActionListener {
     public void mouseClicked(MouseEvent me) {
         if (me.getSource().equals(view.getTableLogin())) {
             int row = view.getTableLogin().getSelectedRow();
-                TableModel model = view.getTableLogin().getModel();
-                try {
-                    this.akun = AkunDAO.getAkunByID(model.getValueAt(row, 1).toString());
-                    this.cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(row, 1).toString());
+            TableModel model = view.getTableLogin().getModel();
+            try {
+                this.akun = AkunDAO.getAkunByID(model.getValueAt(row, 1).toString());
+                this.cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(row, 1).toString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else if (me.getSource().equals(view.getTableInformationUser())) {
-                int row = view.getTableInformationUser().getSelectedRow();
-                TableModel model = view.getTableInformationUser().getModel();
-                try {
-                    this.akun = AkunDAO.getAkunByID(model.getValueAt(row, 2).toString());
-                    this.cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(row, 2).toString());
+            int row = view.getTableInformationUser().getSelectedRow();
+            TableModel model = view.getTableInformationUser().getModel();
+            try {
+                this.akun = AkunDAO.getAkunByID(model.getValueAt(row, 2).toString());
+                this.cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(row, 2).toString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
-    
+
     public void showCustomerTable() {
         String[] kolom = { "NO", "ID Customer", "ID Akun", "Nama", "Telepon", "Alamat" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
@@ -236,13 +238,14 @@ public class AdminController extends MouseAdapter implements ActionListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         view.getTableLogin().setModel(tb1);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

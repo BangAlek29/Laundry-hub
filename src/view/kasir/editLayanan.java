@@ -5,6 +5,8 @@
 package view.kasir;
 
 import controller.EditLayananController;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -69,6 +71,7 @@ public class editLayanan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
 
         jPanel1.setBackground(new java.awt.Color(40, 43, 40));
 

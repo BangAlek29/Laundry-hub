@@ -4,26 +4,33 @@
  */
 package controller;
 
-import dao.*;
-import util.SpinerTimeModel;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import dao.CustomerDAO;
+import dao.LayananDAO;
+import dao.PesananDAO;
 import model.CustomerModel;
 import model.LayananModel;
 import model.PesananModel;
+import util.PanelUtils;
 import util.PesananUtil;
+import util.SpinerTimeModel;
 import view.kasir.kasirDashboard;
 import view.kasir.tambahLayanan;
 
@@ -31,12 +38,12 @@ import view.kasir.tambahLayanan;
  *
  * @author David
  */
-public class KasirController extends MouseAdapter implements ActionListener,ChangeListener{
+public class KasirController extends MouseAdapter implements ActionListener, ChangeListener {
     private final kasirDashboard view;
     private final PesananModel pesanan;
     private final LayananModel layanan;
-    
-    public KasirController(){
+
+    public KasirController() {
         this.view = new kasirDashboard();
         view.setVisible(true);
         view.setLocationRelativeTo(null);
@@ -44,8 +51,8 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
         layanan = new LayananModel();
         initComponent();
     }
-    
-    public void initComponent(){
+
+    public void initComponent() {
         showTabelLayanan();
         showTabelPesanan();
         renderCbCustomer();
@@ -53,24 +60,29 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
         renderSpinerJam();
         AddEvents();
     }
+
     public void AddEvents() {
         view.getOrderButton().addActionListener(e -> handleOrder());
         view.getBtnAddLayanan().addActionListener(e -> handleAddLayanan());
         view.getBtnDeleteLayanan().addActionListener(e -> handleDeleteLayanan());
         view.getBtnDeletePesanan().addActionListener(e -> handleDeletePesanan());
         view.getBtnEditLayanan().addActionListener(e -> handleEditLayanan());
-        view.getBtnLayanan().addActionListener(e -> switchPanel(view.getMainPanel(), view.getLayananPanel()));
+        view.getBtnLayanan()
+                .addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getLayananPanel()));
         view.getBtnLogout().addActionListener(e -> handleLogout());
-        view.getBtnOrderList().addActionListener(e -> switchPanel(view.getMainPanel(), view.getOrderList()));
+        view.getBtnOrderList().addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getOrderList()));
         view.getBtnRefreshLayanan().addActionListener(e -> showTabelLayanan());
         view.getBtnRefreshPesanan().addActionListener(e -> showTabelPesanan());
         view.getBtnSearchLayanan().addActionListener(e -> handleSearchLayanan());
         view.getBtnSearchPesanan().addActionListener(e -> handleSearchPesanan());
         view.getBtnUpdatePesanan().addActionListener(e -> handleUpdatePesanan());
-        view.getBntOrderRequest().addActionListener(e -> switchPanel(view.getMainPanel(), view.getOrderPanel()));
+        view.getBntOrderRequest()
+                .addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getOrderPanel()));
         view.getCmbLayanan().addActionListener(e -> renderHarga());
-        view.getRbCustomerBaru().addActionListener(e -> switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()));
-        view.getRbCustomerLama().addActionListener(e -> switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel()));
+        view.getRbCustomerBaru()
+                .addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()));
+        view.getRbCustomerLama()
+                .addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel()));
         view.getCmbCustomer().addActionListener(e -> handleFillCustomer());
         view.getSpnBerat().addChangeListener(e -> renderHarga());
         view.getTabelPesanan().addMouseListener(new MouseAdapter() {
@@ -96,8 +108,8 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
             }
         });
     }
-    
-    private void handleFillCustomer(){
+
+    private void handleFillCustomer() {
         try {
             CustomerModel selectedCustomer = (CustomerModel) view.getCmbCustomer().getSelectedItem();
             if (selectedCustomer != null) {
@@ -122,24 +134,22 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
                 String idCust = CustomerDAO.generateIDCustomer();
 
                 CustomerModel newCustomer = new CustomerModel(
-                    idCust,
-                    null,
-                    view.getTxtNama().getText().trim(),
-                    view.getTxtTelepon().getText().trim(),
-                    view.getTxtAlamat().getText().trim()
-                );
+                        idCust,
+                        null,
+                        view.getTxtNama().getText().trim(),
+                        view.getTxtTelepon().getText().trim(),
+                        view.getTxtAlamat().getText().trim());
 
                 CustomerDAO.addCustomer(newCustomer);
 
                 PesananModel newOrder = new PesananModel(
-                    idPesanan,
-                    idCust,
-                    idLayanan,
-                    (Integer) view.getSpnBerat().getValue(),
-                    hitungHarga((Integer) view.getSpnBerat().getValue()),
-                    formattedDate,
-                    PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue())
-                );
+                        idPesanan,
+                        idCust,
+                        idLayanan,
+                        (Integer) view.getSpnBerat().getValue(),
+                        hitungHarga((Integer) view.getSpnBerat().getValue()),
+                        formattedDate,
+                        PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue()));
 
                 PesananDAO.insertPesanan(newOrder);
 
@@ -147,16 +157,14 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
                 CustomerModel selectedCustomer = (CustomerModel) view.getCmbCustomer().getSelectedItem();
                 String idCust = selectedCustomer.getIdCustomer();
 
-
                 PesananModel newOrder = new PesananModel(
-                    idPesanan,
-                    idCust,
-                    idLayanan,
-                    (Integer) view.getSpnBerat().getValue(),
-                    hitungHarga((Integer) view.getSpnBerat().getValue()),
-                    formattedDate,
-                    PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue())
-                );
+                        idPesanan,
+                        idCust,
+                        idLayanan,
+                        (Integer) view.getSpnBerat().getValue(),
+                        hitungHarga((Integer) view.getSpnBerat().getValue()),
+                        formattedDate,
+                        PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue()));
 
                 PesananDAO.insertPesanan(newOrder);
             }
@@ -172,41 +180,43 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
 
     private void handleAddLayanan() {
         try {
-                tambahLayanan lyn = new tambahLayanan();
-                lyn.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
+            tambahLayanan lyn = new tambahLayanan();
+            lyn.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void handleDeleteLayanan() {
         try {
-                if (!pesanan.equals(null)) {
-                    int response =JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (response == JOptionPane.YES_OPTION) {
-                            LayananDAO.deleteLayananById(layanan.getIdLayanan());
-                            JOptionPane.showMessageDialog(view, "The information was successfully updated");
-                            showTabelLayanan();
-                        }else{
-                            return;
-                        }
+            if (!pesanan.equals(null)) {
+                int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
+                        JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    LayananDAO.deleteLayananById(layanan.getIdLayanan());
+                    JOptionPane.showMessageDialog(view, "The information was successfully updated");
+                    showTabelLayanan();
+                } else {
+                    return;
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(view, "Please choose an account");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Please choose an account");
         }
     }
 
     private void handleDeletePesanan() {
         try {
-                if (!pesanan.getIdPesanan().equals(null)) {
-                    int response =JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (response == JOptionPane.YES_OPTION) {
-                            PesananDAO.deletePesananById(pesanan.getIdPesanan());
-                            showTabelPesanan();
-                        }else{
-                            return;
-                        }
+            if (!pesanan.getIdPesanan().equals(null)) {
+                int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
+                        JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    PesananDAO.deletePesananById(pesanan.getIdPesanan());
+                    showTabelPesanan();
+                } else {
+                    return;
                 }
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Please choose an account");
         }
@@ -214,16 +224,17 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
 
     private void handleEditLayanan() {
         try {
-                if (!layanan.getIdLayanan().equals(null)){
-                        EditLayananController edit = new EditLayananController(layanan);
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(view, "Layanan Belum Di pilih");
+            if (!layanan.getIdLayanan().equals(null)) {
+                EditLayananController edit = new EditLayananController(layanan);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Layanan Belum Di pilih");
         }
     }
 
     private void handleLogout() {
-        int response =JOptionPane.showConfirmDialog(view, "Are you sure ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int response = JOptionPane.showConfirmDialog(view, "Are you sure ?", "Confirm", JOptionPane.YES_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
             LoginController logout = null;
             try {
@@ -232,23 +243,23 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
                 e.printStackTrace();
             }
             view.dispose();
-        }else{
+        } else {
             return;
         }
     }
 
     private void handleSearchLayanan() {
         int n = 0;
-        String [] kolom = {"NO", "Id_layanan", "Nama", "Harga"};
+        String[] kolom = { "NO", "Id_layanan", "Nama", "Harga" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         List<LayananModel> ListLayanan = LayananDAO.searchLayanan(view.getTxtSearchLayanan().getText());
 
         for (LayananModel layanan : ListLayanan) {
             Object[] row = {
-                ++n,
-                layanan.getIdLayanan(),
-                layanan.getNama(),
-                layanan.getHarga()
+                    ++n,
+                    layanan.getIdLayanan(),
+                    layanan.getNama(),
+                    layanan.getHarga()
             };
             tb1.addRow(row);
         }
@@ -258,12 +269,12 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
 
     private void handleSearchPesanan() {
         int n = 0;
-        String [] kolom = {"NO", "id_pesanan" ,"id_customer", "berat" ,"Harga", "Tanggal Ambil", "Jam Ambil"};
+        String[] kolom = { "NO", "id_pesanan", "id_customer", "berat", "Harga", "Tanggal Ambil", "Jam Ambil" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         String search = view.getTxtSearchPesanan().getText();
-        
+
         ArrayList<PesananModel> pesananList = PesananDAO.searchPesanan(search);
-        
+
         for (PesananModel pesanan : pesananList) {
             n++;
             String id_pesanan = pesanan.getIdPesanan();
@@ -272,30 +283,22 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
             int harga = pesanan.getHarga();
             String tanggalAmbil = pesanan.getTanggalSelesai();
             String jamAmbil = pesanan.getJamSelesai();
-            tb1.addRow(new String[] {String.valueOf(n), id_pesanan, id_customer , String.valueOf(berat) , String.valueOf(harga), tanggalAmbil, jamAmbil});
+            tb1.addRow(new String[] { String.valueOf(n), id_pesanan, id_customer, String.valueOf(berat),
+                    String.valueOf(harga), tanggalAmbil, jamAmbil });
         }
         view.getTabelPesanan().setModel(tb1);
     }
 
     private void handleUpdatePesanan() {
         try {
-            if (!pesanan.getIdPesanan().equals(null)){
+            if (!pesanan.getIdPesanan().equals(null)) {
                 UpdateOrderController updt = new UpdateOrderController(pesanan);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Layanan Belum Di pilih");
         }
     }
-    
-    private void switchPanel(JPanel mainPanel, JPanel newPanel) {
-        mainPanel.removeAll();
-        mainPanel.repaint();
-        mainPanel.revalidate();
-        mainPanel.add(newPanel);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-    }
-    
+
     private void renderSpinerJam() {
         view.getSpnJam().setModel(new SpinerTimeModel());
 
@@ -303,25 +306,25 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
         editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
     }
 
-    private int hitungHarga(int berat){
+    private int hitungHarga(int berat) {
         LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
         String idLayanan = selectedLayanan.getIdLayanan();
         int harga = LayananDAO.getHargaById(idLayanan);
         return berat * harga;
     }
-    
-    public void showTabelLayanan(){
+
+    public void showTabelLayanan() {
         int n = 0;
-        String [] kolom = {"NO", "Id_layanan", "Nama", "Harga"};
+        String[] kolom = { "NO", "Id_layanan", "Nama", "Harga" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         List<LayananModel> ListLayanan = LayananDAO.getAllLayanan();
 
         for (LayananModel layanan : ListLayanan) {
             Object[] row = {
-                ++n,
-                layanan.getIdLayanan(),
-                layanan.getNama(),
-                layanan.getHarga()
+                    ++n,
+                    layanan.getIdLayanan(),
+                    layanan.getNama(),
+                    layanan.getHarga()
             };
             tb1.addRow(row);
         }
@@ -329,10 +332,9 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
         view.getTbLayanan().setModel(tb1);
     }
 
-    
-    public void showTabelPesanan(){
+    public void showTabelPesanan() {
         int n = 0;
-        String [] kolom = {"NO", "id_pesanan", "id_customer", "berat", "Harga", "Tanggal Selesai", "Jam Selesai"};
+        String[] kolom = { "NO", "id_pesanan", "id_customer", "berat", "Harga", "Tanggal Selesai", "Jam Selesai" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         try {
             ArrayList<PesananModel> pesananList = PesananDAO.getAllPesanan();
@@ -344,14 +346,15 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
                 int harga = pesanan.getHarga();
                 String tanggalAmbil = pesanan.getTanggalSelesai();
                 String jamAmbil = pesanan.getJamSelesai();
-                tb1.addRow(new String[] {String.valueOf(n), id_pesanan, id_customer, String.valueOf(berat), String.valueOf(harga), tanggalAmbil, jamAmbil});
+                tb1.addRow(new String[] { String.valueOf(n), id_pesanan, id_customer, String.valueOf(berat),
+                        String.valueOf(harga), tanggalAmbil, jamAmbil });
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         view.getTabelPesanan().setModel(tb1);
     }
-    
+
     private void renderCbLayanan() {
         List<LayananModel> listLayanan = LayananDAO.getAllLayanan();
         DefaultComboBoxModel<LayananModel> model = new DefaultComboBoxModel<>();
@@ -363,11 +366,11 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
         view.getCmbLayanan().setModel(model);
     }
 
-    private void renderCbCustomer(){
+    private void renderCbCustomer() {
         try {
             DefaultComboBoxModel<CustomerModel> model = new DefaultComboBoxModel<>();
             List<CustomerModel> ListCustomer = CustomerDAO.getAllCustomers();
-            for(CustomerModel customer : ListCustomer){
+            for (CustomerModel customer : ListCustomer) {
                 model.addElement(customer);
             }
             view.getCmbCustomer().setModel(model);
@@ -377,21 +380,23 @@ public class KasirController extends MouseAdapter implements ActionListener,Chan
             e.printStackTrace();
         }
     }
-    
-    private void renderHarga(){
+
+    private void renderHarga() {
         int berat = Integer.parseInt(view.getSpnBerat().getValue().toString());
         int HargaTotal = hitungHarga(berat);
-        String displayHarga = "Rp. " + PesananUtil.formatCurrency(HargaTotal) +" -,";
+        String displayHarga = "Rp. " + PesananUtil.formatCurrency(HargaTotal) + " -,";
         view.getLabelHarga().setText(displayHarga);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

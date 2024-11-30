@@ -4,12 +4,14 @@
  */
 package controller;
 
-import dao.AkunDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import dao.AkunDAO;
 import model.AkunModel;
 import view.admin.editLoginForm;
 
@@ -17,35 +19,35 @@ import view.admin.editLoginForm;
  *
  * @author dzikr
  */
-public class EditLoginController extends MouseAdapter implements ActionListener{
+public class EditLoginController extends MouseAdapter implements ActionListener {
     private final editLoginForm view;
     private AkunModel akun;
 
-    public EditLoginController(AkunModel akun){
+    public EditLoginController(AkunModel akun) {
         this.akun = akun;
         view = new editLoginForm();
         view.addActionListener(this);
         view.setVisible(true);
         fillForm();
     }
-    
-    private void fillForm(){
+
+    private void fillForm() {
         view.getTxtUsername().setText(akun.getUsername());
         view.getTxtPassword().setText(akun.getPassword());
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if(source.equals(view.getBtnSave())){
+        if (source.equals(view.getBtnSave())) {
             handleEditAkun();
         }
-        
-        if (source.equals(view.getBtnBack())){
+
+        if (source.equals(view.getBtnBack())) {
             view.dispose();
         }
     }
-    
+
     public void handleEditAkun() {
         if (view.getTxtUsername().getText().trim().isEmpty() || view.getTxtPassword().getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(view, "Please fill out the form");
@@ -58,16 +60,16 @@ public class EditLoginController extends MouseAdapter implements ActionListener{
             return;
         }
 
-        int response = JOptionPane.showConfirmDialog(view, "Are you sure?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int response = JOptionPane.showConfirmDialog(view, "Are you sure?", "Confirm", JOptionPane.YES_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
             try {
                 // Membuat model Akun baru dengan data yang diedit
                 AkunModel akunBaru = new AkunModel(
-                    akun.getIdAkun(),
-                    view.getTxtUsername().getText().trim(),
-                    view.getTxtPassword().getText().trim(),
-                    selectedRole
-                );
+                        akun.getIdAkun(),
+                        view.getTxtUsername().getText().trim(),
+                        view.getTxtPassword().getText().trim(),
+                        selectedRole);
 
                 // Memperbarui data akun di database
                 boolean isUpdated = AkunDAO.updateAkun(akunBaru);

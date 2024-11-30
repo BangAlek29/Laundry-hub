@@ -26,7 +26,7 @@ public class PesananUtil {
 
         return String.format("%02d:%s:00", hour, minute);
     }
-    
+
     public static String formatCurrency(int amount) {
         java.text.NumberFormat format = java.text.NumberFormat.getInstance();
         format.setGroupingUsed(true);

@@ -6,6 +6,8 @@ package view.kasir;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -83,6 +85,7 @@ public class updateOrder extends javax.swing.JFrame {
         spnBerat = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
 

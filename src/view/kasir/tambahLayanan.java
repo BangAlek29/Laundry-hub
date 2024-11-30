@@ -7,6 +7,8 @@ package view.kasir;
 import controller.TambahLayananController;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -69,6 +71,7 @@ public class tambahLayanan extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
 
         jPanel1.setBackground(new java.awt.Color(40, 43, 40));
 

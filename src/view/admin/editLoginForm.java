@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import controller.EditLoginController;
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -74,7 +75,8 @@ public class editLoginForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Edit Akun User");
+        setTitle("lAUNDRY HUB - Edit Akun User");
+        setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
 

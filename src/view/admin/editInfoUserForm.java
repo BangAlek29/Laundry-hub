@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -87,8 +88,9 @@ public class editInfoUserForm extends javax.swing.JFrame {
         txtAddres = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Edit Info User");
+        setTitle("lAUNDRY HUB - Edit Info User");
         setResizable(false);
+        setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
         jPanel1.setPreferredSize(new java.awt.Dimension(310, 385));
