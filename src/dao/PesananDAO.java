@@ -167,13 +167,19 @@ public class PesananDAO {
         }
 
         if (tempID.isEmpty()) {
-            return "LDR1";
+            return "LDR001";
         }
 
         String ID = tempID.replace("LDR", "");
         int IDint = Integer.parseInt(ID);
 
-        return "LDR" + (IDint + 1);
+
+        int newIDInt = IDint + 1;
+
+
+        String newId = String.format("LDR%03d", newIDInt);
+
+        return newId;
     }
 
     public static boolean deletePesananById(String idPesanan) throws SQLException {

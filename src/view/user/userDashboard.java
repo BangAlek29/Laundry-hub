@@ -182,7 +182,6 @@ public class userDashboard extends javax.swing.JFrame {
         searchPesananButton = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
-        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LAUNDRY HUB - Kasir Dashboard");
@@ -614,12 +613,6 @@ public class userDashboard extends javax.swing.JFrame {
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/refresh-page-option.png"))); // NOI18N
         btnRefresh.setText("Refresh");
 
-        btnPrint.setBackground(new java.awt.Color(0, 0, 102));
-        btnPrint.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/printing.png"))); // NOI18N
-        btnPrint.setText("Print");
-
         javax.swing.GroupLayout RiwayatPemesananPanelLayout = new javax.swing.GroupLayout(RiwayatPemesananPanel);
         RiwayatPemesananPanel.setLayout(RiwayatPemesananPanelLayout);
         RiwayatPemesananPanelLayout.setHorizontalGroup(
@@ -638,12 +631,10 @@ public class userDashboard extends javax.swing.JFrame {
                         .addComponent(searchPesananButton)
                         .addGap(15, 15, 15)))
                 .addGap(42, 42, 42))
-            .addGroup(RiwayatPemesananPanelLayout.createSequentialGroup()
-                .addGap(311, 311, 311)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RiwayatPemesananPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(186, 186, 186)
-                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(404, 404, 404))
         );
         RiwayatPemesananPanelLayout.setVerticalGroup(
             RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -656,11 +647,9 @@ public class userDashboard extends javax.swing.JFrame {
                     .addComponent(jTextField2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(RiwayatPemesananPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         mainPanel.add(RiwayatPemesananPanel, "card4");
@@ -723,7 +712,6 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JButton bntRequestOrder;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnOrderList;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRefresh;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<LayananModel> cmbLayanan;
