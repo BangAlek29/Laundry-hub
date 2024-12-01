@@ -91,6 +91,7 @@ public class LayananDAO {
             Connection conn = Connect.configDB();
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM layanan WHERE id_layanan = ?");
             stmt.setString(1, idLayanan);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

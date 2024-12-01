@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,28 +39,65 @@ public class AdminController extends MouseAdapter implements ActionListener {
         view.getBtnEditUser().addActionListener(e -> showEditUserPanel());
         view.getBtnRefreshUser().addActionListener(e -> refreshTable());
         view.getBtnDeleteUser().addActionListener(e -> deleteAkun());
+        view.getTxtSearchUsername().addActionListener(e -> searchUser());
+        
         view.getBtnUserManagement().addActionListener(e -> showUserManagementPanel());
         view.getBtnUserInformation().addActionListener(e -> showUserInformationPanel());
-        view.getBtnLogOut().addActionListener(e -> Logout());
         view.getBtnEditInfoUser().addActionListener(e -> showEditInfoUserPanel());
+        
+        view.getBtnLogOut().addActionListener(e -> Logout());
+        
         view.getBtnRefreshInfo().addActionListener(e -> refreshTable());
-        view.getTxtSearchUsername().addActionListener(e -> searchUser());
         view.getTxtSeachInfo().addActionListener(e -> searchInfoUser());
-        view.getTableLogin().addMouseListener(this);
-        view.getTableInformationUser().addMouseListener(this);
+        
+        view.getTableLogin().getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) { // Menghindari event duplikasi
+                int selectedRow = view.getTableLogin().getSelectedRow();
+                if (selectedRow == -1) { // Tidak ada baris yang dipilih
+                    view.getBtnEditUser().setEnabled(false);
+                } else { // Ada baris yang dipilih
+                    TableModel model = view.getTableLogin().getModel();
+                    try {
+                        akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 1).toString());
+                        cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(selectedRow, 1).toString());
+                        view.getBtnEditUser().setEnabled(true);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        view.getTableInformationUser().getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) { // Menghindari event ganda
+                int selectedRow = view.getTableInformationUser().getSelectedRow();
+                if (selectedRow == -1) { // Tidak ada baris yang dipilih
+                    view.getBtnEditInfoUser().setEnabled(false);
+                } else { // Ada baris yang dipilih
+                    TableModel model = view.getTableInformationUser().getModel();
+                    try {
+                        akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 2).toString());
+                        cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(selectedRow, 2).toString());
+                        view.getBtnEditInfoUser().setEnabled(true);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void showAddUserPanel() {
-        AddUserController addUser = new AddUserController();
+        AddUserController addUser = new AddUserController(this);
     }
 
     private void showEditUserPanel() {
         try {
             if (akun != null) {
-                EditLoginController editAkun = new EditLoginController(akun);
+                EditLoginController editAkun = new EditLoginController(akun,this);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Please choose an account");
+            JOptionPane.showMessageDialog(view, "Tolong pilih akun");
         }
     }
 
@@ -109,7 +145,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
     private void showEditInfoUserPanel() {
         try {
             if (!cust.equals(null)) {
-                EditInfoUserController editInfo = new EditInfoUserController(cust);
+                EditInfoUserController editInfo = new EditInfoUserController(cust,this);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Please choose an account");
@@ -120,6 +156,8 @@ public class AdminController extends MouseAdapter implements ActionListener {
         if (!view.getTxtSearchUsername().equals("")) {
             String[] kolom = { "NO", "ID Akun", "Username", "Password", "Role" };
             DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
+            String keyword = view.getTxtSearchUsername().getText();
+            
             try {
                 List<AkunModel> akunList = AkunDAO.SearchAkun(view.getTxtSearchUsername().getText());
                 int n = 0;
@@ -132,26 +170,28 @@ public class AdminController extends MouseAdapter implements ActionListener {
                             akun.getPassword(),
                             akun.getRole() });
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                view.getTableLogin().setModel(tb1);
+                setColumnAlignment(view.getTableLogin());
+                if (n == 0) {
+                    JOptionPane.showMessageDialog(view, "Pencarian tidak ditemukan keyword: " + keyword);
+                }
+            } catch (SQLException e) {
+                System.err.println(e);
+                JOptionPane.showMessageDialog(view, "Error: Unable to fetch data!");
             }
-
-            view.getTableLogin().setModel(tb1);
-
         } else {
-            JOptionPane.showMessageDialog(view, "Please fill out the form");
+            JOptionPane.showMessageDialog(view, "Harap isi kolom pencarian");
         }
     }
 
     private void searchInfoUser() {
-        if (!view.getTxtSeachInfo().getText().equals("")) {
-            int n = 0;
             String[] kolom = { "NO", "ID Customer", "ID Akun", "Nama", "Telepon", "Alamat" };
             DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
             String keyword = view.getTxtSeachInfo().getText();
 
             try {
                 List<CustomerModel> customers = CustomerDAO.searchCustomer(keyword);
+                int n = 0;
                 for (CustomerModel customer : customers) {
                     n++;
                     String[] rowData = {
@@ -165,39 +205,14 @@ public class AdminController extends MouseAdapter implements ActionListener {
                     tb1.addRow(rowData);
                 }
                 view.getTableInformationUser().setModel(tb1);
+                setColumnAlignment(view.getTableInformationUser());
                 if (n == 0) {
-                    JOptionPane.showMessageDialog(view, "No data found for keyword: " + keyword);
+                    JOptionPane.showMessageDialog(view, "Pencarian tidak ditemukan keyword: " + keyword);
                 }
             } catch (SQLException e) {
                 System.err.println(e);
                 JOptionPane.showMessageDialog(view, "Error: Unable to fetch data!");
             }
-        } else {
-            JOptionPane.showMessageDialog(view, "Please fill out the search field");
-        }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent me) {
-        if (me.getSource().equals(view.getTableLogin())) {
-            int row = view.getTableLogin().getSelectedRow();
-            TableModel model = view.getTableLogin().getModel();
-            try {
-                this.akun = AkunDAO.getAkunByID(model.getValueAt(row, 1).toString());
-                this.cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(row, 1).toString());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else if (me.getSource().equals(view.getTableInformationUser())) {
-            int row = view.getTableInformationUser().getSelectedRow();
-            TableModel model = view.getTableInformationUser().getModel();
-            try {
-                this.akun = AkunDAO.getAkunByID(model.getValueAt(row, 2).toString());
-                this.cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(row, 2).toString());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void showCustomerTable() {
@@ -224,12 +239,11 @@ public class AdminController extends MouseAdapter implements ActionListener {
         }
         view.getTableInformationUser().setModel(tb1);
         setColumnAlignment(view.getTableInformationUser());
+        
     }
     private void setColumnAlignment(JTable table) {
-        // Mendapatkan model kolom tabel
         TableColumnModel columnModel = table.getColumnModel();
 
-        // Set alignment untuk semua kolom menjadi rata tengah
         for (int i = 0; i < table.getColumnCount(); i++) {
             columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
                 @Override
@@ -262,12 +276,12 @@ public class AdminController extends MouseAdapter implements ActionListener {
 
         view.getTableLogin().setModel(tb1);
         setColumnAlignment(view.getTableLogin());
+        view.getTableLogin().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

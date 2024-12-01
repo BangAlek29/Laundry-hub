@@ -6,7 +6,6 @@
 package view.admin;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import controller.EditLoginController;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -45,12 +44,6 @@ public class editLoginForm extends javax.swing.JFrame {
         return txtUsername;
     }
     
-    public void addActionListener(EditLoginController aThis){
-        btnSave.addActionListener(aThis);
-        btnBack.addActionListener(aThis);
-    }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,7 +66,7 @@ public class editLoginForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Edit Akun User");
+        setTitle("LAUNDRY HUB - Edit Akun User");
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -108,7 +101,7 @@ public class editLoginForm extends javax.swing.JFrame {
         jComboBoxRole.setBackground(new java.awt.Color(40, 40, 40));
         jComboBoxRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxRole.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "member", "kasir", "admin" }));
+        jComboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Member" }));
         jComboBoxRole.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

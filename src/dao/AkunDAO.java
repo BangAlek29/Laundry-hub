@@ -41,7 +41,7 @@ public class AkunDAO {
         return null;
     }
 
-    public static List<AkunModel> SearchAkun(String key) {
+    public static List<AkunModel> SearchAkun(String key) throws SQLException{
         List<AkunModel> listAkun = new ArrayList<>();
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();

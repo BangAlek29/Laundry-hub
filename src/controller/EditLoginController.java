@@ -22,33 +22,38 @@ import view.admin.editLoginForm;
 public class EditLoginController extends MouseAdapter implements ActionListener {
     private final editLoginForm view;
     private AkunModel akun;
+    private final AdminController admin;
 
-    public EditLoginController(AkunModel akun) {
+    public EditLoginController(AkunModel akun,AdminController admin) {
         this.akun = akun;
+        this.admin = admin;
         view = new editLoginForm();
-        view.addActionListener(this);
         view.setVisible(true);
         fillForm();
+        addEvents();
+        
     }
 
+    public void addEvents() {
+        view.getBtnSave().addActionListener(e -> EditAkun());
+        view.getBtnBack().addActionListener(e -> view.dispose());
+    }
+
+    
     private void fillForm() {
         view.getTxtUsername().setText(akun.getUsername());
         view.getTxtPassword().setText(akun.getPassword());
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        Object source = ae.getSource();
-        if (source.equals(view.getBtnSave())) {
-            handleEditAkun();
-        }
-
-        if (source.equals(view.getBtnBack())) {
-            view.dispose();
+        String role = akun.getRole();
+        if (role.equals("Admin")){
+            view.getJComboBoxRole().setSelectedIndex(0);
+        } else if(role.equals("Kasir")){
+            view.getJComboBoxRole().setSelectedIndex(1);
+        } else if (role.equals("Member")){
+            view.getJComboBoxRole().setSelectedIndex(2);
         }
     }
 
-    public void handleEditAkun() {
+    public void EditAkun() {
         if (view.getTxtUsername().getText().trim().isEmpty() || view.getTxtPassword().getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(view, "Please fill out the form");
             return;
@@ -75,6 +80,7 @@ public class EditLoginController extends MouseAdapter implements ActionListener 
                 boolean isUpdated = AkunDAO.updateAkun(akunBaru);
 
                 if (isUpdated) {
+                    admin.showAkunTable();
                     JOptionPane.showMessageDialog(view, "The information was successfully updated");
                     view.dispose();
                 } else {
@@ -85,6 +91,11 @@ public class EditLoginController extends MouseAdapter implements ActionListener 
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

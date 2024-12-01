@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.Component;
-import javax.swing.table.TableColumn;
 
 import dao.CustomerDAO;
 import dao.LayananDAO;

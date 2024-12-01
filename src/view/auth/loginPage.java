@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import java.util.Arrays;
 
 /**
  *
@@ -28,19 +27,19 @@ public class loginPage extends javax.swing.JFrame {
 
     }
 
-    public JTextField getUsername() {
+    public JTextField getTxtUsername() {
         return txtUsername;
     }
 
-    public JTextField getPassword() {
+    public JTextField getTxtPassword() {
         return txtPassword;
     }
 
-    public JButton getLoginbtn() {
+    public JButton getBtnLogin() {
         return btnLogin;
     }
 
-    public JLabel getSignButton() {
+    public JLabel getLbSign() {
         return lbSignup;
     }
 

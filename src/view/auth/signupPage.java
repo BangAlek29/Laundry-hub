@@ -17,6 +17,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import controller.SignUpController;
+import javax.swing.JTextField;
 
 /**
  *
@@ -31,64 +32,36 @@ public class signupPage extends javax.swing.JFrame {
         initComponents();
     }
 
-    public String getNameField() {
-        return txtName.getText();
+    public JTextField getTxtField() {
+        return txtName;
     }
 
-    public void setNameField(String name) {
-        txtName.setText(name);
+    public JTextField getTxtUsername() {
+        return txtUsername;
     }
 
-    public String getUsernameField() {
-        return txtUsername.getText();
+    public JTextField getTxtPhone() {
+        return txtPhoneNumber;
     }
 
-    public String getPhoneField() {
-        return txtPhoneNumber.getText();
+    public JTextField getTxtPassword() {
+        return txtPassword;
     }
 
-    public String getPasswordField() {
-        return txtPassword.getText();
+    public JTextField getTxtConfrimPassword() {
+        return txtConfirmPassword;
     }
 
-    public String getConfrimPasswordField() {
-        return txtConfirmPassword.getText();
-    }
-
-    public void setUsernameField(String username) {
-        txtUsername.setText(username);
-    }
-
-    public void setPhoneField(String phoneNumber) {
-        txtPhoneNumber.setText(phoneNumber);
-    }
-
-    public void setPasswordField(String password) {
-        txtPassword.setText(password);
-    }
-
-    public void setConfirmPasswordField(String confirmPassword) {
-        txtConfirmPassword.setText(confirmPassword);
-    }
-
-    public String getAddressField() {
-        return txtAddress.getText();
+    public JTextField getTxtAddress() {
+        return txtAddress;
     }
 
     public JLabel getBackToLogin() {
         return backToLogin;
     }
 
-    public JButton getSignUpButton() {
+    public JButton getBtnSignup() {
         return btnRegister;
-    }
-
-    public void addActionListener(SignUpController aThis) {
-        btnRegister.addActionListener(aThis);
-    }
-
-    public void addMouseListener(SignUpController aThis) {
-        backToLogin.addMouseListener(aThis);
     }
 
     /**
@@ -282,11 +255,11 @@ public class signupPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

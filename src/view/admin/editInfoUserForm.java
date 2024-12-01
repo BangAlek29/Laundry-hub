@@ -6,18 +6,12 @@
 package view.admin;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import controller.EditInfoUserController;
-import java.awt.Color;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import koneksiDatabase.Connect;
+
 
 /**
  *
@@ -55,14 +49,6 @@ public class editInfoUserForm extends javax.swing.JFrame {
     public JButton getBtnSave() {
         return btnSave;
     }
-    
-    public void addActionListener(EditInfoUserController aThis){
-        btnBack.addActionListener(aThis);
-        btnSave.addActionListener(aThis);
-    }
-
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +74,7 @@ public class editInfoUserForm extends javax.swing.JFrame {
         txtAddres = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Edit Info User");
+        setTitle("LAUNDRY HUB - Edit Info User");
         setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
         setResizable(false);
 
@@ -114,7 +100,7 @@ public class editInfoUserForm extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel19.setText("Address");
 
-        btnBack.setBackground(new java.awt.Color(45, 45, 45));
+        btnBack.setBackground(new java.awt.Color(40, 40, 40));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBack.setText("BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +109,7 @@ public class editInfoUserForm extends javax.swing.JFrame {
             }
         });
 
-        btnSave.setBackground(new java.awt.Color(45, 45, 45));
+        btnSave.setBackground(new java.awt.Color(40, 40, 40));
         btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSave.setText("SAVE");
         btnSave.addActionListener(new java.awt.event.ActionListener() {

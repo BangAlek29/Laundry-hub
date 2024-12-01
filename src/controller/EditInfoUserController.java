@@ -22,31 +22,28 @@ import view.admin.editInfoUserForm;
 public class EditInfoUserController extends MouseAdapter implements ActionListener {
     private final editInfoUserForm view;
     private CustomerModel cust;
+    private final AdminController admin;
 
-    public EditInfoUserController(CustomerModel cust) {
+    public EditInfoUserController(CustomerModel cust,AdminController admin) {
         this.cust = cust;
+        this.admin = admin;
         this.view = new editInfoUserForm();
         view.setVisible(true);
         fillForm();
+        addEvents();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        Object source = ae.getSource();
-        if (source.equals(view.getBtnSave())) {
-            handleEditInfoUser();
-        }
-
-        if (source.equals(view.getBtnBack())) {
-            view.dispose();
-        }
+    public void addEvents() {
+        view.getBtnSave().addActionListener(e -> EditInfoUser());
+        view.getBtnBack().addActionListener(e -> view.dispose());
     }
 
-    public void handleEditInfoUser() {
+
+    public void EditInfoUser() {
         if (view.getTxtName().getText().trim().isEmpty()
                 || view.getTxtPhone().getText().trim().isEmpty()
                 || view.getTxtAddres().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Please fill out the form");
+            JOptionPane.showMessageDialog(view, "Harap isi semua fieldnya.");
             return;
         }
 
@@ -64,7 +61,9 @@ public class EditInfoUserController extends MouseAdapter implements ActionListen
                 boolean isUpdated = CustomerDAO.updateCustomer(customerBaru);
 
                 if (isUpdated) {
+                    admin.showCustomerTable();
                     JOptionPane.showMessageDialog(view, "The information was successfully updated");
+                    view.dispose();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to update the information. Please try again.");
                 }
@@ -80,6 +79,11 @@ public class EditInfoUserController extends MouseAdapter implements ActionListen
         view.getTxtName().setText(cust.getName());
         view.getTxtPhone().setText(cust.getPhone());
         view.getTxtAddres().setText(cust.getAddress());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

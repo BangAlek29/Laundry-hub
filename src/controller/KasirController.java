@@ -37,7 +37,6 @@ import util.PanelUtils;
 import util.PesananUtil;
 import util.SpinerTimeModel;
 import view.kasir.kasirDashboard;
-import view.kasir.tambahLayanan;
 
 /**
  *
@@ -67,29 +66,29 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     }
 
     public void AddEvents() {
-        view.getOrderButton().addActionListener(e -> handleOrder());
-        view.getBtnAddLayanan().addActionListener(e -> handleAddLayanan());
-        view.getBtnDeleteLayanan().addActionListener(e -> handleDeleteLayanan());
-        view.getBtnDeletePesanan().addActionListener(e -> handleDeletePesanan());
-        view.getBtnEditLayanan().addActionListener(e -> handleEditLayanan());
-        view.getBtnLayanan()
-                .addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getLayananPanel()));
-        view.getBtnLogout().addActionListener(e -> handleLogout());
-        view.getBtnOrderList().addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getOrderList()));
-        view.getBtnRefreshLayanan().addActionListener(e -> showTabelLayanan());
+        view.getOrderButton().addActionListener(e -> order());
+        view.getBtnDeletePesanan().addActionListener(e -> deletePesanan());
+        view.getBtnSearchPesanan().addActionListener(e -> searchPesanan());
+        view.getBtnUpdatePesanan().addActionListener(e -> updatePesanan());
         view.getBtnRefreshPesanan().addActionListener(e -> showTabelPesanan());
-        view.getBtnSearchLayanan().addActionListener(e -> handleSearchLayanan());
-        view.getBtnSearchPesanan().addActionListener(e -> handleSearchPesanan());
-        view.getBtnUpdatePesanan().addActionListener(e -> handleUpdatePesanan());
-        view.getBntOrderRequest()
-                .addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getOrderPanel()));
+        
+        view.getBtnAddLayanan().addActionListener(e -> addLayanan());
+        view.getBtnEditLayanan().addActionListener(e -> editLayanan());
+        view.getBtnDeleteLayanan().addActionListener(e -> deleteLayanan());
+        view.getBtnSearchLayanan().addActionListener(e -> searchLayanan());
+        view.getBtnRefreshLayanan().addActionListener(e -> showTabelLayanan());
+
+        view.getBtnLayanan().addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getLayananPanel()));
+        view.getBtnOrderList().addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getOrderList()));
+        view.getBntOrderRequest().addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getOrderPanel()));
+        view.getRbCustomerBaru().addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()));
+        view.getRbCustomerLama().addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel()));
+
         view.getCmbLayanan().addActionListener(e -> renderHarga());
-        view.getRbCustomerBaru()
-                .addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()));
-        view.getRbCustomerLama()
-                .addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel()));
-        view.getCmbCustomer().addActionListener(e -> handleFillCustomer());
         view.getSpnBerat().addChangeListener(e -> renderHarga());
+        view.getCmbCustomer().addActionListener(e -> fillCustomer());
+
+        view.getBtnLogout().addActionListener(e -> logout());
         view.getTabelPesanan().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -114,7 +113,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         });
     }
 
-    private void handleFillCustomer() {
+    private void fillCustomer() {
         try {
             CustomerModel selectedCustomer = (CustomerModel) view.getCmbCustomer().getSelectedItem();
             if (selectedCustomer != null) {
@@ -124,10 +123,11 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
                 view.getTxtTelepon2().setText(cust.getPhone());
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void handleOrder() {
+    private void order() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
@@ -183,16 +183,15 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         showTabelPesanan();
     }
 
-    private void handleAddLayanan() {
+    private void addLayanan() {
         try {
-            tambahLayanan lyn = new tambahLayanan();
-            lyn.setVisible(true);
+            TambahLayananController addLayanan = new TambahLayananController(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void handleDeleteLayanan() {
+    private void deleteLayanan() {
         try {
             if (!pesanan.equals(null)) {
                 int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
@@ -210,7 +209,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         }
     }
 
-    private void handleDeletePesanan() {
+    private void deletePesanan() {
         try {
             if (!pesanan.getIdPesanan().equals(null)) {
                 int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
@@ -227,17 +226,17 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         }
     }
 
-    private void handleEditLayanan() {
+    private void editLayanan() {
         try {
             if (!layanan.getIdLayanan().equals(null)) {
-                EditLayananController edit = new EditLayananController(layanan);
+                EditLayananController edit = new EditLayananController(layanan,this);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Layanan Belum Di pilih");
         }
     }
 
-    private void handleLogout() {
+    private void logout() {
         int response = JOptionPane.showConfirmDialog(view, "Are you sure ?", "Confirm", JOptionPane.YES_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
@@ -253,7 +252,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         }
     }
 
-    private void handleSearchLayanan() {
+    private void searchLayanan() {
         int n = 0;
         String[] kolom = { "NO", "Id_layanan", "Nama", "Harga" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
@@ -272,7 +271,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         view.getTbLayanan().setModel(tb1);
     }
 
-    private void handleSearchPesanan() {
+    private void searchPesanan() {
         int n = 0;
         String[] kolom = { "NO", "id_pesanan", "id_customer", "berat", "Harga", "Tanggal Ambil", "Jam Ambil" };
         DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
@@ -294,10 +293,10 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         view.getTabelPesanan().setModel(tb1);
     }
 
-    private void handleUpdatePesanan() {
+    private void updatePesanan() {
         try {
             if (!pesanan.getIdPesanan().equals(null)) {
-                UpdateOrderController updt = new UpdateOrderController(pesanan);
+                UpdateOrderController updt = new UpdateOrderController(pesanan,this);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Layanan Belum Di pilih");

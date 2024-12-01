@@ -27,36 +27,26 @@ public class AddUserController extends MouseAdapter implements ActionListener {
     private addUserForm view;
     private AkunModel akun;
     private CustomerModel cust;
+    private final AdminController admin;
 
-    public AddUserController() {
+    public AddUserController(AdminController admin) {
         view = new addUserForm();
-        view.addActionListener(this);
+        this.admin = admin;
         view.setVisible(true);
+        addEvents();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        Object source = ae.getSource();
-        if (source.equals(view.getBtnAdd())) {
-            handleAddUser();
-        }
-
-        if (source.equals(view.getBtnBack())) {
-            view.dispose();
-        }
+    public void addEvents() {
+        view.getBtnAdd().addActionListener(e -> addUser());
+        view.getBtnBack().addActionListener(e -> view.dispose());
     }
 
-    public void handleAddUser() {
+    public void addUser() {
         try {
             String id_akun = AkunDAO.generateIDAkun();
 
             if (AkunDAO.IsUsernameExist(view.getTxtUsername().getText())) {
                 JOptionPane.showMessageDialog(view, "Username sudah digunakan, silakan coba username lain.");
-                return;
-            }
-
-            if (!isPasswordEquals()) {
-                JOptionPane.showMessageDialog(view, "Password tidak sesuai, silakan periksa kembali.");
                 return;
             }
 
@@ -81,7 +71,7 @@ public class AddUserController extends MouseAdapter implements ActionListener {
             try (Statement stm = (Statement) Connect.configDB().createStatement()) {
                 AkunDAO.addAkun(akun);
                 CustomerDAO.addCustomer(cust);
-
+                admin.showAkunTable();
                 JOptionPane.showMessageDialog(view, "User berhasil ditambahkan.");
                 view.dispose();
             } catch (SQLException dbError) {
@@ -98,27 +88,19 @@ public class AddUserController extends MouseAdapter implements ActionListener {
         }
     }
 
-    private boolean isPasswordEquals() {
-        if (!String.valueOf(view.getTxtPassword().getPassword())
-                .equals(String.valueOf(view.getTxtConfirmPassword().getPassword()))) {
-            JOptionPane.showMessageDialog(view, "Password Do Not Match");
-            view.getTxtPassword().setText("");
-            view.getTxtConfirmPassword().setText("");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     private boolean isFilled() {
         if (!view.getTxtName().getText().isEmpty() && !view.getTxtPhoneNumber().getText().isEmpty()
                 && !view.getTxtUsername().getText().isEmpty() && !view.getTxtAddress().getText().isEmpty()
-                && !String.valueOf(view.getTxtPassword().getPassword()).isEmpty()
-                && !String.valueOf(view.getTxtConfirmPassword().getPassword()).isEmpty()) {
+                && !String.valueOf(view.getTxtPassword().getPassword()).isEmpty()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(view, "Please fill out the form");
+            JOptionPane.showMessageDialog(view, "Harap isi semua Field. ");
             return false;
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

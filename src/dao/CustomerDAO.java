@@ -126,10 +126,14 @@ public class CustomerDAO {
 
     public static List<CustomerModel> searchCustomer(String keyword) throws SQLException {
         Connection conn = Connect.configDB();
-        String query = "SELECT * FROM customer WHERE nama LIKE ? OR id_customer LIKE ?";
+        String query = "SELECT * FROM customer WHERE id_customer LIKE ? OR id_akun LIKE ? OR nama LIKE ? OR telpon LIKE ? OR alamat LIKE ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, "%" + keyword + "%");
         stmt.setString(2, "%" + keyword + "%");
+        stmt.setString(3, "%" + keyword + "%");
+        stmt.setString(4, "%" + keyword + "%");
+        stmt.setString(5, "%" + keyword + "%");
+
         ResultSet rs = stmt.executeQuery();
 
         List<CustomerModel> customers = new ArrayList<>();

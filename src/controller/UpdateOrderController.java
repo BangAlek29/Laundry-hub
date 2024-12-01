@@ -23,8 +23,10 @@ import view.kasir.updateOrder;
 public class UpdateOrderController extends MouseAdapter implements ActionListener {
     private final updateOrder view;
     private final PesananModel pesanan;
+    private final KasirController kasir;
 
-    public UpdateOrderController(PesananModel pesanan) {
+    public UpdateOrderController(PesananModel pesanan,KasirController kasir) {
+        this.kasir = kasir;
         this.pesanan = pesanan;
         view = new updateOrder();
         fillForm();
@@ -32,10 +34,10 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
         renderSpinerJam();
         view.setLocationRelativeTo(null);
         view.setVisible(true);
-        Events();
+        addEvents();
     }
 
-    public void Events() {
+    public void addEvents() {
         view.getOrderButton().addActionListener(e -> orderButtonActionPerformed());
         view.getCmbLayanan().addActionListener(e -> renderHarga());
         view.getSpnBerat().addChangeListener(e -> renderHarga());
@@ -71,6 +73,7 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
                     formattedDate,
                     PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue()));
             PesananDAO.updatePesanan(newOrder);
+            kasir.showTabelPesanan();
             JOptionPane.showMessageDialog(view, "Order successfully updated");
             view.dispose();
         } catch (SQLException e) {

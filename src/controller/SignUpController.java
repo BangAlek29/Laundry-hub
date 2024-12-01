@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import java.awt.event.ActionEvent;
@@ -30,56 +26,87 @@ public class SignUpController extends MouseAdapter implements ActionListener {
         view = new signupPage();
         akun = new AkunModel();
         cust = new CustomerModel();
-        view.addActionListener(this);
-        view.addMouseListener(this);
         view.setVisible(true);
+        addEvents();
     }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        Object source = ae.getSource();
-
-        if (source.equals(view.getSignUpButton())) {
-            try {
-
-                String id_akun = AkunDAO.generateIDAkun();
-                if (!isUsernameExist(view.getUsernameField()) && isPasswordEquals() && isFilled()) {
-                    String generatedId = AkunDAO.generateIDAkun();
-                    AkunModel akun = new AkunModel(generatedId, view.getUsernameField(), view.getPasswordField(),
-                            "member");
-                    CustomerModel cust = new CustomerModel(generatedId, generatedId, view.getNameField(),
-                            view.getPhoneField(), view.getAddressField());
-
-                    AkunDAO.addAkun(akun);
-                    CustomerDAO.addCustomer(cust);
-
-                    JOptionPane.showMessageDialog(view, "Registrasi berhasil, Silahkan Login");
-                    LoginController login = new LoginController();
-                    view.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(view, "Registrasi gagal, silahkan coba lagi");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    
+    public void addEvents() {
+        view.getBtnSignup().addActionListener(e -> addUser());
+        view.getBackToLogin().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoginController login = new LoginController();
+                view.dispose();
             }
-        }
+        });
+        
+        view.getTxtUsername().addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                try {
+                    if (isUsernameExist(view.getTxtUsername().getText())) {
+                        view.getTxtUsername().setText("");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        view.getTxtPhone().addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (!view.getTxtPhone().getText().matches("\\d+")) { // Hanya angka
+                    JOptionPane.showMessageDialog(view, "Nomor telepon hanya boleh berisi angka!");
+                    view.getTxtPhone().setText("");
+                }
+            }
+        });
+        view.getTxtPassword().addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (view.getTxtPassword().getText().length() < 6) {
+                    JOptionPane.showMessageDialog(view, "Password harus memiliki minimal 6 karakter");
+                    view.getTxtPassword().setText("");
+                }
+            }
+        });
     }
+    
+    private void addUser() {
+        try {
+            if (!isUsernameExist(view.getTxtUsername().getText()) && isPasswordEquals() && isFilled()) {
+                String generatedId = AkunDAO.generateIDAkun();
+                akun.setIdAkun(generatedId);
+                akun.setUsername(view.getTxtUsername().getText());
+                akun.setPassword(view.getTxtPassword().getText());
+                akun.setRole("member");
 
-    @Override
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
-        Object source = evt.getSource();
+                cust.setIdCustomer(generatedId);
+                cust.setIdAkun(generatedId);
+                cust.setName(view.getTxtField().getText());
+                cust.setPhone(view.getTxtPhone().getText());
+                cust.setAddress(view.getTxtAddress().getText());
 
-        if (source.equals(view.getBackToLogin())) {
-            LoginController login = new LoginController();
-            view.dispose();
+                AkunDAO.addAkun(akun);
+                CustomerDAO.addCustomer(cust);
+
+                JOptionPane.showMessageDialog(view, "Registrasi berhasil, Silahkan Login");
+                LoginController login = new LoginController();
+                view.dispose();
+            } else {
+                JOptionPane.showMessageDialog(view, "Registrasi gagal, silahkan coba lagi");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     private boolean isPasswordEquals() {
-        if (!view.getPasswordField().equals(view.getConfrimPasswordField())) {
+        if (!view.getTxtPassword().getText().equals(view.getTxtConfrimPassword().getText())) {
             JOptionPane.showMessageDialog(view, "Password tidak sama");
-            view.setPasswordField("");
-            view.setConfirmPasswordField("");
+            view.getTxtPassword().setText("");
+            view.getTxtConfrimPassword().setText("");
             return false;
         } else {
             return true;
@@ -95,18 +122,23 @@ public class SignUpController extends MouseAdapter implements ActionListener {
     }
 
     private boolean isFilled() {
-        if (!view.getNameField().isEmpty() &&
-                !view.getPhoneField().isEmpty() &&
-                !view.getUsernameField().isEmpty() &&
-                !view.getAddressField().isEmpty() &&
-                !view.getPasswordField().isEmpty() &&
-                !view.getConfrimPasswordField().isEmpty()) {
+        if (!view.getTxtField().getText().isEmpty() &&
+            !view.getTxtPhone().getText().isEmpty() &&
+            !view.getTxtUsername().getText().isEmpty() &&
+            !view.getTxtAddress().getText().isEmpty() &&
+            !view.getTxtPassword().getText().isEmpty() &&
+            !view.getTxtConfrimPassword().getText().isEmpty()) {
 
             return true;
         } else {
-            JOptionPane.showMessageDialog(view, "Please fill out the form");
+            JOptionPane.showMessageDialog(view, "Tolong Isi Semua Fieldnya");
             return false;
         }
     }
 
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Action performed handling, if needed in your context
+    }
 }

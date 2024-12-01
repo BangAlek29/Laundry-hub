@@ -26,83 +26,15 @@ public class LoginController extends MouseAdapter {
         akun = new AkunModel();
         cust = new CustomerModel();
         view.setVisible(true);
-        Events();
+        addEvents();
     }
 
-    public void Events() {
-        view.getLoginbtn().addActionListener(e -> {
-            try {
-                String username = view.getUsername().getText();
-                String password = view.getPassword().getText();
-
-                // Validasi input kosong
-                if (username.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(view, "Tolong isi semua field.", "Input Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Validasi login
-                akun = AkunDAO.validateLogin(username, password);
-
-                if (akun != null) {
-                    // Login berhasil, dapatkan data customer jika perlu
-                    cust = CustomerDAO.getCustomerByIdAkun(akun.getIdAkun());
-
-                    // Arahkan ke dashboard sesuai role
-                    switch (akun.getRole()) {
-                        case "admin":
-                            openAdminDashboard();
-                            break;
-                        case "kasir":
-                            openKasirDashboard();
-                            break;
-                        case "member":
-                            openUserDashboard();
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(view, "Role tidak valid.", "Login Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                            return;
-                    }
-
-                    // Tutup tampilan login setelah berhasil
-                    view.dispose();
-                } else {
-                    // Login gagal
-                    JOptionPane.showMessageDialog(view, "Username atau password salah.", "Login Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                // Kesalahan database
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Database Error", ex);
-                JOptionPane.showMessageDialog(view, "Kesalahan database: " + ex.getMessage(), "Database Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                // Kesalahan umum
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "General Error", ex);
-                JOptionPane.showMessageDialog(view, "Terjadi kesalahan: " + ex.getMessage(), "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-
-        view.getSignButton().addMouseListener(new MouseAdapter() {
+    public void addEvents() {
+        view.getBtnLogin().addActionListener(e -> autentifikasi());
+        view.getLbSign().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
-                    SignUpController signup = new SignUpController();
-                    view.dispose();
-                } catch (Exception ex) {
-                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE,
-                            "Error saat membuka halaman sign-up.", ex);
-
-                    JOptionPane.showMessageDialog(
-                            view,
-                            "Gagal membuka halaman sign-up. Silakan coba lagi.",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                openSignUpPanel();
             }
         });
 
@@ -110,22 +42,86 @@ public class LoginController extends MouseAdapter {
             @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                    view.getLoginbtn().doClick();
+                    view.getBtnLogin().doClick();
                 }
             }
         };
         
-        view.getPassword().addKeyListener(enterKeyListener);
-        view.getUsername().addKeyListener(new KeyAdapter() {
+        view.getTxtPassword().addKeyListener(enterKeyListener);
+        view.getTxtUsername().addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent evt) {
             if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                view.getPassword().requestFocus();
+                view.getTxtPassword().requestFocus();
             }
         }
     });
     }
+    
+    private void autentifikasi(){
+        try {
+            String username = view.getTxtUsername().getText();
+            String password = view.getTxtPassword().getText();
 
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Tolong isi semua field.", "Input Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            akun = AkunDAO.validateLogin(username, password);
+
+            if (akun != null) {
+                cust = CustomerDAO.getCustomerByIdAkun(akun.getIdAkun());
+
+                switch (akun.getRole()) {
+                    case "Admin":
+                        openAdminDashboard();
+                        break;
+                    case "Kasir":
+                        openKasirDashboard();
+                        break;
+                    case "Member":
+                        openUserDashboard();
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(view, "Role tidak valid.", "Login Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
+
+                view.dispose();
+            } else {
+                JOptionPane.showMessageDialog(view, "Username atau password salah.", "Login Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Database Error", ex);
+            JOptionPane.showMessageDialog(view, "Kesalahan database: " + ex.getMessage(), "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "General Error", ex);
+            JOptionPane.showMessageDialog(view, "Terjadi kesalahan: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void openSignUpPanel() {
+       try {
+           new SignUpController();
+           view.dispose();
+       } catch (Exception ex) {
+           Logger.getLogger(LoginController.class.getName()).log(
+                   Level.SEVERE, "Error saat membuka halaman sign-up.", ex);
+
+           JOptionPane.showMessageDialog(
+                   view,
+                   "Gagal membuka halaman sign-up. Silakan coba lagi.",
+                   "Error",
+                   JOptionPane.ERROR_MESSAGE);
+       }
+   }
+    
     private void openAdminDashboard() {
         try {
             AdminController admin = new AdminController();
