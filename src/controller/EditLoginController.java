@@ -68,7 +68,6 @@ public class EditLoginController extends MouseAdapter implements ActionListener 
         int response = JOptionPane.showConfirmDialog(view, "Are you sure?", "Confirm", JOptionPane.YES_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
-            try {
                 // Membuat model Akun baru dengan data yang diedit
                 AkunModel akunBaru = new AkunModel(
                         akun.getIdAkun(),
@@ -86,10 +85,6 @@ public class EditLoginController extends MouseAdapter implements ActionListener 
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to update the information. Please try again.");
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(view, "An error occurred: " + e.getMessage());
-                e.printStackTrace();
-            }
         }
     }
 

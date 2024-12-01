@@ -37,24 +37,26 @@ public class LoginController extends MouseAdapter {
                 openSignUpPanel();
             }
         });
-
-        KeyAdapter enterKeyListener = new KeyAdapter() {
+        
+        view.getTxtPassword().addKeyListener(new KeyAdapter(){
             @Override
             public void keyPressed(KeyEvent evt) {
-                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER ) {
                     view.getBtnLogin().doClick();
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP){
+                    view.getTxtUsername().requestFocus();
                 }
             }
-        };
+        });
         
-        view.getTxtPassword().addKeyListener(enterKeyListener);
         view.getTxtUsername().addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent evt) {
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 view.getTxtPassword().requestFocus();
             }
         }
+        
     });
     }
     

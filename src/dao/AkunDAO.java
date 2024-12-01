@@ -21,7 +21,7 @@ import model.AkunModel;
  */
 public class AkunDAO {
 
-    public static AkunModel validateLogin(String username, String password) throws SQLException {
+    public static AkunModel validateLogin(String username, String password){
         try {
             Statement stmt = Connect.configDB().createStatement();
             String query = "SELECT * FROM akun WHERE username = '" + username + "';";
@@ -41,7 +41,7 @@ public class AkunDAO {
         return null;
     }
 
-    public static List<AkunModel> SearchAkun(String key) throws SQLException{
+    public static List<AkunModel> SearchAkun(String key){
         List<AkunModel> listAkun = new ArrayList<>();
         try {
             Statement stmt = (Statement) Connect.configDB().createStatement();
@@ -81,94 +81,110 @@ public class AkunDAO {
         return idAkun;
     }
 
-    public static AkunModel getAkunByID(String idAkun) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM akun WHERE id_akun = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, idAkun);
-        ResultSet rs = stmt.executeQuery();
+    public static AkunModel getAkunByID(String idAkun){
+        try{
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM akun WHERE id_akun = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, idAkun);
+            ResultSet rs = stmt.executeQuery();
 
-        AkunModel akun = null;
+            AkunModel akun = null;
 
-        if (rs.next()) {
-            akun = new AkunModel();
-            akun.setIdAkun(idAkun);
-            akun.setUsername(rs.getString("username"));
-            akun.setPassword(rs.getString("password"));
-            akun.setRole(rs.getString("role"));
-        }
-
-        return akun;
+            if (rs.next()) {
+                akun = new AkunModel();
+                akun.setIdAkun(idAkun);
+                akun.setUsername(rs.getString("username"));
+                akun.setPassword(rs.getString("password"));
+                akun.setRole(rs.getString("role"));
+            }
+            return akun;
+                    } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return null;
     }
 
-    public static boolean deleteAkun(String idAkun) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "DELETE FROM akun WHERE id_akun = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, idAkun);
-        boolean isSuccess = stmt.executeUpdate() > 0;
-        return isSuccess;
-    }
-
-    public static List<AkunModel> getAllAkun() throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM akun";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-
-        List<AkunModel> listAkun = new ArrayList<>();
-        while (rs.next()) {
-            AkunModel akun = new AkunModel();
-            akun.setIdAkun(rs.getString("id_akun"));
-            akun.setUsername(rs.getString("username"));
-            akun.setPassword(rs.getString("password"));
-            akun.setRole(rs.getString("role"));
-            listAkun.add(akun);
-        }
-
-        return listAkun;
-    }
-
-    public static void addAkun(AkunModel akun) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, akun.getIdAkun());
-        stmt.setString(2, akun.getUsername());
-        stmt.setString(3, akun.getPassword());
-        stmt.setString(4, akun.getRole());
-
-        boolean isSuccess = stmt.executeUpdate() > 0;
-    }
-
-    public static String generateIDAkun() {
-        String lastId_akun = null;
+    public static boolean deleteAkun(String idAkun) {
         try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
+            Connection conn = Connect.configDB();
+            String query = "DELETE FROM akun WHERE id_akun = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, idAkun);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    public static List<AkunModel> getAllAkun() {
+        List<AkunModel> listAkun = new ArrayList<>();
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM akun";
+            Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                lastId_akun = rs.getString("id_akun");
+                AkunModel akun = new AkunModel();
+                akun.setIdAkun(rs.getString("id_akun"));
+                akun.setUsername(rs.getString("username"));
+                akun.setPassword(rs.getString("password"));
+                akun.setRole(rs.getString("role"));
+                listAkun.add(akun);
             }
-
-            if (lastId_akun == null) {
-                lastId_akun = "AKN1";
-            }
-
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        int number = Integer.parseInt(lastId_akun.replace("AKN", ""));
-        return "AKN" + (number + 1);
+        return listAkun;
     }
 
-    public static boolean IsUsernameExist(String username) {
+    public static boolean addAkun(AkunModel akun) {
+        try {
+            Connection conn = Connect.configDB();
+            String query = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, akun.getIdAkun());
+            stmt.setString(2, akun.getUsername());
+            stmt.setString(3, akun.getPassword());
+            stmt.setString(4, akun.getRole());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String generateIDAkun() {
+        String lastIdAkun = null;
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                lastIdAkun = rs.getString("id_akun");
+            }
+
+            if (lastIdAkun == null) {
+                lastIdAkun = "AKN1";
+            } else {
+                int number = Integer.parseInt(lastIdAkun.replace("AKN", ""));
+                lastIdAkun = "AKN" + (number + 1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastIdAkun;
+    }
+
+    public static boolean isUsernameExist(String username) {
         boolean result = false;
         try {
             Connection conn = Connect.configDB();
-            String query = "SELECT * FROM akun WHERE username = ?"; // Gunakan PreparedStatement untuk keamanan
+            String query = "SELECT * FROM akun WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -181,16 +197,20 @@ public class AkunDAO {
         return result;
     }
 
-    public static boolean updateAkun(AkunModel akun) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "UPDATE akun SET username = ?, password = ?, role = ? WHERE id_akun = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, akun.getUsername());
-        stmt.setString(2, akun.getPassword());
-        stmt.setString(3, akun.getRole());
-        stmt.setString(4, akun.getIdAkun());
-
-        return stmt.executeUpdate() > 0;
+    public static boolean updateAkun(AkunModel akun) {
+        try {
+            Connection conn = Connect.configDB();
+            String query = "UPDATE akun SET username = ?, password = ?, role = ? WHERE id_akun = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, akun.getUsername());
+            stmt.setString(2, akun.getPassword());
+            stmt.setString(3, akun.getRole());
+            stmt.setString(4, akun.getIdAkun());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

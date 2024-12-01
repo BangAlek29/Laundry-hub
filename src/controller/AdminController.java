@@ -1,5 +1,9 @@
 package controller;
 
+import util.*;
+import model.*;
+import dao.*;
+
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,25 +14,16 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
-import dao.AkunDAO;
-import dao.CustomerDAO;
-import java.awt.Component;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumnModel;
+
 import koneksiDatabase.Connect;
-import model.AkunModel;
-import model.CustomerModel;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import util.PanelUtils;
+
 import view.admin.adminDashboard;
 
 public class AdminController extends MouseAdapter implements ActionListener {
@@ -56,15 +51,12 @@ public class AdminController extends MouseAdapter implements ActionListener {
         view.getBtnCetakLaporan().addActionListener((ActionEvent e) -> {
             try {
                 String reportPath = "src/laporan/Laporan_Laundry.jasper";
-                HashMap<String, Object> parameter = new HashMap<>();
                 Connection conn = Connect.configDB();
-                JasperPrint print = JasperFillManager.fillReport(reportPath, parameter,conn );
+                JasperPrint print = JasperFillManager.fillReport(reportPath, null,conn );
                 JasperViewer viewer = new JasperViewer(print, false);
                 viewer.setVisible(true);
             } catch (JRException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
             }catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         
@@ -73,11 +65,11 @@ public class AdminController extends MouseAdapter implements ActionListener {
         view.getTxtSeachInfo().addActionListener(e -> searchInfoUser());
         
         view.getTableLogin().getSelectionModel().addListSelectionListener(event -> {
-            if (!event.getValueIsAdjusting()) { // Menghindari event duplikasi
+            if (!event.getValueIsAdjusting()) {
                 int selectedRow = view.getTableLogin().getSelectedRow();
-                if (selectedRow == -1) { // Tidak ada baris yang dipilih
+                if (selectedRow == -1) {
                     view.getBtnEditUser().setEnabled(false);
-                } else { // Ada baris yang dipilih
+                } else {
                     TableModel model = view.getTableLogin().getModel();
                     try {
                         akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 1).toString());
@@ -91,11 +83,11 @@ public class AdminController extends MouseAdapter implements ActionListener {
         });
 
         view.getTableInformationUser().getSelectionModel().addListSelectionListener(event -> {
-            if (!event.getValueIsAdjusting()) { // Menghindari event ganda
+            if (!event.getValueIsAdjusting()) {
                 int selectedRow = view.getTableInformationUser().getSelectedRow();
-                if (selectedRow == -1) { // Tidak ada baris yang dipilih
+                if (selectedRow == -1) {
                     view.getBtnEditInfoUser().setEnabled(false);
-                } else { // Ada baris yang dipilih
+                } else {
                     TableModel model = view.getTableInformationUser().getModel();
                     try {
                         akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 2).toString());
@@ -147,10 +139,10 @@ public class AdminController extends MouseAdapter implements ActionListener {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Please choose an account");
+            JOptionPane.showMessageDialog(view, "Tolong pilih akun");
         }
     }
-
+    
     private void showUserManagementPanel() {
         PanelUtils.switchPanel(view.getMainPanel(), view.getUserManagementPanel());
     }
@@ -176,134 +168,41 @@ public class AdminController extends MouseAdapter implements ActionListener {
 
     private void searchUser() {
         if (!view.getTxtSearchUsername().equals("")) {
-            String[] kolom = { "NO", "ID Akun", "Username", "Password", "Role" };
-            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
             String keyword = view.getTxtSearchUsername().getText();
-            
-            try {
-                List<AkunModel> akunList = AkunDAO.SearchAkun(view.getTxtSearchUsername().getText());
-                int n = 0;
-                for (AkunModel akun : akunList) {
-                    n++;
-                    tb1.addRow(new String[] {
-                            String.valueOf(n),
-                            akun.getIdAkun(),
-                            akun.getUsername(),
-                            akun.getPassword(),
-                            akun.getRole() });
-                }
-                view.getTableLogin().setModel(tb1);
-                setColumnAlignment(view.getTableLogin());
-                if (n == 0) {
-                    JOptionPane.showMessageDialog(view, "Pencarian tidak ditemukan keyword: " + keyword);
-                }
-            } catch (SQLException e) {
-                System.err.println(e);
-                JOptionPane.showMessageDialog(view, "Error: Unable to fetch data!");
-            }
+            List<AkunModel> akunList = AkunDAO.SearchAkun(view.getTxtSearchUsername().getText());
+            DefaultTableModel tb1 = TableModelFactory.createAkunTableModel(akunList);
+            view.getTableLogin().setModel(tb1);
+            TableUtils.setColumnAlignment(view.getTableLogin(), SwingConstants.CENTER);
         } else {
             JOptionPane.showMessageDialog(view, "Harap isi kolom pencarian");
         }
     }
+    
+    public void showAkunTable() {
+        List<AkunModel> akunList = AkunDAO.getAllAkun();
+        DefaultTableModel tb1 = TableModelFactory.createAkunTableModel(akunList);
+        view.getTableLogin().setModel(tb1);
+        TableUtils.setColumnAlignment(view.getTableLogin(), SwingConstants.CENTER);
+        view.getTableLogin().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+    }
 
     private void searchInfoUser() {
-            String[] kolom = { "NO", "ID Customer", "ID Akun", "Nama", "Telepon", "Alamat" };
-            DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-            String keyword = view.getTxtSeachInfo().getText();
-
-            try {
-                List<CustomerModel> customers = CustomerDAO.searchCustomer(keyword);
-                int n = 0;
-                for (CustomerModel customer : customers) {
-                    n++;
-                    String[] rowData = {
-                            String.valueOf(n),
-                            customer.getIdCustomer(),
-                            customer.getIdAkun(),
-                            customer.getName(),
-                            customer.getPhone(),
-                            customer.getAddress()
-                    };
-                    tb1.addRow(rowData);
-                }
-                view.getTableInformationUser().setModel(tb1);
-                setColumnAlignment(view.getTableInformationUser());
-                if (n == 0) {
-                    JOptionPane.showMessageDialog(view, "Pencarian tidak ditemukan keyword: " + keyword);
-                }
-            } catch (SQLException e) {
-                System.err.println(e);
-                JOptionPane.showMessageDialog(view, "Error: Unable to fetch data!");
-            }
+        String keyword = view.getTxtSeachInfo().getText();
+        List<CustomerModel> customers = CustomerDAO.searchCustomer(keyword);
+        DefaultTableModel tb1 = TableModelFactory.createCustomerTableModel(customers);
+        view.getTableInformationUser().setModel(tb1);
+        TableUtils.setColumnAlignment(view.getTableInformationUser(), SwingConstants.CENTER);
     }
 
     public void showCustomerTable() {
-        String[] kolom = { "NO", "ID Customer", "ID Akun", "Nama", "Telepon", "Alamat" };
-        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-        try {
-            List<CustomerModel> customerList = CustomerDAO.getAllCustomers();
-            if (customerList != null) {
-                int n = 0;
-                for (CustomerModel customer : customerList) {
-                    n++;
-                    tb1.addRow(new String[] {
-                            String.valueOf(n),
-                            customer.getIdCustomer(),
-                            customer.getIdAkun(),
-                            customer.getName(),
-                            customer.getPhone(),
-                            customer.getAddress()
-                    });
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<CustomerModel> customerList = CustomerDAO.getAllCustomers();
+        DefaultTableModel tb1 = TableModelFactory.createCustomerTableModel(customerList);
         view.getTableInformationUser().setModel(tb1);
-        setColumnAlignment(view.getTableInformationUser());
-        
-    }
-    private void setColumnAlignment(JTable table) {
-        TableColumnModel columnModel = table.getColumnModel();
-
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                    Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                    setHorizontalAlignment(SwingConstants.CENTER);  // Set semua kolom rata tengah
-                    return comp;
-                }
-            });
-        }
-    }
-    public void showAkunTable() {
-        String[] kolom = { "NO", "ID Akun", "Username", "Password", "Role" };
-        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
-        try {
-            List<AkunModel> akunList = AkunDAO.getAllAkun();
-            int n = 0;
-            for (AkunModel akun : akunList) {
-                n++;
-                tb1.addRow(new String[] {
-                        String.valueOf(n),
-                        akun.getIdAkun(),
-                        akun.getUsername(),
-                        akun.getPassword(),
-                        akun.getRole() });
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        view.getTableLogin().setModel(tb1);
-        setColumnAlignment(view.getTableLogin());
-        view.getTableLogin().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        TableUtils.setColumnAlignment(view.getTableInformationUser(), SwingConstants.CENTER);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

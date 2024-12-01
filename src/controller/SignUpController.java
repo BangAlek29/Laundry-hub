@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 
 import dao.AkunDAO;
 import dao.CustomerDAO;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import model.AkunModel;
 import model.CustomerModel;
 import view.auth.signupPage;
@@ -53,25 +55,75 @@ public class SignUpController extends MouseAdapter implements ActionListener {
             }
         });
         
-        view.getTxtPhone().addFocusListener(new java.awt.event.FocusAdapter() {
+        addNavigation();
+    }
+
+    private void addNavigation() {
+        view.getTxtName().addKeyListener(new KeyAdapter() {
             @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (!view.getTxtPhone().getText().matches("\\d+")) { // Hanya angka
-                    JOptionPane.showMessageDialog(view, "Nomor telepon hanya boleh berisi angka!");
-                    view.getTxtPhone().setText("");
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtPhone().requestFocus();
                 }
             }
         });
-        view.getTxtPassword().addFocusListener(new java.awt.event.FocusAdapter() {
+
+        view.getTxtPhone().addKeyListener(new KeyAdapter() {
             @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (view.getTxtPassword().getText().length() < 6) {
-                    JOptionPane.showMessageDialog(view, "Password harus memiliki minimal 6 karakter");
-                    view.getTxtPassword().setText("");
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtUsername().requestFocus();
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    view.getTxtName().requestFocus();
+                }
+            }
+        });
+
+        view.getTxtUsername().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtPassword().requestFocus();
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    view.getTxtPhone().requestFocus();
+                }
+            }
+        });
+
+        view.getTxtPassword().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtConfrimPassword().requestFocus();
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    view.getTxtUsername().requestFocus();
+                }
+            }
+        });
+
+        view.getTxtConfrimPassword().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtAddress().requestFocus();
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    view.getTxtPassword().requestFocus();
+                }
+            }
+        });
+
+        view.getTxtAddress().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    view.getTxtConfrimPassword().requestFocus();
+                } else if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getBtnSignup().doClick(); // Trigger button sign up
                 }
             }
         });
     }
+
     
     private void addUser() {
         try {
@@ -84,7 +136,7 @@ public class SignUpController extends MouseAdapter implements ActionListener {
 
                 cust.setIdCustomer(generatedId);
                 cust.setIdAkun(generatedId);
-                cust.setName(view.getTxtField().getText());
+                cust.setName(view.getTxtName().getText());
                 cust.setPhone(view.getTxtPhone().getText());
                 cust.setAddress(view.getTxtAddress().getText());
 
@@ -114,7 +166,7 @@ public class SignUpController extends MouseAdapter implements ActionListener {
     }
 
     private boolean isUsernameExist(String username) throws SQLException {
-        if (AkunDAO.IsUsernameExist(username)) {
+        if (AkunDAO.isUsernameExist(username)) {
             JOptionPane.showMessageDialog(view, "Username sudah digunakan");
             return true;
         }
@@ -122,7 +174,7 @@ public class SignUpController extends MouseAdapter implements ActionListener {
     }
 
     private boolean isFilled() {
-        if (!view.getTxtField().getText().isEmpty() &&
+        if (!view.getTxtName().getText().isEmpty() &&
             !view.getTxtPhone().getText().isEmpty() &&
             !view.getTxtUsername().getText().isEmpty() &&
             !view.getTxtAddress().getText().isEmpty() &&

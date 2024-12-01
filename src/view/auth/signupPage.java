@@ -16,7 +16,6 @@ import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import controller.SignUpController;
 import javax.swing.JTextField;
 
 /**
@@ -32,7 +31,7 @@ public class signupPage extends javax.swing.JFrame {
         initComponents();
     }
 
-    public JTextField getTxtField() {
+    public JTextField getTxtName() {
         return txtName;
     }
 

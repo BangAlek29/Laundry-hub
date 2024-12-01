@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import koneksiDatabase.Connect;
 import model.CustomerModel;
@@ -81,24 +83,29 @@ public class CustomerDAO {
         return isSuccess;
     }
 
-    public static List<CustomerModel> getAllCustomers() throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM customer";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        ResultSet rs = stmt.executeQuery();
-
-        List<CustomerModel> customers = new ArrayList<>();
-        while (rs.next()) {
-            CustomerModel customer = new CustomerModel(
-                    rs.getString("id_customer"),
-                    rs.getString("id_akun"),
-                    rs.getString("nama"),
-                    rs.getString("telpon"),
-                    rs.getString("alamat"));
-            customers.add(customer);
+    public static List<CustomerModel> getAllCustomers() {
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM customer";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            
+            List<CustomerModel> customers = new ArrayList<>();
+            while (rs.next()) {
+                CustomerModel customer = new CustomerModel(
+                        rs.getString("id_customer"),
+                        rs.getString("id_akun"),
+                        rs.getString("nama"),
+                        rs.getString("telpon"),
+                        rs.getString("alamat"));
+                customers.add(customer);
+            }
+            
+            return customers;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return customers;
+        return null;
     }
 
     public static String generateIDCustomer() {
@@ -124,30 +131,35 @@ public class CustomerDAO {
         return "CST" + (number + 1);
     }
 
-    public static List<CustomerModel> searchCustomer(String keyword) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM customer WHERE id_customer LIKE ? OR id_akun LIKE ? OR nama LIKE ? OR telpon LIKE ? OR alamat LIKE ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, "%" + keyword + "%");
-        stmt.setString(2, "%" + keyword + "%");
-        stmt.setString(3, "%" + keyword + "%");
-        stmt.setString(4, "%" + keyword + "%");
-        stmt.setString(5, "%" + keyword + "%");
-
-        ResultSet rs = stmt.executeQuery();
-
-        List<CustomerModel> customers = new ArrayList<>();
-        while (rs.next()) {
-            CustomerModel customer = new CustomerModel(
-                    rs.getString("id_customer"),
-                    rs.getString("id_akun"),
-                    rs.getString("nama"),
-                    rs.getString("telpon"),
-                    rs.getString("alamat"));
-            customers.add(customer);
+    public static List<CustomerModel> searchCustomer(String keyword){
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM customer WHERE id_customer LIKE ? OR id_akun LIKE ? OR nama LIKE ? OR telpon LIKE ? OR alamat LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, "%" + keyword + "%");
+            stmt.setString(2, "%" + keyword + "%");
+            stmt.setString(3, "%" + keyword + "%");
+            stmt.setString(4, "%" + keyword + "%");
+            stmt.setString(5, "%" + keyword + "%");
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            List<CustomerModel> customers = new ArrayList<>();
+            while (rs.next()) {
+                CustomerModel customer = new CustomerModel(
+                        rs.getString("id_customer"),
+                        rs.getString("id_akun"),
+                        rs.getString("nama"),
+                        rs.getString("telpon"),
+                        rs.getString("alamat"));
+                customers.add(customer);
+            }
+            
+            return customers;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return customers;
+        return null;
     }
 
     public static CustomerModel getCustomerByIdCustomer(String idCustomer) throws SQLException {

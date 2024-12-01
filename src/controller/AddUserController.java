@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import dao.AkunDAO;
 import dao.CustomerDAO;
+import java.awt.event.KeyAdapter;
 import koneksiDatabase.Connect;
 import model.AkunModel;
 import model.CustomerModel;
@@ -45,7 +46,7 @@ public class AddUserController extends MouseAdapter implements ActionListener {
         try {
             String id_akun = AkunDAO.generateIDAkun();
 
-            if (AkunDAO.IsUsernameExist(view.getTxtUsername().getText())) {
+            if (AkunDAO.isUsernameExist(view.getTxtUsername().getText())) {
                 JOptionPane.showMessageDialog(view, "Username sudah digunakan, silakan coba username lain.");
                 return;
             }
