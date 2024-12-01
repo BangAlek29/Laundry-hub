@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,12 +14,20 @@ import javax.swing.table.TableModel;
 import dao.AkunDAO;
 import dao.CustomerDAO;
 import java.awt.Component;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import koneksiDatabase.Connect;
 import model.AkunModel;
 import model.CustomerModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import util.PanelUtils;
 import view.admin.adminDashboard;
 
@@ -43,10 +52,23 @@ public class AdminController extends MouseAdapter implements ActionListener {
         
         view.getBtnUserManagement().addActionListener(e -> showUserManagementPanel());
         view.getBtnUserInformation().addActionListener(e -> showUserInformationPanel());
-        view.getBtnEditInfoUser().addActionListener(e -> showEditInfoUserPanel());
-        
         view.getBtnLogOut().addActionListener(e -> Logout());
+        view.getBtnCetakLaporan().addActionListener((ActionEvent e) -> {
+            try {
+                String reportPath = "src/laporan/Laporan_Laundry.jasper";
+                HashMap<String, Object> parameter = new HashMap<>();
+                Connection conn = Connect.configDB();
+                JasperPrint print = JasperFillManager.fillReport(reportPath, parameter,conn );
+                JasperViewer viewer = new JasperViewer(print, false);
+                viewer.setVisible(true);
+            } catch (JRException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (SQLException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         
+        view.getBtnEditInfoUser().addActionListener(e -> showEditInfoUserPanel());
         view.getBtnRefreshInfo().addActionListener(e -> refreshTable());
         view.getTxtSeachInfo().addActionListener(e -> searchInfoUser());
         

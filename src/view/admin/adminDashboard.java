@@ -31,6 +31,10 @@ public class adminDashboard extends javax.swing.JFrame {
     public JButton getBtnAddUser() {
         return btnAddUser;
     }
+    
+    public JButton getBtnCetakLaporan() {
+        return btnCetakLaporan;
+    }
 
     public JButton getBtnEditUser() {
         return btnEditUser;
@@ -106,6 +110,7 @@ public class adminDashboard extends javax.swing.JFrame {
         btnUserManagement = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         btnUserInformation = new javax.swing.JButton();
+        btnCetakLaporan = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         userManagementPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -166,6 +171,15 @@ public class adminDashboard extends javax.swing.JFrame {
         btnUserInformation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUserInformation.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
+        btnCetakLaporan.setBackground(new java.awt.Color(76, 175, 80));
+        btnCetakLaporan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCetakLaporan.setForeground(java.awt.Color.white);
+        btnCetakLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/profile_1.png"))); // NOI18N
+        btnCetakLaporan.setText("Cetak Laporan");
+        btnCetakLaporan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCetakLaporan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCetakLaporan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
@@ -175,7 +189,8 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUserManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUserInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnUserInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCetakLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
         MenuLayout.setVerticalGroup(
@@ -185,6 +200,8 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addComponent(btnUserManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(btnUserInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnCetakLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -526,6 +543,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel UserInformation;
     private javax.swing.JButton btnAddUser;
+    private javax.swing.JButton btnCetakLaporan;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit2;
     private javax.swing.JButton btnEditUser;

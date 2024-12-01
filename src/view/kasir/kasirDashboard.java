@@ -6,7 +6,6 @@ package view.kasir;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.sun.jdi.connect.spi.Connection;
 import com.toedter.calendar.JDateChooser;
 import java.sql.SQLException;
 import java.util.HashMap;

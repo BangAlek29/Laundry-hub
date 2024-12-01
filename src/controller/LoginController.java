@@ -73,7 +73,7 @@ public class LoginController extends MouseAdapter {
 
             if (akun != null) {
                 cust = CustomerDAO.getCustomerByIdAkun(akun.getIdAkun());
-
+                
                 switch (akun.getRole()) {
                     case "Admin":
                         openAdminDashboard();
