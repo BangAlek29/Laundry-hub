@@ -31,7 +31,7 @@ public class AkunDAO {
                 String storedPassword = rs.getString("password");
                 if (storedPassword.equals(password)) {
                     String role = rs.getString("role");
-                    String idAkun = getIdAkunByUsername(username);
+                    String idAkun = rs.getString("id_akun");
                     return new AkunModel(idAkun, username, password, role);
                 }
             }
@@ -63,22 +63,6 @@ public class AkunDAO {
             System.err.println(e);
         }
         return null;
-    }
-
-    private static String getIdAkunByUsername(String username) {
-        String idAkun = "";
-        try {
-            Statement stmt = Connect.configDB().createStatement();
-            String query = "SELECT id_akun FROM akun WHERE username = '" + username + "';";
-            ResultSet rs = stmt.executeQuery(query);
-
-            if (rs.next()) {
-                idAkun = rs.getString("id_akun");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return idAkun;
     }
 
     public static AkunModel getAkunByID(String idAkun){
@@ -158,26 +142,27 @@ public class AkunDAO {
 
     public static String generateIDAkun() {
         String lastIdAkun = null;
+        String newIdAkun = null;
         try {
             Connection conn = Connect.configDB();
-            String query = "SELECT * FROM akun ORDER BY id_akun ASC";
+            String query = "SELECT id_akun FROM akun ORDER BY id_akun DESC LIMIT 1";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
+            if (rs.next()) {
                 lastIdAkun = rs.getString("id_akun");
             }
 
             if (lastIdAkun == null) {
-                lastIdAkun = "AKN1";
+                newIdAkun = "AKN001";
             } else {
                 int number = Integer.parseInt(lastIdAkun.replace("AKN", ""));
-                lastIdAkun = "AKN" + (number + 1);
+                newIdAkun = String.format("AKN%03d", number + 1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return lastIdAkun;
+        return newIdAkun;
     }
 
     public static boolean isUsernameExist(String username) {

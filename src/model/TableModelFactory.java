@@ -4,6 +4,8 @@
  */
 package model;
 
+import dao.CustomerDAO;
+import dao.LayananDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -61,4 +63,60 @@ public class TableModelFactory {
         }
         return model;
     }
+    
+    public static DefaultTableModel createPesananTableModel(List<PesananModel> pesananList) {
+        String[] kolom = {
+            "NO", "ID Pesanan", "Nama Customer", "Layanan", 
+            "Berat (kg)", "Harga (Rp)", "Tanggal Selesai", "Jam Selesai"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, kolom);
+
+        int n = 0;
+        for (PesananModel pesanan : pesananList) {
+            n++;
+            try {
+                String namaCustomer = CustomerDAO.getCustomerByIdCustomer(pesanan.getIdCustomer()).getName();
+                String namaLayanan = LayananDAO.getLayananById(pesanan.getIdLayanan()).getNama();
+
+                String[] rowData = {
+                    String.valueOf(n),
+                    pesanan.getIdPesanan(),
+                    namaCustomer,
+                    namaLayanan,
+                    String.valueOf(pesanan.getBerat()),
+                    String.valueOf(pesanan.getHarga()),
+                    pesanan.getTanggalSelesai(),
+                    pesanan.getJamSelesai()
+                };
+                model.addRow(rowData);
+            } catch (Exception e) {
+                e.printStackTrace(); // Untuk debugging jika ada kesalahan
+            }
+        }
+        return model;
+    }
+
+    public static DefaultTableModel createLayananTableModel(List<LayananModel> layananList) {
+        String[] kolom = {"NO", "ID Layanan", "Nama", "Harga (Rp)", "Deskripsi"};
+        DefaultTableModel model = new DefaultTableModel(null, kolom);
+
+        int n = 0; 
+        for (LayananModel layanan : layananList) {
+            n++;
+            try {
+                String[] rowData = {
+                    String.valueOf(n),
+                    layanan.getIdLayanan(),
+                    layanan.getNama(),
+                    String.valueOf(layanan.getHarga()),
+                    layanan.getDeskripsi()
+                };
+                model.addRow(rowData);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return model;
+    }
+
 }

@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import koneksiDatabase.Connect;
 
@@ -43,8 +45,22 @@ public class AdminController extends MouseAdapter implements ActionListener {
         view.getBtnEditUser().addActionListener(e -> showEditUserPanel());
         view.getBtnRefreshUser().addActionListener(e -> refreshTable());
         view.getBtnDeleteUser().addActionListener(e -> deleteAkun());
-        view.getTxtSearchUsername().addActionListener(e -> searchUser());
-        
+        view.getTxtSearchUsername().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchUser();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchUser();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Biasanya tidak diperlukan untuk JTextField
+            }
+        });
         view.getBtnUserManagement().addActionListener(e -> showUserManagementPanel());
         view.getBtnUserInformation().addActionListener(e -> showUserInformationPanel());
         view.getBtnLogOut().addActionListener(e -> Logout());
@@ -53,7 +69,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
                 String reportPath = "src/laporan/Laporan_Laundry.jasper";
                 Connection conn = Connect.configDB();
                 JasperPrint print = JasperFillManager.fillReport(reportPath, null,conn );
-                JasperViewer viewer = new JasperViewer(print, false);
+                JasperViewer viewer = new JasperViewer(print, false, null);
                 viewer.setVisible(true);
             } catch (JRException ex) {
             }catch (SQLException ex) {
@@ -62,8 +78,22 @@ public class AdminController extends MouseAdapter implements ActionListener {
         
         view.getBtnEditInfoUser().addActionListener(e -> showEditInfoUserPanel());
         view.getBtnRefreshInfo().addActionListener(e -> refreshTable());
-        view.getTxtSeachInfo().addActionListener(e -> searchInfoUser());
-        
+        view.getTxtSeachInfo().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchInfoUser();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchInfoUser();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Biasanya tidak diperlukan untuk JTextField
+            }
+        });
         view.getTableLogin().getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
                 int selectedRow = view.getTableLogin().getSelectedRow();
@@ -98,7 +128,9 @@ public class AdminController extends MouseAdapter implements ActionListener {
                     }
                 }
             }
-        });
+        }
+
+    );
     }
 
     private void showAddUserPanel() {
@@ -182,8 +214,6 @@ public class AdminController extends MouseAdapter implements ActionListener {
         List<AkunModel> akunList = AkunDAO.getAllAkun();
         DefaultTableModel tb1 = TableModelFactory.createAkunTableModel(akunList);
         view.getTableLogin().setModel(tb1);
-        TableUtils.setColumnAlignment(view.getTableLogin(), SwingConstants.CENTER);
-        view.getTableLogin().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
     private void searchInfoUser() {

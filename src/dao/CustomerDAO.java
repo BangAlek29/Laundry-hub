@@ -109,26 +109,28 @@ public class CustomerDAO {
     }
 
     public static String generateIDCustomer() {
-        String lastId_cust = null;
+        String lastIdCustomer = null;
+        String newIdCustomer = null;
         try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM customer ORDER BY id_customer ASC";
-
+            Connection conn = Connect.configDB();
+            String query = "SELECT id_customer FROM customer ORDER BY id_customer DESC LIMIT 1";
+            Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                lastId_cust = rs.getString("id_customer");
+            if (rs.next()) {
+                lastIdCustomer = rs.getString("id_customer");
             }
 
-            if (lastId_cust == null) {
-                lastId_cust = "CST1";
+            if (lastIdCustomer == null) {
+                newIdCustomer = "CST001";
+            } else {
+                int number = Integer.parseInt(lastIdCustomer.replace("CST", ""));
+                newIdCustomer = String.format("CST%03d", number + 1);
             }
-
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
-        int number = Integer.parseInt(lastId_cust.replace("CST", ""));
-        return "CST" + (number + 1);
+        return newIdCustomer;
     }
 
     public static List<CustomerModel> searchCustomer(String keyword){
@@ -162,24 +164,29 @@ public class CustomerDAO {
         return null;
     }
 
-    public static CustomerModel getCustomerByIdCustomer(String idCustomer) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM customer WHERE id_customer = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, idCustomer);
-        ResultSet rs = stmt.executeQuery();
-
-        CustomerModel customer = null;
-
-        if (rs.next()) {
-            customer = new CustomerModel(
-                    rs.getString("id_customer"),
-                    rs.getString("id_akun"),
-                    rs.getString("nama"),
-                    rs.getString("telpon"),
-                    rs.getString("alamat"));
+    public static CustomerModel getCustomerByIdCustomer(String idCustomer){
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM customer WHERE id_customer = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, idCustomer);
+            ResultSet rs = stmt.executeQuery();
+            
+            CustomerModel customer = null;
+            
+            if (rs.next()) {
+                customer = new CustomerModel(
+                        rs.getString("id_customer"),
+                        rs.getString("id_akun"),
+                        rs.getString("nama"),
+                        rs.getString("telpon"),
+                        rs.getString("alamat"));
+            }
+            return customer;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return customer;
+        return null;
     }
 
 }

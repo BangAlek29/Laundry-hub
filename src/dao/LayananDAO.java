@@ -30,7 +30,7 @@ public class LayananDAO {
         return layananList;
     }
 
-    public static ArrayList<LayananModel> searchLayanan(String keyword) {
+    public static ArrayList<LayananModel> searchLayananByKey(String keyword) {
         ArrayList<LayananModel> layananList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -97,57 +97,57 @@ public class LayananDAO {
         }
     }
 
-    public static String getDeskripsi(String id_layanan) {
-        String deskripsi = "";
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan WHERE id_layanan = '" + id_layanan + "'";
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                deskripsi = rs.getString("deskripsi");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return deskripsi;
-    }
-
-    public static int getHargaById(String IdLayanan) {
-        int harga = 0;
-        try {
-            Statement stmt = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan where id_layanan = '" + IdLayanan + "'";
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            if (rs.next()) {
-                harga = rs.getInt("harga");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return harga;
-    }
-
     public static String generateIdLayanan() {
-        String tempID = "";
+        String lastIdLayanan = null;
+        String newIdLayanan = null;
         try {
-            Statement stm = (Statement) Connect.configDB().createStatement();
-            String query = "SELECT * FROM layanan ORDER BY id_layanan ASC";
-            ResultSet rs = stm.executeQuery(query);
+            Connection conn = Connect.configDB();
+            String query = "SELECT id_layanan FROM layanan ORDER BY id_layanan DESC LIMIT 1";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                tempID = rs.getString("id_layanan");
+            if (rs.next()) {
+                lastIdLayanan = rs.getString("id_layanan");
             }
 
+            if (lastIdLayanan == null) {
+                newIdLayanan = "LYN01"; // ID pertama jika tabel kosong
+            } else {
+                int number = Integer.parseInt(lastIdLayanan.replace("LYN", ""));
+                newIdLayanan = String.format("LYN%02d", number + 1); // Format dua digit
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
-        String ID = tempID.replace("LYN", "");
-        int IDint = Integer.parseInt(ID);
-
-        return "LYN" + (IDint + 1);
+        return newIdLayanan;
     }
+    
+    public static LayananModel getLayananById(String idLayanan) {
+        LayananModel layanan = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Connect.configDB();
+            String query = "SELECT * FROM layanan WHERE id_layanan = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, idLayanan);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                layanan = new LayananModel(
+                    rs.getString("id_layanan"),
+                    rs.getString("nama"),
+                    rs.getInt("harga"),
+                    rs.getString("deskripsi")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return layanan;
+    }
+
 
 }

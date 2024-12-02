@@ -90,7 +90,7 @@ public class UserController extends MouseAdapter implements ActionListener {
     private int hitungHarga(int berat) {
         LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
         String idLayanan = selectedLayanan.getIdLayanan();
-        int harga = LayananDAO.getHargaById(idLayanan);
+        int harga = LayananDAO.getLayananById(idLayanan).getHarga();
         return berat * harga;
     }
 

@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import koneksiDatabase.Connect;
 /**
@@ -20,11 +22,25 @@ import koneksiDatabase.Connect;
 import model.PesananModel;
 
 public class PesananDAO {
-    public static ArrayList<PesananModel> searchPesanan(String keyword) {
+    public static ArrayList<PesananModel> searchPesananByKey(String keyword) {
         ArrayList<PesananModel> pesananList = new ArrayList<>();
         try {
             Connection conn = Connect.configDB();
-            String query = "SELECT * FROM pesanan WHERE id_pesanan LIKE ? OR id_customer LIKE ? OR id_layanan LIKE ? OR berat LIKE ? OR harga LIKE ? OR tanggalSelesai LIKE ? OR jamSelesai LIKE ?";
+
+            String query = "SELECT pesanan.id_pesanan, pesanan.id_customer, pesanan.id_layanan, pesanan.berat, " +
+                           "pesanan.harga, pesanan.tanggalSelesai, pesanan.jamSelesai, " +
+                           "customer.nama, layanan.nama " +
+                           "FROM pesanan " +
+                           "JOIN customer ON pesanan.id_customer = customer.id_customer " +
+                           "JOIN layanan ON pesanan.id_layanan = layanan.id_layanan " +
+                           "WHERE pesanan.id_pesanan LIKE ? " +
+                           "OR customer.nama LIKE ? " +
+                           "OR layanan.nama LIKE ? " +
+                           "OR pesanan.berat LIKE ? " +
+                           "OR pesanan.harga LIKE ? " +
+                           "OR pesanan.tanggalSelesai LIKE ? " +
+                           "OR pesanan.jamSelesai LIKE ?";
+
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setString(1, "%" + keyword + "%");
@@ -116,6 +132,29 @@ public class PesananDAO {
 
         return pesananList;
     }
+    
+    public static PesananModel getPesananById(String idPesanan) {
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM pesanan WHERE id_pesanan = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, idPesanan);
+            ResultSet rs = stmt.executeQuery();
+            PesananModel pesanan = new PesananModel();
+            while (rs.next()) {
+                pesanan.setIdPesanan(rs.getString("id_pesanan"));
+                pesanan.setIdCustomer(rs.getString("id_customer"));
+                pesanan.setIdLayanan(rs.getString("id_layanan"));
+                pesanan.setBerat(rs.getInt("berat"));
+                pesanan.setHarga(rs.getInt("harga"));
+            }
+            
+            return pesanan;
+        } catch (SQLException ex) {
+            Logger.getLogger(PesananDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public static void insertPesanan(PesananModel pesanan) throws SQLException {
         Connection conn = Connect.configDB();
@@ -129,26 +168,31 @@ public class PesananDAO {
         stmt.executeUpdate();
     }
 
-    public static ArrayList<PesananModel> getAllPesanan() throws SQLException {
-        ArrayList<PesananModel> pesananList = new ArrayList<>();
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM pesanan";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-
-        while (rs.next()) {
-            PesananModel pesanan = new PesananModel();
-            pesanan.setIdPesanan(rs.getString("id_pesanan"));
-            pesanan.setIdCustomer(rs.getString("id_customer"));
-            pesanan.setIdLayanan(rs.getString("id_layanan"));
-            pesanan.setBerat(rs.getInt("berat"));
-            pesanan.setHarga(rs.getInt("harga"));
-            pesanan.setTanggalSelesai(rs.getString("tanggalSelesai")); // Sesuaikan dengan nama kolom yang benar
-            pesanan.setJamSelesai(rs.getString("jamSelesai")); // Sesuaikan dengan nama kolom yang benar
-            pesananList.add(pesanan);
+    public static ArrayList<PesananModel> getAllPesanan(){
+        try {
+            ArrayList<PesananModel> pesananList = new ArrayList<>();
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM pesanan";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                PesananModel pesanan = new PesananModel();
+                pesanan.setIdPesanan(rs.getString("id_pesanan"));
+                pesanan.setIdCustomer(rs.getString("id_customer"));
+                pesanan.setIdLayanan(rs.getString("id_layanan"));
+                pesanan.setBerat(rs.getInt("berat"));
+                pesanan.setHarga(rs.getInt("harga"));
+                pesanan.setTanggalSelesai(rs.getString("tanggalSelesai")); // Sesuaikan dengan nama kolom yang benar
+                pesanan.setJamSelesai(rs.getString("jamSelesai")); // Sesuaikan dengan nama kolom yang benar
+                pesananList.add(pesanan);
+            }
+            
+            return pesananList;
+        } catch (SQLException ex) {
+            Logger.getLogger(PesananDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return pesananList;
+        return null;
     }
 
     public static String generateIdPesanan() {
@@ -161,24 +205,16 @@ public class PesananDAO {
             if (rs.next()) {
                 tempID = rs.getString("id_pesanan");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         if (tempID.isEmpty()) {
             return "LDR001";
         }
-
         String ID = tempID.replace("LDR", "");
         int IDint = Integer.parseInt(ID);
-
-
         int newIDInt = IDint + 1;
-
-
         String newId = String.format("LDR%03d", newIDInt);
-
         return newId;
     }
 
@@ -188,7 +224,7 @@ public class PesananDAO {
         boolean success = false;
 
         try {
-            conn = Connect.configDB(); // Pastikan koneksi berhasil
+            conn = Connect.configDB();
             stmt = conn.prepareStatement("DELETE FROM pesanan WHERE id_pesanan = ?");
             stmt.setString(1, idPesanan);
 
@@ -211,9 +247,7 @@ public class PesananDAO {
 
         try {
             conn = Connect.configDB();
-
             String query = "UPDATE pesanan SET id_layanan = ?, berat = ?, harga = ?, tanggalSelesai = ?, jamSelesai = ? WHERE id_pesanan = ?";
-
             stmt = conn.prepareStatement(query);
 
             stmt.setString(1, pesanan.getIdLayanan());

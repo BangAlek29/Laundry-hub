@@ -4,6 +4,13 @@
  */
 package util;
 
+import dao.CustomerDAO;
+import dao.LayananDAO;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import model.CustomerModel;
+import model.LayananModel;
+
 /**
  *
  * @author dzikr
@@ -31,5 +38,25 @@ public class PesananUtil {
         java.text.NumberFormat format = java.text.NumberFormat.getInstance();
         format.setGroupingUsed(true);
         return format.format(amount);
+    }
+    
+    public static DefaultComboBoxModel renderCbLayanan() {
+        List<LayananModel> listLayanan = LayananDAO.getAllLayanan();
+        DefaultComboBoxModel<LayananModel> model = new DefaultComboBoxModel<>();
+
+        for (LayananModel layanan : listLayanan) {
+            model.addElement(layanan);
+        }
+
+        return model;
+    }
+    
+    public static DefaultComboBoxModel renderCbCustomer() {
+            DefaultComboBoxModel<CustomerModel> model = new DefaultComboBoxModel<>();
+            List<CustomerModel> ListCustomer = CustomerDAO.getAllCustomers();
+            for (CustomerModel customer : ListCustomer) {
+                model.addElement(customer);
+            }
+            return model;
     }
 }
