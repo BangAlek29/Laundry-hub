@@ -14,7 +14,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -36,14 +35,15 @@ public class AdminController extends MouseAdapter implements ActionListener {
     public AdminController() {
         this.view = new adminDashboard();
         view.setVisible(true);
-        refreshTable();
+        showAkunTable();
+        showCustomerTable();
         addEvents();
     }
 
     public void addEvents() {
         view.getBtnAddUser().addActionListener(e -> showAddUserPanel());
         view.getBtnEditUser().addActionListener(e -> showEditUserPanel());
-        view.getBtnRefreshUser().addActionListener(e -> refreshTable());
+        view.getBtnRefreshUser().addActionListener(e -> showAkunTable());
         view.getBtnDeleteUser().addActionListener(e -> deleteAkun());
         view.getTxtSearchUsername().getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -72,12 +72,14 @@ public class AdminController extends MouseAdapter implements ActionListener {
                 JasperViewer viewer = new JasperViewer(print, false, null);
                 viewer.setVisible(true);
             } catch (JRException ex) {
+                ex.printStackTrace();
             }catch (SQLException ex) {
+                ex.printStackTrace();
             }
         });
         
         view.getBtnEditInfoUser().addActionListener(e -> showEditInfoUserPanel());
-        view.getBtnRefreshInfo().addActionListener(e -> refreshTable());
+        view.getBtnRefreshInfo().addActionListener(e -> showCustomerTable());
         view.getTxtSeachInfo().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -101,13 +103,8 @@ public class AdminController extends MouseAdapter implements ActionListener {
                     view.getBtnEditUser().setEnabled(false);
                 } else {
                     TableModel model = view.getTableLogin().getModel();
-                    try {
-                        akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 1).toString());
-                        cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(selectedRow, 1).toString());
-                        view.getBtnEditUser().setEnabled(true);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 1).toString());
+                    view.getBtnEditUser().setEnabled(true);
                 }
             }
         });
@@ -119,13 +116,8 @@ public class AdminController extends MouseAdapter implements ActionListener {
                     view.getBtnEditInfoUser().setEnabled(false);
                 } else {
                     TableModel model = view.getTableInformationUser().getModel();
-                    try {
-                        akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 2).toString());
-                        cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(selectedRow, 2).toString());
-                        view.getBtnEditInfoUser().setEnabled(true);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    cust = CustomerDAO.getCustomerByIdCustomer(model.getValueAt(selectedRow, 1).toString());
+                    view.getBtnEditInfoUser().setEnabled(true);
                 }
             }
         }
@@ -134,7 +126,11 @@ public class AdminController extends MouseAdapter implements ActionListener {
     }
 
     private void showAddUserPanel() {
-        AddUserController addUser = new AddUserController(this);
+        try {
+            AddUserController addUser = new AddUserController(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showEditUserPanel() {
@@ -145,11 +141,6 @@ public class AdminController extends MouseAdapter implements ActionListener {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Tolong pilih akun");
         }
-    }
-
-    private void refreshTable() {
-        showAkunTable();
-        showCustomerTable();
     }
 
     private void deleteAkun() {
@@ -214,6 +205,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
         List<AkunModel> akunList = AkunDAO.getAllAkun();
         DefaultTableModel tb1 = TableModelFactory.createAkunTableModel(akunList);
         view.getTableLogin().setModel(tb1);
+        TableUtils.setColumnAlignment(view.getTableLogin(), SwingConstants.CENTER);
     }
 
     private void searchInfoUser() {

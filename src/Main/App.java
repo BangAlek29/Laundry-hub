@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.LoginController;
 
@@ -20,7 +21,7 @@ import controller.LoginController;
  */
 public class App {
     public static void main(String[] args) {
-        FlatDarkLaf.setup();
+        Flat.setup();
         // Global Styling for Rounded Components
         UIManager.put("Button.arc", 15);
         UIManager.put("Component.arc", 15);
@@ -34,6 +35,7 @@ public class App {
         UIManager.put("Table.selectionForeground", Color.WHITE);
         UIManager.put("Table.gridColor", new Color(70, 70, 75));
         UIManager.put("Table.rowHeight", 32);
+        UIManager.put("Table.alternateRowColor", new Color(240, 240, 240));
 
         // Table Header Styling
         UIManager.put("TableHeader.background", new Color(55, 55, 60));

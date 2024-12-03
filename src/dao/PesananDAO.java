@@ -112,25 +112,30 @@ public class PesananDAO {
         return pesananList;
     }
 
-    public static ArrayList<PesananModel> getPesananByCustomerId(String idCustomer) throws SQLException {
-        ArrayList<PesananModel> pesananList = new ArrayList<>();
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM pesanan WHERE id_customer = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, idCustomer);
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            PesananModel pesanan = new PesananModel();
-            pesanan.setIdPesanan(rs.getString("id_pesanan"));
-            pesanan.setIdCustomer(rs.getString("id_customer"));
-            pesanan.setIdLayanan(rs.getString("id_layanan"));
-            pesanan.setBerat(rs.getInt("berat"));
-            pesanan.setHarga(rs.getInt("harga"));
-            pesananList.add(pesanan);
+    public static ArrayList<PesananModel> getPesananByCustomerId(String idCustomer){
+        try {
+            ArrayList<PesananModel> pesananList = new ArrayList<>();
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM pesanan WHERE id_customer = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, idCustomer);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                PesananModel pesanan = new PesananModel();
+                pesanan.setIdPesanan(rs.getString("id_pesanan"));
+                pesanan.setIdCustomer(rs.getString("id_customer"));
+                pesanan.setIdLayanan(rs.getString("id_layanan"));
+                pesanan.setBerat(rs.getInt("berat"));
+                pesanan.setHarga(rs.getInt("harga"));
+                pesananList.add(pesanan);
+            }
+            
+            return pesananList;
+        } catch (SQLException ex) {
+            Logger.getLogger(PesananDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return pesananList;
+        return null;
     }
     
     public static PesananModel getPesananById(String idPesanan) {
@@ -165,6 +170,20 @@ public class PesananDAO {
         stmt.setString(3, pesanan.getIdLayanan());
         stmt.setInt(4, pesanan.getBerat());
         stmt.setInt(5, pesanan.getHarga());
+        stmt.executeUpdate();
+    }
+    
+    public static void insertPesananKasir(PesananModel pesanan) throws SQLException {
+        Connection conn = Connect.configDB();
+        String query = "INSERT INTO pesanan (id_pesanan, id_customer, id_layanan, berat, harga,tanggalSelesai,jamSelesai) VALUES (?, ?, ?, ?, ?,?,?)";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, pesanan.getIdPesanan());
+        stmt.setString(2, pesanan.getIdCustomer());
+        stmt.setString(3, pesanan.getIdLayanan());
+        stmt.setInt(4, pesanan.getBerat());
+        stmt.setInt(5, pesanan.getHarga());
+        stmt.setString(6, pesanan.getTanggalSelesai());
+        stmt.setString(7, pesanan.getJamSelesai());
         stmt.executeUpdate();
     }
 

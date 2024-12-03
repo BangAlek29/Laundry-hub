@@ -10,11 +10,14 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import model.LayananModel;
+import raven.datetime.component.date.DatePicker;
+import raven.datetime.component.time.TimePicker;
 
 /**
  *
@@ -29,8 +32,8 @@ public class updateOrder extends javax.swing.JFrame {
         initComponents();
     }
     
-    public JSpinner getSpnJam(){
-        return spnJam;
+    public JFormattedTextField getTxtJam(){
+        return jFormattedTextField2;
     }
 
     public JComboBox<LayananModel> getCmbLayanan() {
@@ -49,8 +52,8 @@ public class updateOrder extends javax.swing.JFrame {
         return orderButton;
     }
 
-    public JDateChooser getCalTanggal() {
-        return calTanggal;
+    public JFormattedTextField getTxtTanggal() {
+        return jFormattedTextField2;
     }
     
     public JLabel getLabelHarga(){
@@ -72,17 +75,22 @@ public class updateOrder extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         cmbLayanan = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        calTanggal = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         labelHarga = new javax.swing.JLabel();
-        jamLabel = new javax.swing.JLabel();
         orderButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         idPesananField = new javax.swing.JTextField();
-        spnJam = new javax.swing.JSpinner();
         spnBerat = new javax.swing.JSpinner();
+        DatePicker datepicker = new DatePicker();
+        JFormattedTextField editor = new JFormattedTextField();
+        datepicker.setEditor(editor);
+        jFormattedTextField1 = editor;
+        TimePicker timepicker = new TimePicker();
+        JFormattedTextField editor2 = new JFormattedTextField();
+        timepicker.setEditor(editor2);
+        jFormattedTextField2 = editor2;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/Asset/laundry-machine.png")).getImage());
@@ -104,9 +112,6 @@ public class updateOrder extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText(" TANGGAL :");
 
-        calTanggal.setBackground(new java.awt.Color(40, 40, 40));
-        calTanggal.setForeground(new java.awt.Color(255, 255, 255));
-
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText(" JAM :");
@@ -119,12 +124,8 @@ public class updateOrder extends javax.swing.JFrame {
         labelHarga.setForeground(new java.awt.Color(255, 255, 255));
         labelHarga.setText("Rp. 0");
 
-        jamLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jamLabel.setForeground(new java.awt.Color(255, 255, 255));
-        jamLabel.setText("08.00 - 21.00");
-
         orderButton.setBackground(new java.awt.Color(40, 40, 40));
-        orderButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        orderButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         orderButton.setForeground(new java.awt.Color(255, 255, 255));
         orderButton.setText("Update");
 
@@ -140,21 +141,25 @@ public class updateOrder extends javax.swing.JFrame {
         idPesananField.setBackground(new java.awt.Color(45, 45, 45));
         idPesananField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        spnJam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        spnJam.setBackground(new java.awt.Color(40, 40, 40));
-
         spnBerat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spnBerat.setBackground(new java.awt.Color(40, 40, 40));
+
+        jFormattedTextField1.setBackground(new java.awt.Color(40, 40, 40));
+        jFormattedTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        jFormattedTextField2.setBackground(new java.awt.Color(40, 40, 40));
+        jFormattedTextField2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(164, 164, 164))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -165,54 +170,54 @@ public class updateOrder extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel12)
-                                    .addComponent(jLabel11)
                                     .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(spnJam)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jamLabel))
-                                    .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(calTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                    .addComponent(labelHarga)
+                                    .addComponent(cmbLayanan, 0, 254, Short.MAX_VALUE)
                                     .addComponent(idPesananField)
-                                    .addComponent(spnBerat))))))
+                                    .addComponent(spnBerat)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jFormattedTextField1)
+                                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelHarga)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
-                .addGap(50, 50, 50)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(idPesananField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(spnBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(calTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(spnJam, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jamLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelHarga)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(orderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
@@ -257,9 +262,10 @@ public class updateOrder extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public com.toedter.calendar.JDateChooser calTanggal;
     public javax.swing.JComboBox<LayananModel> cmbLayanan;
     public javax.swing.JTextField idPesananField;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -268,10 +274,8 @@ public class updateOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jamLabel;
     public javax.swing.JLabel labelHarga;
     private javax.swing.JButton orderButton;
     private javax.swing.JSpinner spnBerat;
-    private javax.swing.JSpinner spnJam;
     // End of variables declaration//GEN-END:variables
 }

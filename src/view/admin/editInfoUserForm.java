@@ -82,10 +82,11 @@ public class editInfoUserForm extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(310, 385));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel16.setText("ID User");
+        jLabel16.setText("ID Customer");
 
         txtID.setEditable(false);
-        txtID.setBackground(new java.awt.Color(40, 40, 40));
+        txtID.setBackground(new java.awt.Color(45, 45, 45));
+        txtID.setFocusable(false);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel17.setText("Full Name");

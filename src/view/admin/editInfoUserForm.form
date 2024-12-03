@@ -112,15 +112,16 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ID User"/>
+            <Property name="text" type="java.lang.String" value="ID Customer"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtID">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="28" green="28" red="28" type="rgb"/>
+              <Color blue="2d" green="2d" red="2d" type="rgb"/>
             </Property>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

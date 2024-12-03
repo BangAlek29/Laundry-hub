@@ -21,7 +21,7 @@ import model.AkunModel;
  */
 public class AkunDAO {
 
-    public static AkunModel validateLogin(String username, String password){
+    public static AkunModel validateLogin(String username, String password) {
         try {
             Statement stmt = Connect.configDB().createStatement();
             String query = "SELECT * FROM akun WHERE username = '" + username + "';";
@@ -33,12 +33,15 @@ public class AkunDAO {
                     String role = rs.getString("role");
                     String idAkun = rs.getString("id_akun");
                     return new AkunModel(idAkun, username, password, role);
+                } else {
+                    // Return objek khusus untuk password salah
+                    return new AkunModel("INVALID_PASSWORD", username, null, null);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return null; // Username tidak ditemukan
     }
 
     public static List<AkunModel> SearchAkun(String key){

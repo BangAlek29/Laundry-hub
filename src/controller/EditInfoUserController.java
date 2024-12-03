@@ -75,7 +75,7 @@ public class EditInfoUserController extends MouseAdapter implements ActionListen
     }
 
     private void fillForm() {
-        view.getTxtID().setText(cust.getIdAkun());
+        view.getTxtID().setText(cust.getIdCustomer());
         view.getTxtName().setText(cust.getName());
         view.getTxtPhone().setText(cust.getPhone());
         view.getTxtAddres().setText(cust.getAddress());

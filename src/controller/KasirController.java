@@ -17,13 +17,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -33,7 +35,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import model.*;
-import util.SpinerTimeModel;
 import view.kasir.kasirDashboard;
 
 /**
@@ -57,8 +58,9 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     public void initComponent() {
         showTabelLayanan();
         showTabelPesanan();
-        renderSpinerJam();
         AddEvents();
+        view.getRbCustomerBaru().setSelected(true);
+        view.getCmbCustomer().setModel(renderCbCustomer());
         view.getCmbLayanan().setModel(renderCbLayanan());
     }
 
@@ -82,8 +84,8 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         view.getBtnLayanan().addActionListener(e -> switchPanel(view.getMainPanel(), view.getLayananPanel()));
         view.getBtnOrderList().addActionListener(e -> switchPanel(view.getMainPanel(), view.getOrderList()));
         view.getBntOrderRequest().addActionListener(e -> switchPanel(view.getMainPanel(), view.getOrderPanel()));
-        view.getRbCustomerBaru().addActionListener(e -> switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()));
-        view.getRbCustomerLama().addActionListener(e -> switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel()));
+        view.getRbCustomerBaru().addActionListener(e -> {switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()); renderHarga();});
+        view.getRbCustomerLama().addActionListener(e -> {switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel()); fillCustomer(); renderHarga();});
         
         view.getTabelPesanan().addMouseListener(new MouseAdapter() {
             @Override
@@ -135,6 +137,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
             }
         });
     }
+    
 
     private void fillCustomer() {
         CustomerModel selectedCustomer = (CustomerModel) view.getCmbCustomer().getSelectedItem();
@@ -147,11 +150,37 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     }
 
     private void order() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (view.getTxtNama().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Nama tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (view.getTxtTelepon().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Telepon tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (view.getTxtAlamat().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Alamat tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (view.getTxtTanggal().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Tanggal tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (view.getTxtJam().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Jam tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if ((Integer) view.getSpnBerat().getValue() <= 0) {
+            JOptionPane.showMessageDialog(view, "Berat harus lebih dari 0", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
             String idLayanan = selectedLayanan.getIdLayanan();
-            String formattedDate = dateFormat.format(view.getcalTanggal().getDate());
+            Date date = originalFormat.parse(view.getTxtTanggal().getText());
+            String formattedDate = newFormat.format(date);
             String idPesanan = generateIdPesanan();
 
             if (view.getRbCustomerBaru().isSelected()) {
@@ -173,9 +202,9 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
                         (Integer) view.getSpnBerat().getValue(),
                         hitungHarga((Integer) view.getSpnBerat().getValue()),
                         formattedDate,
-                        convertTo24HourFormat((String) view.getSpnJam().getValue()));
+                        convertTo24HourFormat(view.getTxtJam().getText()));
 
-                insertPesanan(newOrder);
+                insertPesananKasir(newOrder);
 
             } else {
                 CustomerModel selectedCustomer = (CustomerModel) view.getCmbCustomer().getSelectedItem();
@@ -188,16 +217,19 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
                         (Integer) view.getSpnBerat().getValue(),
                         hitungHarga((Integer) view.getSpnBerat().getValue()),
                         formattedDate,
-                        convertTo24HourFormat((String) view.getSpnJam().getValue()));
+                        convertTo24HourFormat(view.getTxtJam().getText()));
 
-                insertPesanan(newOrder);
+                insertPesananKasir(newOrder);
             }
 
             JOptionPane.showMessageDialog(view, "Order successfully placed");
+            clear();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "An error occurred: " + e.getMessage());
             e.printStackTrace();
+        } catch (ParseException ex) {
+            Logger.getLogger(KasirController.class.getName()).log(Level.SEVERE, null, ex);
         }
         showTabelPesanan();
     }
@@ -212,7 +244,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     
     private void ShowEditLayananPanel() {
         try {
-            if (!layanan.getIdLayanan().equals(null)) {
+            if (layanan.getIdLayanan() != null) {
                 EditLayananController edit = new EditLayananController(layanan,this);
             }
         } catch (Exception e) {
@@ -260,7 +292,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
 
     private void ShowUpdatePesananPanel() {
         try {
-            if (!pesanan.getIdPesanan().equals(null)) {
+            if (pesanan != null) {
                 UpdateOrderController updt = new UpdateOrderController(pesanan,this);
             }
         } catch (Exception e) {
@@ -270,7 +302,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     
     private void deletePesanan() {
         try {
-            if (!pesanan.getIdPesanan().equals(null)) {
+            if (pesanan != null) {
                 int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
                         JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.YES_OPTION) {
@@ -289,21 +321,17 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         ArrayList<PesananModel> pesananList = getAllPesanan();
         DefaultTableModel tb1 = createPesananTableModel(pesananList);
         view.getTabelPesanan().setModel(tb1);
-        setColumnAlignment(view.getTbLayanan(),SwingConstants.CENTER);
-    }
-
-    private void renderSpinerJam() {
-        view.getSpnJam().setModel(new SpinerTimeModel());
-
-        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) view.getSpnJam().getEditor();
-        editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
+        setColumnAlignment(view.getTabelPesanan(),SwingConstants.CENTER);
     }
 
     private int hitungHarga(int berat) {
         LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
-        String idLayanan = selectedLayanan.getIdLayanan();
-        int harga = getLayananById(idLayanan).getHarga();
-        return berat * harga;
+        int harga = getLayananById(selectedLayanan.getIdLayanan()).getHarga();
+        int totalHarga =  harga * berat;
+        if(view.getRbCustomerLama().isSelected()){
+            totalHarga *= 0.9;
+        }
+        return totalHarga;
     }
     
     private void renderHarga() {
@@ -327,6 +355,16 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         } else {
             return;
         }
+    }
+    
+    public void clear(){
+        view.getTxtNama().setText("");
+        view.getTxtJam().setText("");
+        view.getTxtTanggal().setText("");
+        view.getTxtTelepon().setText("");
+        view.getTxtAlamat().setText("");
+        view.getTxtAlamat2().setText("");
+        view.getTxtTelepon2().setText("");
     }
 
     @Override

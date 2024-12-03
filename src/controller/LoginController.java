@@ -16,51 +16,59 @@ import model.AkunModel;
 import model.CustomerModel;
 import view.auth.loginPage;
 
+import java.util.prefs.Preferences;
+
 public class LoginController extends MouseAdapter {
     private final loginPage view;
     private AkunModel akun;
     private CustomerModel cust;
 
+    private final Preferences prefs;
+
     public LoginController() {
         view = new loginPage();
         akun = new AkunModel();
         cust = new CustomerModel();
+
+        prefs = Preferences.userNodeForPackage(LoginController.class);
+
         view.setVisible(true);
+        loadRememberedLogin();
         addEvents();
     }
 
     public void addEvents() {
         view.getBtnLogin().addActionListener(e -> autentifikasi());
+        view.getCbRememberMe().addActionListener(e -> toggleRememberMe());
         view.getLbSign().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 openSignUpPanel();
             }
         });
-        
-        view.getTxtPassword().addKeyListener(new KeyAdapter(){
+
+        view.getTxtPassword().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent evt) {
-                if (evt.getKeyCode() == KeyEvent.VK_ENTER ) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     view.getBtnLogin().doClick();
-                } else if (evt.getKeyCode() == KeyEvent.VK_UP){
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
                     view.getTxtUsername().requestFocus();
                 }
             }
         });
-        
+
         view.getTxtUsername().addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent evt) {
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                view.getTxtPassword().requestFocus();
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtPassword().requestFocus();
+                }
             }
-        }
-        
-    });
+        });
     }
-    
-    private void autentifikasi(){
+
+    private void autentifikasi() {
         try {
             String username = view.getTxtUsername().getText();
             String password = view.getTxtPassword().getText();
@@ -74,8 +82,18 @@ public class LoginController extends MouseAdapter {
             akun = AkunDAO.validateLogin(username, password);
 
             if (akun != null) {
+            if ("INVALID_PASSWORD".equals(akun.getIdAkun())) {
+                JOptionPane.showMessageDialog(view, "Password salah.", "Login Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
                 cust = CustomerDAO.getCustomerByIdAkun(akun.getIdAkun());
-                
+
+                if (view.getCbRememberMe().isSelected()) {
+                    saveLogin(username, password);
+                } else {
+                    clearSavedLogin();
+                }
+
                 switch (akun.getRole()) {
                     case "Admin":
                         openAdminDashboard();
@@ -93,10 +111,11 @@ public class LoginController extends MouseAdapter {
                 }
 
                 view.dispose();
-            } else {
-                JOptionPane.showMessageDialog(view, "Username atau password salah.", "Login Error",
-                        JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(view, "Username tidak ditemukan.", "Login Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Database Error", ex);
             JOptionPane.showMessageDialog(view, "Kesalahan database: " + ex.getMessage(), "Database Error",
@@ -107,23 +126,50 @@ public class LoginController extends MouseAdapter {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void openSignUpPanel() {
-       try {
-           new SignUpController();
-           view.dispose();
-       } catch (Exception ex) {
-           Logger.getLogger(LoginController.class.getName()).log(
-                   Level.SEVERE, "Error saat membuka halaman sign-up.", ex);
 
-           JOptionPane.showMessageDialog(
-                   view,
-                   "Gagal membuka halaman sign-up. Silakan coba lagi.",
-                   "Error",
-                   JOptionPane.ERROR_MESSAGE);
-       }
-   }
-    
+    private void toggleRememberMe() {
+        if (!view.getCbRememberMe().isSelected()) {
+            clearSavedLogin();
+        }
+    }
+
+    private void saveLogin(String username, String password) {
+        prefs.put("username", username);
+        prefs.put("password", password);
+    }
+
+    private void clearSavedLogin() {
+        prefs.remove("username");
+        prefs.remove("password");
+    }
+
+    private void loadRememberedLogin() {
+        String savedUsername = prefs.get("username", "");
+        String savedPassword = prefs.get("password", "");
+
+        if (!savedUsername.isEmpty() && !savedPassword.isEmpty()) {
+            view.getTxtUsername().setText(savedUsername);
+            view.getTxtPassword().setText(savedPassword);
+            view.getCbRememberMe().setSelected(true);
+        }
+    }
+
+    private void openSignUpPanel() {
+        try {
+            new SignUpController();
+            view.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(
+                    Level.SEVERE, "Error saat membuka halaman sign-up.", ex);
+
+            JOptionPane.showMessageDialog(
+                    view,
+                    "Gagal membuka halaman sign-up. Silakan coba lagi.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void openAdminDashboard() {
         try {
             AdminController admin = new AdminController();
@@ -147,7 +193,7 @@ public class LoginController extends MouseAdapter {
             UserController user = new UserController(cust);
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(view, "Gagal membuka Kasir Dashboard.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, "Gagal membuka User Dashboard.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -32,8 +32,8 @@ public class SignUpController extends MouseAdapter implements ActionListener {
         addEvents();
     }
     
-    public void addEvents() {
-        view.getBtnSignup().addActionListener(e -> addUser());
+    private void addEvents() {
+        view.getBtnSignup().addActionListener(e -> register());
         view.getBackToLogin().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,17 +125,17 @@ public class SignUpController extends MouseAdapter implements ActionListener {
     }
 
     
-    private void addUser() {
+    private void register() {
         try {
             if (!isUsernameExist(view.getTxtUsername().getText()) && isPasswordEquals() && isFilled()) {
-                String generatedId = AkunDAO.generateIDAkun();
-                akun.setIdAkun(generatedId);
+                String IdAkun = AkunDAO.generateIDAkun();
+                akun.setIdAkun(IdAkun);
                 akun.setUsername(view.getTxtUsername().getText());
                 akun.setPassword(view.getTxtPassword().getText());
                 akun.setRole("member");
 
-                cust.setIdCustomer(generatedId);
-                cust.setIdAkun(generatedId);
+                cust.setIdCustomer(CustomerDAO.generateIDCustomer());
+                cust.setIdAkun(IdAkun);
                 cust.setName(view.getTxtName().getText());
                 cust.setPhone(view.getTxtPhone().getText());
                 cust.setAddress(view.getTxtAddress().getText());

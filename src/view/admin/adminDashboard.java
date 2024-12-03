@@ -164,7 +164,7 @@ public class adminDashboard extends javax.swing.JFrame {
         btnUserInformation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUserInformation.setForeground(java.awt.Color.white);
         btnUserInformation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/profile_1.png"))); // NOI18N
-        btnUserInformation.setText("User Information");
+        btnUserInformation.setText("Customer Info");
         btnUserInformation.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUserInformation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
@@ -283,7 +283,7 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(423, 423, 423)
                 .addComponent(jLabel7)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addContainerGap(408, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +299,7 @@ public class adminDashboard extends javax.swing.JFrame {
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
@@ -391,23 +391,23 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setForeground(java.awt.Color.white);
-        jLabel4.setText("USER INFORMATION");
+        jLabel4.setText("CUSTOMER INFORMATION");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(414, 414, 414)
+                .addGap(367, 367, 367)
                 .addComponent(jLabel4)
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel4)
-                .addContainerGap())
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout UserInformationLayout = new javax.swing.GroupLayout(UserInformation);
@@ -416,7 +416,7 @@ public class adminDashboard extends javax.swing.JFrame {
             UserInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserInformationLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInformationLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
@@ -493,7 +493,7 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1072, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

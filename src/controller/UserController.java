@@ -19,11 +19,15 @@ import dao.LayananDAO;
 import dao.PesananDAO;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.CustomerModel;
 import model.LayananModel;
 import model.PesananModel;
+import model.TableModelFactory;
 import util.PanelUtils;
 import util.PesananUtil;
+import util.TableUtils;
 import view.user.userDashboard;
 
 
@@ -54,10 +58,24 @@ public class UserController extends MouseAdapter implements ActionListener {
         });
         view.getOrderButton().addActionListener(e -> requestOrder());
         view.getBtnLogout().addActionListener(e -> Logout());
-        view.getSearchPesananButton().addActionListener(e -> searchPesanan());
         view.getCmbLayanan().addActionListener(e -> renderHarga());
         view.getSpnBerat().addChangeListener(e -> renderHarga());
         view.getBtnRefresh().addChangeListener(e -> refreshTable());
+        view.getTxtSearchPesanan().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchPesanan();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchPesanan();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
     }
 
     public void fillForm() {
@@ -67,24 +85,11 @@ public class UserController extends MouseAdapter implements ActionListener {
     }
 
     private void searchPesanan() {
-        int n = 0;
-        String[] kolom = { "NO", "id_pesanan", "berat", "Harga", "Tanggal Ambil", "Jam Ambil" };
-        DefaultTableModel tb1 = new DefaultTableModel(null, kolom);
         String search = view.getTxtSearchPesanan().getText();
-
         ArrayList<PesananModel> pesananList = PesananDAO.searchPesananCustomer(search, cust.getIdCustomer());
-
-        for (PesananModel pesanan : pesananList) {
-            n++;
-            String id_pesanan = pesanan.getIdPesanan();
-            int berat = pesanan.getBerat();
-            int harga = pesanan.getHarga();
-            String tanggalAmbil = pesanan.getTanggalSelesai();
-            String jamAmbil = pesanan.getJamSelesai();
-            tb1.addRow(new String[] { String.valueOf(n), id_pesanan, String.valueOf(berat), String.valueOf(harga),
-                    tanggalAmbil, jamAmbil });
-        }
+        DefaultTableModel tb1 = TableModelFactory.createPesananTableModel(pesananList);
         view.getTabelPesanan().setModel(tb1);
+        TableUtils.setColumnAlignment(view.getTabelPesanan(), SwingConstants.CENTER);
     }
 
     private int hitungHarga(int berat) {
@@ -148,39 +153,12 @@ public class UserController extends MouseAdapter implements ActionListener {
     }
 
     public void refreshTable() {
-        try {
-            ArrayList<PesananModel> pesananList = PesananDAO.getPesananByCustomerId(cust.getIdCustomer());
-            DefaultTableModel model = new DefaultTableModel(
-                    new String[] { "NO", "ID Pesanan", "Berat", "Harga", "Tanggal Selesai", "Jam Selesai" }, 0);
-            int n = 0;
-            for (PesananModel pesanan : pesananList) {
-                n++;
-                model.addRow(new Object[] { n, pesanan.getIdPesanan(), pesanan.getBerat(), pesanan.getHarga(),
-                        pesanan.getTanggalSelesai(), pesanan.getJamSelesai() });
-            }
-
-            view.tabelPesanan.setModel(model);
-            setColumnAlignment(view.tabelPesanan);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ArrayList<PesananModel> pesananList = PesananDAO.getPesananByCustomerId(cust.getIdCustomer());
+        DefaultTableModel model = TableModelFactory.createPesananTableModel(pesananList);
+        view.tabelPesanan.setModel(model);
+        TableUtils.setColumnAlignment(view.tabelPesanan,SwingConstants.CENTER);
     }
-    private void setColumnAlignment(JTable table) {
-        // Mendapatkan model kolom tabel
-        TableColumnModel columnModel = table.getColumnModel();
 
-        // Set alignment untuk semua kolom menjadi rata tengah
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                    Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                    setHorizontalAlignment(SwingConstants.CENTER);  // Set semua kolom rata tengah
-                    return comp;
-                }
-            });
-        }
-    }
     private void renderCbLayanan() {
         List<LayananModel> listLayanan = LayananDAO.getAllLayanan();
         DefaultComboBoxModel<LayananModel> model = new DefaultComboBoxModel<>();

@@ -9,15 +9,17 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 import dao.LayananDAO;
-import dao.PesananDAO;
+import static dao.PesananDAO.updatePesanan;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.LayananModel;
 import model.PesananModel;
 import util.PesananUtil;
-import util.SpinerTimeModel;
+import static util.PesananUtil.convertTo24HourFormat;
 import view.kasir.updateOrder;
 
 public class UpdateOrderController extends MouseAdapter implements ActionListener {
@@ -31,7 +33,6 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
         view = new updateOrder();
         fillForm();
         renderCbLayanan();
-        renderSpinerJam();
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         addEvents();
@@ -55,29 +56,35 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
     }
 
     private void orderButtonActionPerformed() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (((Integer) view.getSpnBerat().getValue()) == 0 && view.getCalTanggal().getDate() == null) {
-            JOptionPane.showMessageDialog(view, "Please fill out the form");
-            return;
-        }
         try {
-            LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
-            String idLayanan = selectedLayanan.getIdLayanan();
-            String formattedDate = dateFormat.format(view.getCalTanggal().getDate());
-            PesananModel newOrder = new PesananModel(
-                    pesanan.getIdPesanan(),
-                    pesanan.getIdPesanan(),
-                    idLayanan,
-                    (Integer) view.getSpnBerat().getValue(),
-                    hitungHarga((Integer) view.getSpnBerat().getValue()),
-                    formattedDate,
-                    PesananUtil.convertTo24HourFormat((String) view.getSpnJam().getValue()));
-            PesananDAO.updatePesanan(newOrder);
-            kasir.showTabelPesanan();
-            JOptionPane.showMessageDialog(view, "Order successfully updated");
-            view.dispose();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if (((Integer) view.getSpnBerat().getValue()) == 0 && view.getTxtTanggal() == null) {
+                JOptionPane.showMessageDialog(view, "Please fill out the form");
+                return;
+            }
+            Date date = originalFormat.parse(view.getTxtTanggal().getText());
+            try {
+                LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
+                String idLayanan = selectedLayanan.getIdLayanan();
+                String formattedDate = newFormat.format(date);
+                PesananModel newOrder = new PesananModel(
+                        pesanan.getIdPesanan(),
+                        pesanan.getIdPesanan(),
+                        idLayanan,
+                        (Integer) view.getSpnBerat().getValue(),
+                        hitungHarga((Integer) view.getSpnBerat().getValue()),
+                        formattedDate,
+                        convertTo24HourFormat(view.getTxtJam().getText()));
+                updatePesanan(newOrder);
+                kasir.showTabelPesanan();
+                JOptionPane.showMessageDialog(view, "Order successfully updated");
+                view.dispose();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateOrderController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -98,13 +105,6 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
         view.getIdPesananField().setText(pesanan.getIdPesanan());
         view.getSpnBerat().setValue(pesanan.getBerat());
         view.getLabelHarga().setText("Rp. " + PesananUtil.formatCurrency(pesanan.getHarga()) + " -,");
-    }
-
-    private void renderSpinerJam() {
-        view.getSpnJam().setModel(new SpinerTimeModel());
-
-        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) view.getSpnJam().getEditor();
-        editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
     }
 
     private void renderHarga() {
