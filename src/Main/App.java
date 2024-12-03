@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import controller.LoginController;
 
@@ -21,12 +22,19 @@ import controller.LoginController;
  */
 public class App {
     public static void main(String[] args) {
-        Flat.setup();
+        FlatMacDarkLaf.setup();
+        UIManager.put("ComboBox.background", new java.awt.Color(40, 40, 40));
+        UIManager.put("Spinner.background", new java.awt.Color(40, 40, 40));
+        UIManager.put("Spinner.arrowButtonBackground", new java.awt.Color(40, 40, 40));
+        UIManager.put("Spinner.arrowButtonForeground", new java.awt.Color(255, 255, 255));
+        
         // Global Styling for Rounded Components
         UIManager.put("Button.arc", 15);
         UIManager.put("Component.arc", 15);
         UIManager.put("ProgressBar.arc", 15);
         UIManager.put("TextComponent.arc", 15);
+        UIManager.put( "Component.focusWidth", 1 );
+        UIManager.put( "ScrollBar.showButtons", true );
 
         // Table Styling
         UIManager.put("Table.background", new Color(40, 40, 40));
@@ -35,14 +43,11 @@ public class App {
         UIManager.put("Table.selectionForeground", Color.WHITE);
         UIManager.put("Table.gridColor", new Color(70, 70, 75));
         UIManager.put("Table.rowHeight", 32);
-        UIManager.put("Table.alternateRowColor", new Color(240, 240, 240));
 
-        // Table Header Styling
         UIManager.put("TableHeader.background", new Color(55, 55, 60));
         UIManager.put("TableHeader.foreground", new Color(240, 240, 240));
         UIManager.put("TableHeader.font", new Font("Segoe UI", Font.BOLD, 18));
         UIManager.put("TableHeader.cellBorder", BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
 
         LoginController login = new LoginController();
 

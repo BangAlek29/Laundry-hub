@@ -261,7 +261,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         txtSearchPesanan = new javax.swing.JTextField();
         btnRefreshPesanan = new javax.swing.JButton();
         btnDeletePesanan = new javax.swing.JButton();
-        btnPrint = new javax.swing.JButton();
         layananPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -769,17 +768,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         btnDeletePesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/remove.png"))); // NOI18N
         btnDeletePesanan.setText("Delete");
 
-        btnPrint.setBackground(new java.awt.Color(0, 0, 102));
-        btnPrint.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/printing.png"))); // NOI18N
-        btnPrint.setText("Print");
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout orderListLayout = new javax.swing.GroupLayout(orderList);
         orderList.setLayout(orderListLayout);
         orderListLayout.setHorizontalGroup(
@@ -801,8 +789,6 @@ public class kasirDashboard extends javax.swing.JFrame {
                                 .addComponent(btnRefreshPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnDeletePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnUpdatePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(40, 40, 40))
@@ -816,12 +802,11 @@ public class kasirDashboard extends javax.swing.JFrame {
                 .addComponent(txtSearchPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(16, 16, 16)
                 .addGroup(orderListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdatePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefreshPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeletePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeletePesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -982,18 +967,6 @@ public class kasirDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddLayananActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-       try{
-            String reportPath = "src/laporan/LaporanLaundry.jasper";
-            HashMap<String, Object> parameter = new HashMap<>();
-            JasperPrint print = JasperFillManager.fillReport(reportPath, parameter, conn);
-            JasperViewer viewer = new JasperViewer(print, false);
-            viewer.setVisible(true);
-       } catch (Exception e){
-           e.printStackTrace();
-       }
-    }//GEN-LAST:event_btnPrintActionPerformed
-
         
     /**
      * @param args the command line arguments
@@ -1025,7 +998,6 @@ public class kasirDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnLayanan;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnOrderList;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRefreshLayanan;
     private javax.swing.JButton btnRefreshPesanan;
     private javax.swing.JButton btnUpdatePesanan;
