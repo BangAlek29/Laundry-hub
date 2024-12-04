@@ -457,7 +457,7 @@ public class kasirDashboard extends javax.swing.JFrame {
 
         labelHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelHarga.setForeground(new java.awt.Color(255, 255, 255));
-        labelHarga.setText("Rp. 0 -,");
+        labelHarga.setText("Rp0,00");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));

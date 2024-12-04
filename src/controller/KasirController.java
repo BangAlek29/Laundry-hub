@@ -53,7 +53,6 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         showTabelLayanan();
         showTabelPesanan();
         AddEvents();
-        renderHarga();
         view.getRbCustomerBaru().setSelected(true);
         view.getCmbCustomer().setModel(renderCbCustomer());
         view.getCmbLayanan().setModel(renderCbLayanan());
