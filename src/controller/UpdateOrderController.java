@@ -100,8 +100,21 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
         view.getIdPesananField().setText(pesanan.getIdPesanan());
         view.getSpnBerat().setValue(pesanan.getBerat());
         setSelectedLayanan(pesanan.getIdLayanan());
-        view.getTxtTanggal().setText(PesananUtil.convertDateReverse(pesanan.getTanggalSelesai()));
-        view.getTxtJam().setText(PesananUtil.convertTo12HourFormat(pesanan.getJamSelesai()));
+
+        // Cek apakah tanggalSelesai tidak null sebelum mengatur nilai ke field
+        if (pesanan.getTanggalSelesai() != null) {
+            view.getTxtTanggal().setText(PesananUtil.convertDateReverse(pesanan.getTanggalSelesai()));
+        } else {
+            view.getTxtTanggal().setText(""); // Kosongkan jika null
+        }
+
+        // Cek apakah jamSelesai tidak null sebelum mengatur nilai ke field
+        if (pesanan.getJamSelesai() != null) {
+            view.getTxtJam().setText(PesananUtil.convertTo12HourFormat(pesanan.getJamSelesai()));
+        } else {
+            view.getTxtJam().setText(""); // Kosongkan jika null
+        }
+
         view.getLabelHarga().setText("Rp. " + PesananUtil.formatCurrency(pesanan.getHarga()) + " -,");
     }
     

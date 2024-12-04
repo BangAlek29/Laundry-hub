@@ -288,11 +288,11 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
 
     private void ShowUpdatePesananPanel() {
         try {
-            if (pesanan != null) {
+            if (pesanan.getIdPesanan() != null) {
                 UpdateOrderController updt = new UpdateOrderController(pesanan,this);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Layanan Belum Di pilih");
+            JOptionPane.showMessageDialog(view, "Pesanan Belum Di pilih");
         }
     }
     

@@ -139,8 +139,19 @@ public class PesananDAO {
                 pesanan.setIdLayanan(rs.getString("id_layanan"));
                 pesanan.setBerat(rs.getInt("berat"));
                 pesanan.setHarga(rs.getInt("harga"));
-                pesanan.setTanggalSelesai(rs.getString("tanggalSelesai"));
-                pesanan.setJamSelesai(rs.getString("jamSelesai"));
+
+                // Cek apakah kolom tanggalSelesai tidak null
+                String tanggalSelesai = rs.getString("tanggalSelesai");
+                if (tanggalSelesai != null) {
+                    pesanan.setTanggalSelesai(tanggalSelesai);
+                }
+
+                // Cek apakah kolom jamSelesai tidak null
+                String jamSelesai = rs.getString("jamSelesai");
+                if (jamSelesai != null) {
+                    pesanan.setJamSelesai(jamSelesai);
+                }
+
                 pesananList.add(pesanan);
             }
             
