@@ -17,16 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -59,9 +53,11 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         showTabelLayanan();
         showTabelPesanan();
         AddEvents();
+        renderHarga();
         view.getRbCustomerBaru().setSelected(true);
         view.getCmbCustomer().setModel(renderCbCustomer());
         view.getCmbLayanan().setModel(renderCbLayanan());
+        view.getRbCustomerBaru().setSelected(true);
     }
 
     public void AddEvents() {
@@ -93,6 +89,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
                 int row = view.getTabelPesanan().getSelectedRow();
                 TableModel model = view.getTabelPesanan().getModel();
                 pesanan = getPesananById(model.getValueAt(row, 1).toString());
+                
             }
         });
         
@@ -165,28 +162,26 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
             }
             
         }
-        
-        if (view.getTxtTanggal().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Tanggal tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (view.getTxtJam().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Jam tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         if ((Integer) view.getSpnBerat().getValue() <= 0) {
             JOptionPane.showMessageDialog(view, "Berat harus lebih dari 0", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
             String idLayanan = selectedLayanan.getIdLayanan();
-            Date date = originalFormat.parse(view.getTxtTanggal().getText());
-            String formattedDate = newFormat.format(date);
             String idPesanan = generateIdPesanan();
 
+            String jam = convertTo24HourFormat(view.getTxtJam().getText());
+            String formattedDate = null;
+            if (view.getTxtTanggal().getText().equals("--/--/----")) {
+                formattedDate = null;
+            }else{
+               formattedDate = convertDate(view.getTxtTanggal().getText());
+            }
+            if (view.getTxtJam().getText().equals("--:-- --")) {
+                jam = null;
+            }
+            
             if (view.getRbCustomerBaru().isSelected()) {
                 String idCust = generateIDCustomer();
 
@@ -206,7 +201,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
                         (Integer) view.getSpnBerat().getValue(),
                         hitungHarga((Integer) view.getSpnBerat().getValue()),
                         formattedDate,
-                        convertTo24HourFormat(view.getTxtJam().getText()));
+                        jam);
 
                 insertPesananKasir(newOrder);
 
@@ -221,7 +216,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
                         (Integer) view.getSpnBerat().getValue(),
                         hitungHarga((Integer) view.getSpnBerat().getValue()),
                         formattedDate,
-                        convertTo24HourFormat(view.getTxtJam().getText()));
+                        jam);
 
                 insertPesananKasir(newOrder);
             }
@@ -232,8 +227,6 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "An error occurred: " + e.getMessage());
             e.printStackTrace();
-        } catch (ParseException ex) {
-            Logger.getLogger(KasirController.class.getName()).log(Level.SEVERE, null, ex);
         }
         showTabelPesanan();
     }
@@ -260,7 +253,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         List<LayananModel> ListLayanan = searchLayananByKey(view.getTxtSearchLayanan().getText());
         DefaultTableModel tb1 =  createLayananTableModel(ListLayanan);
         view.getTbLayanan().setModel(tb1);
-        setColumnAlignment(view.getTbLayanan(), SwingConstants.CENTER);
+        setTableServiceSettings(view.getTbLayanan());
     }
 
     private void deleteLayanan() {
@@ -283,7 +276,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         List<LayananModel> ListLayanan = getAllLayanan();
         DefaultTableModel tb1 = createLayananTableModel(ListLayanan);
         view.getTbLayanan().setModel(tb1);
-        setColumnAlignment(view.getTbLayanan(),SwingConstants.CENTER);
+        setTableServiceSettings(view.getTbLayanan());
     }
 
     private void searchPesanan() {
@@ -291,7 +284,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         ArrayList<PesananModel> pesananList = searchPesananByKey(search);
         DefaultTableModel tb1 = createPesananTableModel(pesananList);
         view.getTabelPesanan().setModel(tb1);
-        setColumnAlignment(view.getTabelPesanan(),SwingConstants.CENTER );
+        setTableOrderSettings(view.getTabelPesanan());
     }
 
     private void ShowUpdatePesananPanel() {
@@ -325,7 +318,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
         ArrayList<PesananModel> pesananList = getAllPesanan();
         DefaultTableModel tb1 = createPesananTableModel(pesananList);
         view.getTabelPesanan().setModel(tb1);
-        setColumnAlignment(view.getTabelPesanan(),SwingConstants.CENTER);
+        setTableOrderSettings(view.getTabelPesanan());
     }
 
     private int hitungHarga(int berat) {
@@ -341,8 +334,7 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     private void renderHarga() {
         int berat = Integer.parseInt(view.getSpnBerat().getValue().toString());
         int HargaTotal = hitungHarga(berat);
-        String displayHarga = "Rp. " + formatCurrency(HargaTotal) + " -,";
-        view.getLabelHarga().setText(displayHarga);
+        view.getLabelHarga().setText(formatCurrency(HargaTotal));
     }
     
     private void logout() {

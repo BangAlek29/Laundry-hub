@@ -8,6 +8,7 @@ import dao.CustomerDAO;
 import dao.LayananDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import util.PesananUtil;
 
 /**
  *
@@ -67,7 +68,7 @@ public class TableModelFactory {
     public static DefaultTableModel createPesananTableModel(List<PesananModel> pesananList) {
         String[] kolom = {
             "NO", "ID Pesanan", "Nama Customer", "Layanan", 
-            "Berat (kg)", "Harga (Rp)", "Tanggal Selesai", "Jam Selesai"
+            "Berat", "Harga", "Tanggal Selesai", "Jam Selesai"
         };
         DefaultTableModel model = new DefaultTableModel(null, kolom);
 
@@ -77,14 +78,46 @@ public class TableModelFactory {
             try {
                 String namaCustomer = CustomerDAO.getCustomerByIdCustomer(pesanan.getIdCustomer()).getName();
                 String namaLayanan = LayananDAO.getLayananById(pesanan.getIdLayanan()).getNama();
-
+                String harga = PesananUtil.formatCurrency(pesanan.getHarga());
+                String berat = String.valueOf(pesanan.getBerat()) + " Kg";
                 String[] rowData = {
                     String.valueOf(n),
                     pesanan.getIdPesanan(),
                     namaCustomer,
                     namaLayanan,
-                    String.valueOf(pesanan.getBerat()),
-                    String.valueOf(pesanan.getHarga()),
+                    berat,
+                    harga,
+                    pesanan.getTanggalSelesai(),
+                    pesanan.getJamSelesai()
+                };
+                model.addRow(rowData);
+            } catch (Exception e) {
+                e.printStackTrace(); // Untuk debugging jika ada kesalahan
+            }
+        }
+        return model;
+    }
+    
+        public static DefaultTableModel createPesananTableModelForCustomer(List<PesananModel> pesananList) {
+        String[] kolom = {
+            "NO", "ID Pesanan", "Layanan", 
+            "Berat", "Harga", "Tanggal Selesai", "Jam Selesai"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, kolom);
+
+        int n = 0;
+        for (PesananModel pesanan : pesananList) {
+            n++;
+            try {
+                String namaLayanan = LayananDAO.getLayananById(pesanan.getIdLayanan()).getNama();
+                String harga = PesananUtil.formatCurrency(pesanan.getHarga());
+                String berat = String.valueOf(pesanan.getBerat()) + " Kg";
+                String[] rowData = {
+                    String.valueOf(n),
+                    pesanan.getIdPesanan(),
+                    namaLayanan,
+                    berat,
+                    harga,
                     pesanan.getTanggalSelesai(),
                     pesanan.getJamSelesai()
                 };
@@ -97,9 +130,9 @@ public class TableModelFactory {
     }
 
     public static DefaultTableModel createLayananTableModel(List<LayananModel> layananList) {
-        String[] kolom = {"NO", "ID Layanan", "Nama Layanan", "Harga (Rp)", "Deskripsi"};
+        String[] kolom = {"NO", "ID Layanan", "Nama Layanan", "Harga", "Deskripsi"};
         DefaultTableModel model = new DefaultTableModel(null, kolom);
-
+        
         int n = 0; 
         for (LayananModel layanan : layananList) {
             n++;
@@ -108,7 +141,7 @@ public class TableModelFactory {
                     String.valueOf(n),
                     layanan.getIdLayanan(),
                     layanan.getNama(),
-                    String.valueOf(layanan.getHarga()),
+                    PesananUtil.formatCurrency(layanan.getHarga()),
                     layanan.getDeskripsi()
                 };
                 model.addRow(rowData);
@@ -118,5 +151,7 @@ public class TableModelFactory {
         }
         return model;
     }
+    
+    
 
 }

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -12,13 +11,11 @@ import javax.swing.JOptionPane;
 
 import dao.LayananDAO;
 import static dao.PesananDAO.updatePesanan;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import model.LayananModel;
 import model.PesananModel;
 import util.PesananUtil;
+import static util.PesananUtil.convertDate;
 import static util.PesananUtil.convertTo24HourFormat;
 import view.kasir.updateOrder;
 
@@ -31,8 +28,8 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
         this.kasir = kasir;
         this.pesanan = pesanan;
         view = new updateOrder();
-        fillForm();
         renderCbLayanan();
+        fillForm();
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         addEvents();
@@ -56,35 +53,33 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
     }
 
     private void orderButtonActionPerformed() {
-        try {
-            SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
-            if (((Integer) view.getSpnBerat().getValue()) == 0 && view.getTxtTanggal() == null) {
-                JOptionPane.showMessageDialog(view, "Please fill out the form");
-                return;
+        try{
+            LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
+            String idLayanan = selectedLayanan.getIdLayanan();
+            String jam = convertTo24HourFormat(view.getTxtJam().getText());
+            String formattedDate = null;
+            if (view.getTxtTanggal().getText().equals("--/--/----")) {
+                formattedDate = null;
+            }else{
+               formattedDate = convertDate(view.getTxtTanggal().getText());
             }
-            Date date = originalFormat.parse(view.getTxtTanggal().getText());
-            try {
-                LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
-                String idLayanan = selectedLayanan.getIdLayanan();
-                String formattedDate = newFormat.format(date);
-                PesananModel newOrder = new PesananModel(
-                        pesanan.getIdPesanan(),
-                        pesanan.getIdPesanan(),
-                        idLayanan,
-                        (Integer) view.getSpnBerat().getValue(),
-                        hitungHarga((Integer) view.getSpnBerat().getValue()),
-                        formattedDate,
-                        convertTo24HourFormat(view.getTxtJam().getText()));
-                updatePesanan(newOrder);
-                kasir.showTabelPesanan();
-                JOptionPane.showMessageDialog(view, "Order successfully updated");
-                view.dispose();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (view.getTxtJam().getText().equals("--:-- --")) {
+                jam = null;
             }
-        } catch (ParseException ex) {
-            Logger.getLogger(UpdateOrderController.class.getName()).log(Level.SEVERE, null, ex);
+            PesananModel newOrder = new PesananModel(
+                    pesanan.getIdPesanan(),
+                    pesanan.getIdCustomer(),
+                    idLayanan,
+                    (Integer) view.getSpnBerat().getValue(),
+                    hitungHarga((Integer) view.getSpnBerat().getValue()),
+                    formattedDate,
+                    jam);
+            updatePesanan(newOrder);
+            kasir.showTabelPesanan();
+            JOptionPane.showMessageDialog(view, "Order successfully updated");
+            view.dispose();
+        }catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -104,7 +99,21 @@ public class UpdateOrderController extends MouseAdapter implements ActionListene
     private void fillForm() {
         view.getIdPesananField().setText(pesanan.getIdPesanan());
         view.getSpnBerat().setValue(pesanan.getBerat());
+        setSelectedLayanan(pesanan.getIdLayanan());
+        view.getTxtTanggal().setText(PesananUtil.convertDateReverse(pesanan.getTanggalSelesai()));
+        view.getTxtJam().setText(PesananUtil.convertTo12HourFormat(pesanan.getJamSelesai()));
         view.getLabelHarga().setText("Rp. " + PesananUtil.formatCurrency(pesanan.getHarga()) + " -,");
+    }
+    
+    public void setSelectedLayanan(String idLayanan) {
+        JComboBox<LayananModel> cmbLayanan = view.getCmbLayanan();
+        for (int i = 0; i < cmbLayanan.getItemCount(); i++) {
+            LayananModel layanan = cmbLayanan.getItemAt(i);
+            if (layanan.getIdLayanan().equals(idLayanan)) {
+                cmbLayanan.setSelectedItem(layanan); // Pilih item yang sesuai
+                break;
+            }
+        }
     }
 
     private void renderHarga() {

@@ -7,16 +7,12 @@ package view.kasir;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import koneksiDatabase.Connect;
 import javax.swing.*;
 import model.CustomerModel;
 import model.LayananModel;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import raven.datetime.component.date.DatePicker;
 import raven.datetime.component.time.TimePicker;
 

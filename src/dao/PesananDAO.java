@@ -165,6 +165,8 @@ public class PesananDAO {
                 pesanan.setIdLayanan(rs.getString("id_layanan"));
                 pesanan.setBerat(rs.getInt("berat"));
                 pesanan.setHarga(rs.getInt("harga"));
+                pesanan.setTanggalSelesai(rs.getString("tanggalSelesai"));
+                pesanan.setJamSelesai(rs.getString("jamSelesai"));
             }
             
             return pesanan;

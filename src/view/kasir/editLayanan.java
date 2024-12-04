@@ -83,6 +83,9 @@ public class editLayanan extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("EDIT LAYANAN");
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         txtDeskripsi.setBackground(new java.awt.Color(40, 40, 40));
         txtDeskripsi.setColumns(20);
         txtDeskripsi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

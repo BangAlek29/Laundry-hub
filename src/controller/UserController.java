@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import dao.CustomerDAO;
 import dao.LayananDAO;
 import dao.PesananDAO;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import model.CustomerModel;
@@ -38,6 +37,7 @@ public class UserController extends MouseAdapter implements ActionListener {
         view.setVisible(true);
         addEvents();
         renderCbLayanan();
+        renderHarga();
         refreshTable();
     }
 
@@ -47,10 +47,11 @@ public class UserController extends MouseAdapter implements ActionListener {
         view.getBtnOrderList()
                 .addActionListener(e -> PanelUtils.switchPanel(view.getMainPanel(), view.getRiwayatPemesananPanel()));
         view.getRbCustomerBaru()
-                .addActionListener(e -> PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel()));
+                .addActionListener(e -> {PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerBaruPanel());renderHarga();});
         view.getRbCustomerLama().addActionListener(e -> {
             PanelUtils.switchPanel(view.getPnlCustomer(), view.getCustomerLamaPanel());
             fillForm();
+            renderHarga();
         });
         view.getOrderButton().addActionListener(e -> requestOrder());
         view.getBtnLogout().addActionListener(e -> Logout());
@@ -85,7 +86,7 @@ public class UserController extends MouseAdapter implements ActionListener {
         ArrayList<PesananModel> pesananList = PesananDAO.searchPesananCustomer(search, cust.getIdCustomer());
         DefaultTableModel tb1 = TableModelFactory.createPesananTableModel(pesananList);
         view.getTabelPesanan().setModel(tb1);
-        TableUtils.setColumnAlignment(view.getTabelPesanan(), SwingConstants.CENTER);
+        TableUtils.setTableServiceSettings(view.getTabelPesanan());
     }
 
     private int hitungHarga(int berat) {
@@ -100,6 +101,25 @@ public class UserController extends MouseAdapter implements ActionListener {
     }
 
     private void requestOrder() {
+        if (view.getRbCustomerBaru().isSelected()) {
+            if (view.getTxtNama().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Nama tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (view.getTxtTelepon().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Telepon tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (view.getTxtAlamat().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Alamat tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+        }
+        if ((Integer) view.getSpnBerat().getValue() <= 0) {
+            JOptionPane.showMessageDialog(view, "Berat harus lebih dari 0", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
             String idLayanan = selectedLayanan.getIdLayanan();
@@ -154,9 +174,9 @@ public class UserController extends MouseAdapter implements ActionListener {
 
     public void refreshTable() {
         ArrayList<PesananModel> pesananList = PesananDAO.getPesananByCustomerId(cust.getIdCustomer());
-        DefaultTableModel model = TableModelFactory.createPesananTableModel(pesananList);
+        DefaultTableModel model = TableModelFactory.createPesananTableModelForCustomer(pesananList);
         view.tabelPesanan.setModel(model);
-        TableUtils.setColumnAlignment(view.tabelPesanan,SwingConstants.CENTER);
+        TableUtils.setTableOrderSettingsForCustomer(view.tabelPesanan);
     }
 
     private void renderCbLayanan() {
@@ -173,8 +193,7 @@ public class UserController extends MouseAdapter implements ActionListener {
     private void renderHarga() {
         int berat = Integer.parseInt(view.getSpnBerat().getValue().toString());
         int HargaTotal = hitungHarga(berat);
-        String displayHarga = "Rp. " + PesananUtil.formatCurrency(HargaTotal) + " -,";
-        view.getLabelHarga().setText(displayHarga);
+        view.getLabelHarga().setText(PesananUtil.formatCurrency(HargaTotal));
     }
 
     @Override
