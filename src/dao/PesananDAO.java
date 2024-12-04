@@ -74,19 +74,30 @@ public class PesananDAO {
         ArrayList<PesananModel> pesananList = new ArrayList<>();
         try {
             Connection conn = Connect.configDB();
-            String query = "SELECT * FROM pesanan WHERE id_customer = ? AND " +
-                    "(id_pesanan LIKE ? OR id_layanan LIKE ? OR CAST(berat AS CHAR) LIKE ? OR " +
-                    "CAST(harga AS CHAR) LIKE ? OR tanggalSelesai LIKE ? OR jamSelesai LIKE ?)";
+            String query = "SELECT pesanan.id_pesanan, pesanan.id_customer, pesanan.id_layanan, pesanan.berat, " +
+                           "pesanan.harga, pesanan.tanggalSelesai, pesanan.jamSelesai, " +
+                           "customer.nama AS nama_customer, layanan.nama AS nama_layanan " +
+                           "FROM pesanan " +
+                           "JOIN customer ON pesanan.id_customer = customer.id_customer " +
+                           "JOIN layanan ON pesanan.id_layanan = layanan.id_layanan " +
+                           "WHERE pesanan.id_customer = ? " +
+                           "AND (pesanan.id_pesanan LIKE ? " +
+                           "OR customer.nama LIKE ? " +
+                           "OR layanan.nama LIKE ? " +
+                           "OR pesanan.berat LIKE ? " +
+                           "OR pesanan.harga LIKE ? " +
+                           "OR pesanan.tanggalSelesai LIKE ? " +
+                           "OR pesanan.jamSelesai LIKE ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setString(1, idCustomer);
-
             stmt.setString(2, "%" + keyword + "%");
             stmt.setString(3, "%" + keyword + "%");
             stmt.setString(4, "%" + keyword + "%");
             stmt.setString(5, "%" + keyword + "%");
             stmt.setString(6, "%" + keyword + "%");
             stmt.setString(7, "%" + keyword + "%");
+            stmt.setString(8, "%" + keyword + "%");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -128,6 +139,8 @@ public class PesananDAO {
                 pesanan.setIdLayanan(rs.getString("id_layanan"));
                 pesanan.setBerat(rs.getInt("berat"));
                 pesanan.setHarga(rs.getInt("harga"));
+                pesanan.setTanggalSelesai(rs.getString("tanggalSelesai"));
+                pesanan.setJamSelesai(rs.getString("jamSelesai"));
                 pesananList.add(pesanan);
             }
             

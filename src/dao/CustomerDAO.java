@@ -23,25 +23,30 @@ import model.CustomerModel;
  */
 public class CustomerDAO {
 
-    public static CustomerModel getCustomerByIdAkun(String idAkun) throws SQLException {
-        Connection conn = Connect.configDB();
-        String query = "SELECT * FROM customer WHERE id_akun = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, idAkun);
-        ResultSet rs = stmt.executeQuery();
-
-        CustomerModel customer = null;
-
-        if (rs.next()) {
-            customer = new CustomerModel(
-                    rs.getString("id_customer"),
-                    rs.getString("id_akun"),
-                    rs.getString("nama"),
-                    rs.getString("telpon"),
-                    rs.getString("alamat"));
+    public static CustomerModel getCustomerByIdAkun(String idAkun) {
+        try {
+            Connection conn = Connect.configDB();
+            String query = "SELECT * FROM customer WHERE id_akun = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, idAkun);
+            ResultSet rs = stmt.executeQuery();
+            
+            CustomerModel customer = null;
+            
+            if (rs.next()) {
+                customer = new CustomerModel(
+                        rs.getString("id_customer"),
+                        rs.getString("id_akun"),
+                        rs.getString("nama"),
+                        rs.getString("telpon"),
+                        rs.getString("alamat"));
+            }
+            
+            return customer;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return customer;
+        return null;
     }
 
     public static void addCustomer(CustomerModel customer) throws SQLException {

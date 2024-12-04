@@ -41,7 +41,6 @@ public class App {
         UIManager.put("Table.foreground", new Color(220, 220, 220));
         UIManager.put("Table.selectionBackground", new Color(80, 120, 160));
         UIManager.put("Table.selectionForeground", Color.WHITE);
-        UIManager.put("Table.gridColor", new Color(70, 70, 75));
         UIManager.put("Table.rowHeight", 32);
 
         UIManager.put("TableHeader.background", new Color(55, 55, 60));

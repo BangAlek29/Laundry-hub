@@ -10,14 +10,10 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumnModel;
-import java.awt.Component;
 
 import dao.CustomerDAO;
 import dao.LayananDAO;
 import dao.PesananDAO;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -96,7 +92,11 @@ public class UserController extends MouseAdapter implements ActionListener {
         LayananModel selectedLayanan = (LayananModel) view.getCmbLayanan().getSelectedItem();
         String idLayanan = selectedLayanan.getIdLayanan();
         int harga = LayananDAO.getLayananById(idLayanan).getHarga();
-        return berat * harga;
+        int hargaTotal = berat*harga;
+        if (view.getRbCustomerLama().isSelected()) {
+            hargaTotal *= 0.9;
+        }
+        return hargaTotal;
     }
 
     private void requestOrder() {

@@ -150,18 +150,22 @@ public class KasirController extends MouseAdapter implements ActionListener, Cha
     }
 
     private void order() {
-        if (view.getTxtNama().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Nama tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        if (view.getRbCustomerBaru().isSelected()) {
+            if (view.getTxtNama().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Nama tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (view.getTxtTelepon().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Telepon tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (view.getTxtAlamat().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Alamat tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
         }
-        if (view.getTxtTelepon().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Telepon tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (view.getTxtAlamat().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Alamat tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        
         if (view.getTxtTanggal().getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(view, "Tanggal tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
             return;

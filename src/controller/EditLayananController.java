@@ -19,6 +19,7 @@ public class EditLayananController implements ActionListener {
         this.layanan = layanan;
         this.kasir = kasir;
         view = new editLayanan();
+        view.setLocationRelativeTo(null);
         view.setVisible(true);
         loadLayananData();
         addEvents();

@@ -116,10 +116,6 @@ public class LoginController extends MouseAdapter {
             JOptionPane.showMessageDialog(view, "Username tidak ditemukan.", "Login Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Database Error", ex);
-            JOptionPane.showMessageDialog(view, "Kesalahan database: " + ex.getMessage(), "Database Error",
-                    JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "General Error", ex);
             JOptionPane.showMessageDialog(view, "Terjadi kesalahan: " + ex.getMessage(), "Error",

@@ -104,6 +104,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
                 } else {
                     TableModel model = view.getTableLogin().getModel();
                     akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 1).toString());
+                    cust = CustomerDAO.getCustomerByIdAkun(model.getValueAt(selectedRow, 1).toString());
                     view.getBtnEditUser().setEnabled(true);
                 }
             }
@@ -117,6 +118,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
                 } else {
                     TableModel model = view.getTableInformationUser().getModel();
                     cust = CustomerDAO.getCustomerByIdCustomer(model.getValueAt(selectedRow, 1).toString());
+                    akun = AkunDAO.getAkunByID(model.getValueAt(selectedRow, 2).toString());
                     view.getBtnEditInfoUser().setEnabled(true);
                 }
             }
@@ -144,25 +146,21 @@ public class AdminController extends MouseAdapter implements ActionListener {
     }
 
     private void deleteAkun() {
-        try {
-            if (akun != null) {
-                int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
-                        JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (response == JOptionPane.YES_OPTION) {
-                    try {
-                        CustomerDAO.deleteCustomer(cust.getIdCustomer());
-                        AkunDAO.deleteAkun(akun.getIdAkun());
-                        showAkunTable();
-                        showCustomerTable();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    return;
+        if (akun != null) {
+            int response = JOptionPane.showConfirmDialog(view, "Do you really want to delete ?", "Confirm",
+                    JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                try {
+                    CustomerDAO.deleteCustomer(cust.getIdCustomer());
+                    AkunDAO.deleteAkun(akun.getIdAkun());
+                    showAkunTable();
+                    showCustomerTable();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
+            } else {
+                return;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Tolong pilih akun");
         }
     }
     
@@ -195,7 +193,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
             List<AkunModel> akunList = AkunDAO.SearchAkun(view.getTxtSearchUsername().getText());
             DefaultTableModel tb1 = TableModelFactory.createAkunTableModel(akunList);
             view.getTableLogin().setModel(tb1);
-            TableUtils.setColumnAlignment(view.getTableLogin(), SwingConstants.CENTER);
+            TableUtils.setTableAkunSettings(view.getTableLogin());
         } else {
             JOptionPane.showMessageDialog(view, "Harap isi kolom pencarian");
         }
@@ -205,7 +203,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
         List<AkunModel> akunList = AkunDAO.getAllAkun();
         DefaultTableModel tb1 = TableModelFactory.createAkunTableModel(akunList);
         view.getTableLogin().setModel(tb1);
-        TableUtils.setColumnAlignment(view.getTableLogin(), SwingConstants.CENTER);
+        TableUtils.setTableAkunSettings(view.getTableLogin());
     }
 
     private void searchInfoUser() {
@@ -213,14 +211,14 @@ public class AdminController extends MouseAdapter implements ActionListener {
         List<CustomerModel> customers = CustomerDAO.searchCustomer(keyword);
         DefaultTableModel tb1 = TableModelFactory.createCustomerTableModel(customers);
         view.getTableInformationUser().setModel(tb1);
-        TableUtils.setColumnAlignment(view.getTableInformationUser(), SwingConstants.CENTER);
+        TableUtils.setTableCustomerSettings(view.getTableInformationUser());
     }
 
     public void showCustomerTable() {
         List<CustomerModel> customerList = CustomerDAO.getAllCustomers();
         DefaultTableModel tb1 = TableModelFactory.createCustomerTableModel(customerList);
         view.getTableInformationUser().setModel(tb1);
-        TableUtils.setColumnAlignment(view.getTableInformationUser(), SwingConstants.CENTER);
+        TableUtils.setTableCustomerSettings(view.getTableInformationUser());
     }
 
     @Override

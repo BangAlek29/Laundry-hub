@@ -97,7 +97,7 @@ public class TableModelFactory {
     }
 
     public static DefaultTableModel createLayananTableModel(List<LayananModel> layananList) {
-        String[] kolom = {"NO", "ID Layanan", "Nama", "Harga (Rp)", "Deskripsi"};
+        String[] kolom = {"NO", "ID Layanan", "Nama Layanan", "Harga (Rp)", "Deskripsi"};
         DefaultTableModel model = new DefaultTableModel(null, kolom);
 
         int n = 0; 

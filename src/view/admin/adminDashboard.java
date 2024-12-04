@@ -218,7 +218,7 @@ public class adminDashboard extends javax.swing.JFrame {
         mainPanel.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         userManagementPanel.setBackground(new java.awt.Color(40, 40, 40));
-        userManagementPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userManagementPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         userManagementPanel.putClientProperty(FlatClientProperties.STYLE, "arc:15");
 
         tableLogin.setAutoCreateRowSorter(true);
@@ -493,7 +493,7 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1072, Short.MAX_VALUE)))
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
