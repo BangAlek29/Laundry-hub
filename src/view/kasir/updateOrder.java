@@ -126,6 +126,7 @@ public class updateOrder extends javax.swing.JFrame {
         orderButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         orderButton.setForeground(new java.awt.Color(255, 255, 255));
         orderButton.setText("Update");
+        orderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));

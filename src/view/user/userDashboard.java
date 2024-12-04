@@ -332,6 +332,7 @@ public class userDashboard extends javax.swing.JFrame {
         orderButton.setBackground(new java.awt.Color(0, 153, 51));
         orderButton.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         orderButton.setText("Order");
+        orderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -617,6 +618,7 @@ public class userDashboard extends javax.swing.JFrame {
         btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/refresh-page-option.png"))); // NOI18N
         btnRefresh.setText("Refresh");
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout RiwayatPemesananPanelLayout = new javax.swing.GroupLayout(RiwayatPemesananPanel);
         RiwayatPemesananPanel.setLayout(RiwayatPemesananPanelLayout);

@@ -103,10 +103,12 @@ public class tambahLayanan extends javax.swing.JFrame {
         btnAdd.setBackground(new java.awt.Color(40, 40, 40));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAdd.setText("Tambah");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnAdds.setBackground(new java.awt.Color(40, 40, 40));
         btnAdds.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAdds.setText("Tambah Lagi");
+        btnAdds.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -248,6 +248,7 @@ public class adminDashboard extends javax.swing.JFrame {
         btnDelete.setForeground(java.awt.Color.white);
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asset/remove.png"))); // NOI18N
         btnDelete.setText("Delete User");
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         txtSearchUser.setBackground(new java.awt.Color(40, 40, 40));
         txtSearchUser.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
