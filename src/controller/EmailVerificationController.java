@@ -50,6 +50,7 @@ public class EmailVerificationController extends MouseAdapter {
         String code = generateRandomNumberCode(6);
         util.EmailVerification.sendEmail(akun.getEmail(),code);
         AkunDAO.updateVerificationCode(akun.getIdAkun(), code);
+        JOptionPane.showMessageDialog(view, "Kode berhasil dikrim ke email" +akun.getEmail(), "Sukses", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void CekKode() {

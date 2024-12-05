@@ -114,7 +114,7 @@ public class LayananDAO {
                 newIdLayanan = "LYN01"; // ID pertama jika tabel kosong
             } else {
                 int number = Integer.parseInt(lastIdLayanan.replace("LYN", ""));
-                newIdLayanan = String.format("LYN%02d", number + 1); // Format dua digit
+                newIdLayanan = String.format("LYN%03d", number + 1);
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

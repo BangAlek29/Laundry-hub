@@ -150,6 +150,7 @@ public class AdminController extends MouseAdapter implements ActionListener {
                     JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 try {
+                    PesananDAO.deletePesananByCustomerId(cust.getIdCustomer());
                     CustomerDAO.deleteCustomer(cust.getIdCustomer());
                     AkunDAO.deleteAkun(akun.getIdAkun());
                     showAkunTable();

@@ -240,7 +240,7 @@ public class PesananDAO {
         return null;
     }
 
-    public static String generateIdPesanan() {
+        public static String generateIdPesanan() {
         String tempID = "";
         try {
             Statement stm = (Statement) Connect.configDB().createStatement();
@@ -309,6 +309,29 @@ public class PesananDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return success;
+    }
+    
+    public static boolean deletePesananByCustomerId(String idCustomer) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        boolean success = false;
+
+        try {
+            conn = Connect.configDB();
+            String query = "DELETE FROM pesanan WHERE id_customer = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, idCustomer);
+
+            int affectedRows = stmt.executeUpdate();
+            // Jika ada baris yang terhapus, set success ke true
+            if (affectedRows > 0) {
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        
         }
         return success;
     }
