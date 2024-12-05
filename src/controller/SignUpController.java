@@ -72,9 +72,20 @@ public class SignUpController extends MouseAdapter implements ActionListener {
             @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                    view.getTxtUsername().requestFocus();
+                    view.getTxtEmail().requestFocus();
                 } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
                     view.getTxtName().requestFocus();
+                }
+            }
+        });
+        
+        view.getTxtEmail().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view.getTxtUsername().requestFocus();
+                } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    view.getTxtPhone().requestFocus();
                 }
             }
         });
@@ -85,7 +96,7 @@ public class SignUpController extends MouseAdapter implements ActionListener {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
                     view.getTxtPassword().requestFocus();
                 } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                    view.getTxtPhone().requestFocus();
+                    view.getTxtEmail().requestFocus();
                 }
             }
         });
@@ -130,6 +141,7 @@ public class SignUpController extends MouseAdapter implements ActionListener {
             if (!isUsernameExist(view.getTxtUsername().getText()) && isPasswordEquals() && isFilled()) {
                 String IdAkun = AkunDAO.generateIDAkun();
                 akun.setIdAkun(IdAkun);
+                akun.setEmail(view.getTxtEmail().getText());
                 akun.setUsername(view.getTxtUsername().getText());
                 akun.setPassword(view.getTxtPassword().getText());
                 akun.setRole("member");
@@ -143,8 +155,8 @@ public class SignUpController extends MouseAdapter implements ActionListener {
                 AkunDAO.addAkun(akun);
                 CustomerDAO.addCustomer(cust);
 
-                JOptionPane.showMessageDialog(view, "Registrasi berhasil, Silahkan Login");
-                LoginController login = new LoginController();
+                JOptionPane.showMessageDialog(view, "Registrasi berhasil, Silahkan Aktivasi email anda");
+                EmailVerificationController emailVerif = new EmailVerificationController(akun);
                 view.dispose();
             } else {
                 JOptionPane.showMessageDialog(view, "Registrasi gagal, silahkan coba lagi");

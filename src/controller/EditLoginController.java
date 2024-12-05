@@ -7,7 +7,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -43,6 +42,7 @@ public class EditLoginController extends MouseAdapter implements ActionListener 
     private void fillForm() {
         view.getTxtUsername().setText(akun.getUsername());
         view.getTxtPassword().setText(akun.getPassword());
+        view.getTxtEmail().setText(akun.getEmail());
         String role = akun.getRole();
         if (role.equals("Admin")){
             view.getJComboBoxRole().setSelectedIndex(0);
@@ -71,6 +71,7 @@ public class EditLoginController extends MouseAdapter implements ActionListener 
                 // Membuat model Akun baru dengan data yang diedit
                 AkunModel akunBaru = new AkunModel(
                         akun.getIdAkun(),
+                        view.getTxtEmail().getText(),
                         view.getTxtUsername().getText().trim(),
                         view.getTxtPassword().getText().trim(),
                         selectedRole);

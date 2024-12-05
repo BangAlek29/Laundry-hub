@@ -22,7 +22,7 @@ public class TableModelFactory {
      * @return DefaultTableModel untuk tabel akun.
      */
     public static DefaultTableModel createAkunTableModel(List<AkunModel> akunList) {
-        String[] kolom = { "NO", "ID Akun", "Username", "Password", "Role" };
+        String[] kolom = { "NO", "ID Akun","Email", "Username", "Password", "Role" };
         DefaultTableModel model = new DefaultTableModel(null, kolom);
 
         int n = 0;
@@ -31,6 +31,7 @@ public class TableModelFactory {
             model.addRow(new String[] {
                 String.valueOf(n),
                 akun.getIdAkun(),
+                akun.getEmail(),
                 akun.getUsername(),
                 akun.getPassword(),
                 akun.getRole()

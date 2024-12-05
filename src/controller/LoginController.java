@@ -4,13 +4,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
 import dao.AkunDAO;
+import static dao.AkunDAO.checkIsActive;
 import dao.CustomerDAO;
 import model.AkunModel;
 import model.CustomerModel;
@@ -82,40 +82,50 @@ public class LoginController extends MouseAdapter {
             akun = AkunDAO.validateLogin(username, password);
 
             if (akun != null) {
-            if ("INVALID_PASSWORD".equals(akun.getIdAkun())) {
-                JOptionPane.showMessageDialog(view, "Password salah.", "Login Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } else {
-                cust = CustomerDAO.getCustomerByIdAkun(akun.getIdAkun());
-
-                if (view.getCbRememberMe().isSelected()) {
-                    saveLogin(username, password);
+                if ("INVALID_PASSWORD".equals(akun.getIdAkun())) {
+                    JOptionPane.showMessageDialog(view, "Password salah.", "Login Error",
+                            JOptionPane.ERROR_MESSAGE);
                 } else {
-                    clearSavedLogin();
-                }
-
-                switch (akun.getRole()) {
-                    case "Admin":
-                        openAdminDashboard();
-                        break;
-                    case "Kasir":
-                        openKasirDashboard();
-                        break;
-                    case "Member":
-                        openUserDashboard();
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(view, "Role tidak valid.", "Login Error",
+                    // Cek apakah akun aktif
+                    boolean isActive = checkIsActive(akun.getIdAkun());
+                    if (!isActive) {
+                        JOptionPane.showMessageDialog(view, "Akun Anda tidak aktif. Silahkan Masukan kode terlebih dahulu", "Login Error",
                                 JOptionPane.ERROR_MESSAGE);
+                        view.dispose();
+                        EmailVerificationController emailVerif = new EmailVerificationController(akun);
                         return;
-                }
+                    }
 
-                view.dispose();
+                    cust = CustomerDAO.getCustomerByIdAkun(akun.getIdAkun());
+
+                    if (view.getCbRememberMe().isSelected()) {
+                        saveLogin(username, password);
+                    } else {
+                        clearSavedLogin();
+                    }
+
+                    switch (akun.getRole()) {
+                        case "Admin":
+                            openAdminDashboard();
+                            break;
+                        case "Kasir":
+                            openKasirDashboard();
+                            break;
+                        case "Member":
+                            openUserDashboard();
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(view, "Role tidak valid.", "Login Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                    }
+
+                    view.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(view, "Username tidak ditemukan.", "Login Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(view, "Username tidak ditemukan.", "Login Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "General Error", ex);
             JOptionPane.showMessageDialog(view, "Terjadi kesalahan: " + ex.getMessage(), "Error",

@@ -58,6 +58,7 @@ public class AddUserController extends MouseAdapter implements ActionListener {
 
             akun = new AkunModel(
                     id_akun,
+                    view.getTxtEmail().getText(),
                     view.getTxtUsername().getText(),
                     view.getTxtPassword().getText(),
                     view.getCmbRole().getSelectedItem().toString());

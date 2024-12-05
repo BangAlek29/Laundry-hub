@@ -2,6 +2,7 @@ package model;
 
 public class AkunModel {
     private String idAkun;
+    private String email;
     private String username;
     private String password;
     private String role;
@@ -13,11 +14,12 @@ public class AkunModel {
         this.idAkun = null;
     }
 
-    public AkunModel(String idAkun, String username, String password, String role) {
+    public AkunModel(String idAkun, String email, String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.idAkun = idAkun;
+        this.email = email;
     }
 
     // Getter dan Setter
@@ -27,6 +29,14 @@ public class AkunModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

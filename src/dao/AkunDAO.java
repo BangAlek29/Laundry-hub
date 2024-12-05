@@ -32,10 +32,11 @@ public class AkunDAO {
                 if (storedPassword.equals(password)) {
                     String role = rs.getString("role");
                     String idAkun = rs.getString("id_akun");
-                    return new AkunModel(idAkun, username, password, role);
+                    String email = rs.getString("email");
+                    return new AkunModel(idAkun, email, username, password, role);
                 } else {
                     // Return objek khusus untuk password salah
-                    return new AkunModel("INVALID_PASSWORD", username, null, null);
+                    return new AkunModel("INVALID_PASSWORD", null, username, null, null);
                 }
             }
         } catch (SQLException e) {
@@ -81,6 +82,7 @@ public class AkunDAO {
             if (rs.next()) {
                 akun = new AkunModel();
                 akun.setIdAkun(idAkun);
+                akun.setEmail(rs.getString("email"));
                 akun.setUsername(rs.getString("username"));
                 akun.setPassword(rs.getString("password"));
                 akun.setRole(rs.getString("role"));
@@ -116,10 +118,12 @@ public class AkunDAO {
             while (rs.next()) {
                 AkunModel akun = new AkunModel();
                 akun.setIdAkun(rs.getString("id_akun"));
+                akun.setEmail(rs.getString("email"));
                 akun.setUsername(rs.getString("username"));
                 akun.setPassword(rs.getString("password"));
                 akun.setRole(rs.getString("role"));
                 listAkun.add(akun);
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,13 +134,91 @@ public class AkunDAO {
     public static boolean addAkun(AkunModel akun) {
         try {
             Connection conn = Connect.configDB();
-            String query = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO akun (id_akun,email, username, password, role, is_active) VALUES (?,?, ?, ?, ?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, akun.getIdAkun());
-            stmt.setString(2, akun.getUsername());
-            stmt.setString(3, akun.getPassword());
-            stmt.setString(4, akun.getRole());
+            stmt.setString(2, akun.getEmail());
+            stmt.setString(3, akun.getUsername());
+            stmt.setString(4, akun.getPassword());
+            stmt.setString(5, akun.getRole());
+            stmt.setString(6, "1");
             return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean isVerificationCodeValid(String idAkun, String kodeVerifikasi) {
+        String query = "SELECT * FROM akun WHERE id_akun = ? AND activation_code = ?";
+        try {
+            Connection conn = Connect.configDB();
+            PreparedStatement ps = conn.prepareStatement(query);
+            
+            ps.setString(1, idAkun);
+            ps.setString(2, kodeVerifikasi);
+            ResultSet rs = ps.executeQuery();
+
+            boolean isValid = rs.next(); // True jika data ditemukan
+            return isValid;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean updateVerificationStatus(String idAkun) {
+        String updateQuery = "UPDATE akun SET is_active = 1 WHERE id_akun = ?";
+        try {
+            Connection conn = Connect.configDB();
+            PreparedStatement ps = conn.prepareStatement(updateQuery);
+
+            ps.setString(1, idAkun);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // True jika ada baris yang diperbarui
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+    }
+    
+    public static boolean checkIsActive(String idAkun) {
+        String checkQuery = "SELECT is_active FROM akun WHERE id_akun = ?";
+        try {
+            Connection conn = Connect.configDB();
+            PreparedStatement ps = conn.prepareStatement(checkQuery);
+
+            ps.setString(1, idAkun);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) { // Jika data ditemukan
+                int isActive = rs.getInt("is_active");
+                return isActive == 1; // True jika is_active bernilai 1
+            } else {
+                System.out.println("ID akun tidak ditemukan.");
+                return false; // Jika ID tidak ditemukan
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Return false jika terjadi kesalahan
+        }
+    }
+    
+    public static boolean updateVerificationCode(String idAkun, String code) {
+        String updateQuery = "UPDATE akun SET activation_code = ? WHERE id_akun = ?";
+        try {
+            Connection conn = Connect.configDB();
+            PreparedStatement ps = conn.prepareStatement(updateQuery);
+
+            ps.setString(1, code);
+            ps.setString(2, idAkun);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // True jika ada baris yang diperbarui
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -188,12 +270,13 @@ public class AkunDAO {
     public static boolean updateAkun(AkunModel akun) {
         try {
             Connection conn = Connect.configDB();
-            String query = "UPDATE akun SET username = ?, password = ?, role = ? WHERE id_akun = ?";
+            String query = "UPDATE akun SET email = ?, username = ?, password = ?, role = ? WHERE id_akun = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, akun.getUsername());
-            stmt.setString(2, akun.getPassword());
-            stmt.setString(3, akun.getRole());
-            stmt.setString(4, akun.getIdAkun());
+            stmt.setString(1, akun.getEmail());
+            stmt.setString(2, akun.getUsername());
+            stmt.setString(3, akun.getPassword());
+            stmt.setString(4, akun.getRole());
+            stmt.setString(5, akun.getIdAkun());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

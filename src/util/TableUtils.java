@@ -16,8 +16,9 @@ public class TableUtils {
         kolom.getColumn(0).setPreferredWidth(5);   // Kolom "NO"
         kolom.getColumn(1).setPreferredWidth(50); // Kolom "ID Akun"
         kolom.getColumn(2).setPreferredWidth(200); // Kolom "Username"
-        kolom.getColumn(3).setPreferredWidth(200); // Kolom "Password"
-        kolom.getColumn(4).setPreferredWidth(200); // Kolom "Role"
+        kolom.getColumn(3).setPreferredWidth(110); // Kolom "Username"
+        kolom.getColumn(4).setPreferredWidth(110); // Kolom "Password"
+        kolom.getColumn(5).setPreferredWidth(110); // Kolom "Role"
 
         // Mengatur alignment per kolom
         for (int i = 0; i < table.getColumnCount(); i++) {
