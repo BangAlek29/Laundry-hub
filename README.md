@@ -1,5 +1,3 @@
-Berikut adalah contoh `README.md` untuk proyek Anda dengan nama **Laundry-Hub**. File ini memberikan gambaran umum tentang proyek, cara penggunaannya, dan informasi penting lainnya.
-
 ---
 
 # Laundry-Hub
