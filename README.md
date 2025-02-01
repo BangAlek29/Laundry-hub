@@ -141,8 +141,8 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE). Silakan lihat file `LIC
 
 Jika Anda memiliki pertanyaan atau saran, silakan hubungi kami melalui:
 
-- Email: namakamu@gmail.com
-- GitHub: [namarepositorianda](https://github.com/namarepositorianda)
+- Email: dzikribassyrilm@gmail.com
+- GitHub: [Laundry-Hub](https://github.com/Laundry-hub)
 
 ---
 
