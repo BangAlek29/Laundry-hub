@@ -1,5 +1,3 @@
----
-
 # Laundry-Hub
 
 Laundry-Hub adalah aplikasi manajemen laundry berbasis desktop yang dirancang menggunakan Java dengan IDE NetBeans. Aplikasi ini dilengkapi dengan antarmuka pengguna yang modern menggunakan library [FlatLaf](https://www.formdev.com/flatlaf/) dan memiliki tiga peran utama: **Admin**, **Kasir**, dan **Pelanggan**. Setiap peran memiliki akses dan fitur yang berbeda sesuai dengan kebutuhan operasional laundry.
